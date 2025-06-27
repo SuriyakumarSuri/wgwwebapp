@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/animation.dart';
 
 void main() {
   runApp(ServicePageApp());
 }
 
 class ServicePageApp extends StatelessWidget {
+  final GoRouter _router = GoRouter(
+    initialLocation: '/service',
+    routes: [
+      GoRoute(path: '/', builder: (context, state) => HomeScreen()),
+      GoRoute(path: '/service', builder: (context, state) => ServicePageScreen()),
+      GoRoute(path: '/AboutUsPage', builder: (context, state) => AboutUsScreen()),
+      GoRoute(path: '/officeaddress', builder: (context, state) => OfficeAddressScreen()),
+      GoRoute(path: '/quoterequest', builder: (context, state) => QuoteRequestScreen()),
+      GoRoute(path: '/contactus', builder: (context, state) => ContactUsScreen()),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'WGW ',
+    return MaterialApp.router(
+      title: 'WGW',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: ServicePageScreen(),
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/service': (context) => ServicePageScreen(),
-      },
+      routerConfig: _router,
     );
   }
 }
@@ -26,42 +34,42 @@ class ServicePageScreen extends StatelessWidget {
     {
       'title': 'General Contracting',
       'description': 'Complete solutions for commercial and residential projects.',
-      'image': 'assets/images/servicescons/general.jpg', // Add image path here
+      'image': 'assets/images/servicescons/general.jpg',
     },
     {
       'title': 'Design & Build',
       'description': 'From concept to completion, we handle it all.',
-      'image': 'assets/images/servicescons/design.jpg', // Add image path here
+      'image': 'assets/images/servicescons/design.jpg',
     },
     {
       'title': 'Civil Engineering',
       'description': 'Expertise in infrastructure and large-scale developments.',
-      'image': 'assets/images/servicescons/civil.jpg', // Add image path here
+      'image': 'assets/images/servicescons/civil.jpg',
     },
     {
       'title': 'Residential Construction',
       'description': 'Building dream homes with precision and care.',
-      'image': 'assets/images/servicescons/res.jpg', // Add image path here
+      'image': 'assets/images/servicescons/res.jpg',
     },
     {
       'title': 'Infrastructure Development',
       'description': 'Creating essential infrastructure for tomorrow.',
-      'image': 'assets/images/servicescons/civil.jpg', // Add image path here
+      'image': 'assets/images/servicescons/civil.jpg',
     },
     {
       'title': 'MEP Services',
       'description': 'Ensuring buildings operate efficiently.',
-      'image': 'assets/images/servicescons/mep.jpg', // Add image path here
+      'image': 'assets/images/servicescons/mep.jpg',
     },
     {
       'title': 'Renovation Works',
       'description': 'Breathing new life into old spaces.',
-      'image': 'assets/images/servicescons/renovation.jpg', // Add image path here
+      'image': 'assets/images/servicescons/renovation.jpg',
     },
     {
       'title': 'Interior Solutions',
       'description': 'Beautiful interiors tailored to your lifestyle.',
-      'image': 'assets/images/servicescons/interior.jpg', // Add image path here
+      'image': 'assets/images/servicescons/interior.jpg',
     },
   ];
 
@@ -69,11 +77,11 @@ class ServicePageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
+      appBar: CustomAppBar(currentRoute: '/service'),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Banner Section
             Stack(
               children: [
                 Container(
@@ -81,7 +89,7 @@ class ServicePageScreen extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/construction/construction4.jpg'), // Banner image
+                      image: AssetImage('assets/images/construction/construction4.jpg'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -91,7 +99,6 @@ class ServicePageScreen extends StatelessWidget {
                   width: double.infinity,
                   color: Colors.black.withOpacity(0.4),
                 ),
-                // Centered Text
                 Positioned.fill(
                   child: Center(
                     child: Text(
@@ -106,10 +113,7 @@ class ServicePageScreen extends StatelessWidget {
                 ),
               ],
             ),
-
             SizedBox(height: 30),
-
-            // Services Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
@@ -121,10 +125,7 @@ class ServicePageScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             SizedBox(height: 20),
-
-            // Services Grid with Animation
             GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -145,8 +146,8 @@ class ServicePageScreen extends StatelessWidget {
                 );
               },
             ),
-
-            SizedBox(height: 40),
+            SizedBox(height: 10),
+            FooterSection(),
           ],
         ),
       ),
@@ -170,101 +171,96 @@ class ServiceCard extends StatefulWidget {
   _ServiceCardState createState() => _ServiceCardState();
 }
 
-class _ServiceCardState extends State<ServiceCard> with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<Offset> _slideAnimation;
+class _ServiceCardState extends State<ServiceCard> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _animation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 800),
       vsync: this,
-      duration: Duration(milliseconds: 500),
     );
 
-    _slideAnimation = Tween<Offset>(
-      begin: Offset(0, 0.3),
-      end: Offset(0, 0),
+    _animation = Tween<Offset>(
+      begin: Offset(-1.0, 0.0),
+      end: Offset.zero,
     ).animate(CurvedAnimation(
-      parent: _animationController,
+      parent: _controller,
       curve: Curves.easeOut,
     ));
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _animationController.forward();
+      _controller.forward();
     });
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return SlideTransition(
-          position: _slideAnimation,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade300,
-                  blurRadius: 6,
-                  spreadRadius: 1,
-                  offset: Offset(0, 3),
-                ),
-              ],
+    return SlideTransition(
+      position: _animation,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 4,
+              offset: Offset(0, 2),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                  child: Image.asset(
-                    widget.imagePath,
-                    height: 130,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+          ],
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 500,
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                child: Image.asset(
+                  widget.imagePath,
+                  fit: BoxFit.cover,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.title,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blueGrey[800],
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        widget.description,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[700],
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        );
-      },
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.title,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      widget.description,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.grey[600],
+                          ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -276,80 +272,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(85), // Set height for AppBar
-      child: AppBar(
-        backgroundColor: Color(0xFF003366), // Deep blue background color
-        flexibleSpace: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10), // Adjust padding as needed
-              child: GestureDetector(
-                onTap: () {
-                  context.go('/'); // Navigate to home page on image tap
-                },
-                child: Image.asset(
-                  'assets/images/MWT.png', // Image for the logo
-                  height: 80, // Height of the image (same as home page)
-                  width: 80, // Width of the image (same as home page)
-                  fit: BoxFit.fill, // Ensures the image fills the space without distortion
-                ),
-              ),
-            ),
-          ],
+    return AppBar(
+      backgroundColor: Color(0xFF003366),
+      title: GestureDetector(
+        onTap: () => context.go('/'),
+        child: Image.asset(
+          'assets/images/wgw.jpg',
+          height: 60,
+          fit: BoxFit.cover,
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.go('/'); // Navigate to home page
-            },
-            child: Text(
-              'Home',
-              style: TextStyle(
-                color: currentRoute == '/' ? Colors.yellow : Colors.white,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              context.go('/AboutUsPage');
-            },
-            child: Text(
-              'About Us',
-              style: TextStyle(
-                color: currentRoute == '/AboutUsPage' ? Colors.yellow : Colors.white,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              context.go('/officeaddress'); // Navigates to Contact Us page
-            },
-            child: Text('Our Offices', style: TextStyle(color: Colors.white)),
-          ),
-          TextButton(
-            onPressed: () {
-              context.go('/quoterequest'); // Navigates to Contact Us page
-            },
-            child: Text('Quote Request', style: TextStyle(color: Colors.white)),
-          ),
-          TextButton(
-            onPressed: () {
-              context.go('/contactus'); // Navigate to Contact Us page
-            },
-            child: Text('Contact Us', style: TextStyle(color: Colors.white)),
-          ),
-        ],
       ),
+      actions: [
+        TextButton(
+          onPressed: () => context.go('/'),
+          child: Text('Home', style: TextStyle(color: currentRoute == '/' ? Colors.yellow : Colors.white)),
+        ),
+        TextButton(
+          onPressed: () => context.go('/AboutUsPage'),
+          child: Text('About Us', style: TextStyle(color: currentRoute == '/AboutUsPage' ? Colors.yellow : Colors.white)),
+        ),
+        TextButton(
+          onPressed: () => context.go('/officeaddress'),
+          child: Text('Our Offices', style: TextStyle(color: Colors.white)),
+        ),
+        TextButton(
+          onPressed: () => context.go('/quoterequest'),
+          child: Text('Quote Request', style: TextStyle(color: Colors.white)),
+        ),
+        TextButton(
+          onPressed: () => context.go('/contactus'),
+          child: Text('Contact Us', style: TextStyle(color: Colors.white)),
+        ),
+      ],
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(85); // Increased height for AppBar
-
-  /// Helper function for Compact Dropdown Menu Items
-
+  Size get preferredSize => Size.fromHeight(80);
 }
+
 class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -363,66 +324,29 @@ class FooterSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Contact Info Column (Left)
-              // Column(
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: [
-              //     Text(
-              //       'Get In Touch:',
-              //       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              //     ),
-              //     SizedBox(height: 8.0),
-              //     Text(
-              //       'Phone: +966567273714',
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //     // Text(
-              //     //   'Phone: +966593619999',
-              //     //   style: TextStyle(color: Colors.orange),
-              //     // ),
-              //     SizedBox(height: 8.0),
-              //     Text(
-              //       'Email: sales@mwtworld.com',
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //
-              //   ],
-              // ),
-              // Address Column (Right)
-              // Column(
-              //   crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
-              //   children: [
-              //     Text(
-              //       'Address:',
-              //       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              //     ),
-              //     SizedBox(height: 8.0),
-              //     Text(
-              //       'Al Azhar Building Tower',
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //     Text(
-              //       'Al Safa Dist',
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //     Text(
-              //       'Jeddah 23535, Saudi Arabia',
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //   ],
-              // ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Get In Touch:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8.0),
+                  Text('Phone: +966567273714', style: TextStyle(color: Colors.white)),
+                  Text('Email: sales@mwtworld.com', style: TextStyle(color: Colors.white)),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Address:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  Text('Al Azhar Building Tower', style: TextStyle(color: Colors.white)),
+                  Text('Al Safa Dist', style: TextStyle(color: Colors.white)),
+                  Text('Jeddah 23535, Saudi Arabia', style: TextStyle(color: Colors.white)),
+                ],
+              ),
             ],
           ),
           SizedBox(height: 16.0),
-          // Footer Text
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '© 2024 MWT Solutions. All rights reserved.',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+          Center(
+            child: Text('© 2024 MWT Solutions. All rights reserved.', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -430,6 +354,42 @@ class FooterSection extends StatelessWidget {
   }
 }
 
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(currentRoute: '/'),
+        body: Center(child: Text('Home Page', style: TextStyle(fontSize: 24))),
+      );
+}
 
+class AboutUsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(currentRoute: '/AboutUsPage'),
+        body: Center(child: Text('About Us', style: TextStyle(fontSize: 24))),
+      );
+}
 
+class OfficeAddressScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(currentRoute: '/officeaddress'),
+        body: Center(child: Text('Our Offices', style: TextStyle(fontSize: 24))),
+      );
+}
 
+class QuoteRequestScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(currentRoute: '/quoterequest'),
+        body: Center(child: Text('Quote Request', style: TextStyle(fontSize: 24))),
+      );
+}
+
+class ContactUsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(currentRoute: '/contactus'),
+        body: Center(child: Text('Contact Us', style: TextStyle(fontSize: 24))),
+      );
+}
