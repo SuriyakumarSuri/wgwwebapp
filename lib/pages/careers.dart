@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
+import 'dart:io';
 
 class CareersPage extends StatefulWidget {
   @override
@@ -14,135 +16,250 @@ class _CareersPageState extends State<CareersPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
 
+  File? _resumeFile;
+
+  Future<void> _pickResume() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc', 'docx'],
+    );
+
+    if (result != null && result.files.single.path != null) {
+      setState(() {
+        _resumeFile = File(result.files.single.path!);
+      });
+    }
+  }
+
+  void _resetForm() {
+    _formKey.currentState?.reset();
+    _usernameController.clear();
+    _phoneController.clear();
+    _emailController.clear();
+    _messageController.clear();
+    setState(() => _resumeFile = null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainPageAppBar(),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Center(
-          child: Card(
-            elevation: 8,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min, // To shrink to fit content
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Text(
-                        "Careers Form",
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blueAccent,
-                            ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-
-                    // Username
-                    TextFormField(
-                      controller: _usernameController,
-                      decoration: InputDecoration(
-                        labelText: 'Username',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your username';
-                        }
-                        return null;
-                      },
-                    ),
-
-                    SizedBox(height: 15),
-
-                    // Phone
-                    TextFormField(
-                      controller: _phoneController,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        labelText: 'Phone / Mobile Number',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.length < 10) {
-                          return 'Enter a valid phone number';
-                        }
-                        return null;
-                      },
-                    ),
-
-                    SizedBox(height: 15),
-
-                    // Gmail
-                    TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Gmail',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || !RegExp(r'^[^@]+@gmail\.com$').hasMatch(value)) {
-                          return 'Enter a valid Gmail address';
-                        }
-                        return null;
-                      },
-                    ),
-
-                    SizedBox(height: 15),
-
-                    // Message
-                    TextFormField(
-                      controller: _messageController,
-                      maxLines: 4,
-                      decoration: InputDecoration(
-                        labelText: 'Message',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a message';
-                        }
-                        return null;
-                      },
-                    ),
-
-                    SizedBox(height: 20),
-
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: Text("Submitted"),
-                                content: Text("Thank you, ${_usernameController.text}!"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: Text("OK"),
+      body: Stack(
+        children: [
+          // Background image layer
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/bg-career.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          // Gradient overlay
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0.6),
+                  Colors.orange.shade100.withOpacity(0.6),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
+          // Foreground form
+          SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 600),
+                child: Card(
+                  color: Colors.white.withOpacity(0.95),
+                  elevation: 12,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Text(
+                              "Join Our Team",
+                              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.deepOrange,
                                   ),
-                                ],
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          _buildTextField(
+                            controller: _usernameController,
+                            label: 'Full Name',
+                            icon: Icons.person,
+                            validator: (value) =>
+                                value == null || value.isEmpty ? 'Please enter your name' : null,
+                          ),
+                          SizedBox(height: 20),
+                          _buildTextField(
+                            controller: _phoneController,
+                            label: 'Phone Number',
+                            icon: Icons.phone,
+                            keyboardType: TextInputType.phone,
+                            validator: (value) =>
+                                value == null || value.length < 10 ? 'Enter a valid phone number' : null,
+                          ),
+                          SizedBox(height: 20),
+                          _buildTextField(
+                            controller: _emailController,
+                            label: 'Email (Gmail only)',
+                            icon: Icons.email,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (value) {
+                              if (value == null || !RegExp(r'^[^@]+@gmail\.com$').hasMatch(value)) {
+                                return 'Enter a valid Gmail address';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 20),
+                          TextFormField(
+                            controller: _messageController,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              labelText: 'Message',
+                              prefixIcon: Icon(Icons.message),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                              filled: true,
+                              fillColor: Colors.white,
+                            ),
+                            validator: (value) =>
+                                value == null || value.isEmpty ? 'Please enter a message' : null,
+                          ),
+                          SizedBox(height: 20),
+
+                          // Resume Upload Section
+                          Text(
+                            "Upload Resume / CV",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(height: 8),
+                          Row(
+                            children: [
+                              ElevatedButton.icon(
+                                icon: Icon(Icons.upload_file),
+                                label: Text(_resumeFile == null ? "Choose File" : "Change File"),
+                                onPressed: _pickResume,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.orange,
+                                  foregroundColor: Colors.white,
+                                ),
                               ),
-                            );
-                          }
-                        },
-                        child: Text("Submit"),
+                              SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  _resumeFile != null
+                                      ? _resumeFile!.path.split('/').last
+                                      : "No file selected",
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 30),
+
+                          // Submit and Reset Buttons
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton.icon(
+                                icon: Icon(Icons.send),
+                                label: Text("Submit Application"),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.deepOrange,
+                                  foregroundColor: Colors.white,
+                                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    if (_resumeFile == null) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text("Please upload your resume/CV."),
+                                          backgroundColor: Colors.redAccent,
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                        title: Text("Application Submitted"),
+                                        content: Text("Thank you, ${_usernameController.text}!"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(context),
+                                            child: Text("Close"),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                              OutlinedButton.icon(
+                                icon: Icon(Icons.refresh),
+                                label: Text("Reset"),
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: Colors.deepOrange,
+                                  side: BorderSide(color: Colors.deepOrange),
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                onPressed: _resetForm,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    String? Function(String?)? validator,
+  }) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        filled: true,
+        fillColor: Colors.white,
+      ),
+      validator: validator,
     );
   }
 }
