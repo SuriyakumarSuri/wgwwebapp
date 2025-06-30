@@ -6,25 +6,13 @@ void main() {
 }
 
 class ServicePageApp extends StatelessWidget {
-  final GoRouter _router = GoRouter(
-    initialLocation: '/service',
-    routes: [
-      GoRoute(path: '/', builder: (context, state) => HomeScreen()),
-      GoRoute(path: '/service', builder: (context, state) => ServicePageScreen()),
-      GoRoute(path: '/AboutUsPage', builder: (context, state) => AboutUsScreen()),
-      GoRoute(path: '/officeaddress', builder: (context, state) => OfficeAddressScreen()),
-      GoRoute(path: '/quoterequest', builder: (context, state) => QuoteRequestScreen()),
-      GoRoute(path: '/contactus', builder: (context, state) => ContactUsScreen()),
-    ],
-  );
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'WGW',
       theme: ThemeData(primarySwatch: Colors.blue),
       debugShowCheckedModeBanner: false,
-      routerConfig: _router,
     );
   }
 }
@@ -275,7 +263,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Color(0xFF003366),
       title: GestureDetector(
-        onTap: () => context.go('/'),
         child: Image.asset(
           'assets/images/wgw.jpg',
           height: 60,
@@ -354,42 +341,4 @@ class FooterSection extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(currentRoute: '/'),
-        body: Center(child: Text('Home Page', style: TextStyle(fontSize: 24))),
-      );
-}
 
-class AboutUsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(currentRoute: '/AboutUsPage'),
-        body: Center(child: Text('About Us', style: TextStyle(fontSize: 24))),
-      );
-}
-
-class OfficeAddressScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(currentRoute: '/officeaddress'),
-        body: Center(child: Text('Our Offices', style: TextStyle(fontSize: 24))),
-      );
-}
-
-class QuoteRequestScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(currentRoute: '/quoterequest'),
-        body: Center(child: Text('Quote Request', style: TextStyle(fontSize: 24))),
-      );
-}
-
-class ContactUsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(currentRoute: '/contactus'),
-        body: Center(child: Text('Contact Us', style: TextStyle(fontSize: 24))),
-      );
-}

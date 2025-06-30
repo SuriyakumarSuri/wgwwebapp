@@ -1,209 +1,63 @@
+// Import necessary packages
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:wgwwebapp/components/AppBarComponents.dart';
+import 'package:wgwwebapp/pages/ConstructionPage.dart';
+import 'package:wgwwebapp/pages/EventManagementPage.dart';
+import 'package:wgwwebapp/pages/ManpowerPage.dart';
 void main() {
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
-  // GoRouter configuration
-  final GoRouter _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => HomePage(),
-      ),
-      GoRoute(
-        path: '/home',
-        builder: (context, state) => HomePage(),
-      ),
-      GoRoute(
-        path: '/aboutconstruction',
-        builder: (context, state) => UnderConstructionPage(title: 'About Construction'),
-      ),
-      GoRoute(
-        path: '/construction',
-        builder: (context, state) => UnderConstructionPage(title: 'Construction Services'),
-      ),
-      GoRoute(
-        path: '/manpower',
-        builder: (context, state) => UnderConstructionPage(title: 'Manpower Services'),
-      ),
-      GoRoute(
-        path: '/event',
-        builder: (context, state) => UnderConstructionPage(title: 'Event Management'),
-      ),
-      GoRoute(
-        path: '/ourbusiness',
-        builder: (context, state) => UnderConstructionPage(title: 'All Business Divisions'),
-      ),
-      GoRoute(
-        path: '/services',
-        builder: (context, state) => UnderConstructionPage(title: 'Our Services'),
-      ),
-      GoRoute(
-        path: '/officeaddress',
-        builder: (context, state) => UnderConstructionPage(title: 'Our Offices'),
-      ),
-      GoRoute(
-        path: '/contactus',
-        builder: (context, state) => UnderConstructionPage(title: 'Contact Us / Careers'),
-      ),
-      GoRoute(
-        path: '/AboutUsPage',
-        builder: (context, state) => UnderConstructionPage(title: 'About Us'),
-      ),
-    ],
-  );
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Al-Wajhat Global Western',
       theme: ThemeData(
         primarySwatch: Colors.orange,
-        scaffoldBackgroundColor: Color(0xFFF7F7F7),
-        fontFamily: 'Roboto',
       ),
-      routerConfig: _router,
+      home: HomePage(),
     );
   }
 }
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
-
   @override
   void initState() {
     super.initState();
+    // Initialize the animation controller
     _controller = AnimationController(
-      duration: Duration(milliseconds: 1200),
+      duration: Duration(seconds: 2), // Animation duration
       vsync: this,
     );
+
+    // Define the animation movement
     _animation = Tween<Offset>(
-      begin: Offset(-1.0, 0.0),
-      end: Offset.zero,
+      begin: Offset(-1.0, 0.0), // Starts off-screen to the left
+      end: Offset.zero, // Ends at its normal position
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeOutCubic,
+      curve: Curves.easeInOut, // Smooth transition
     ));
+    // Start the animation
     _controller.forward();
   }
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-
-  PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
-    return PopupMenuItem<String>(
-      value: value,
-      height: 36,
-      child: HoverableMenuItem(title: title),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
-        child: AppBar(
-          backgroundColor: Color(0xFF3A0303),
-          elevation: 4,
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0), // Increased horizontal padding
-            child: Row(
-              children: [
-                SlideTransition(
-                  position: _animation,
-                  child: GestureDetector(
-                    onTap: () {
-                      context.go('/home'); // Use context.go for GoRouter navigation
-                    },
-                    child: Image.asset(
-                      'assets/images/wgw.jpg',
-                      height: 65,
-                      width: 60,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 24), // Increased spacing
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      _NavButton(label: 'Home', onTap: () => context.go('/')),
-                      _NavButton(
-                        label: 'About Us',
-                        onTap: () => context.go('/AboutUsPage'),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.0), // Adjusted padding
-                        child: PopupMenuButton<String>(
-                          offset: Offset(0, 50),
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)), // Rounded corners for popup menu
-                          child: Row(
-                            children: [
-                              Text(
-                                'Business Groups',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500, // Slightly bolder
-                                ),
-                              ),
-                              Icon(Icons.arrow_drop_down, color: Colors.white, size: 20), // Larger icon
-                            ],
-                          ),
-                          onSelected: (String value) {
-                            context.go(value);
-                          },
-                          itemBuilder: (BuildContext context) {
-                            return [
-                              buildPopupMenuItem('Construction', '/construction'),
-                              buildPopupMenuItem('Manpower', '/manpower'),
-                              buildPopupMenuItem('Event Management', '/event'),
-                              buildPopupMenuItem('Browse all', '/ourbusiness'),
-                            ];
-                          },
-                        ),
-                      ),
-                      _NavButton(
-                        label: 'Our Services',
-                        onTap: () => context.go('/services'),
-                      ),
-                      _NavButton(
-                        label: 'Our Offices',
-                        onTap: () => context.go('/officeaddress'),
-                      ),
-                      _NavButton(
-                        label: 'Careers',
-                        onTap: () => context.go('/contactus'),
-                      ),
-                      _NavButton(
-                        label: 'Contact Us',
-                        onTap: () => context.go('/contactus'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+       appBar: MainPageAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,49 +72,22 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       ),
     );
   }
-}
-
-class _NavButton extends StatefulWidget {
-  final String label;
-  final VoidCallback onTap;
-
-  const _NavButton({required this.label, required this.onTap});
-
-  @override
-  __NavButtonState createState() => __NavButtonState();
-}
-
-class __NavButtonState extends State<_NavButton> {
-  bool _isHovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: TextButton(
-        onPressed: widget.onTap,
-        style: TextButton.styleFrom(
-          foregroundColor: _isHovered ? Colors.orange.shade200 : Colors.white, // Hover effect
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 16,
-          ),
-        ),
-        child: Text(widget.label),
-      ),
+  /// Helper Method for PopupMenuItem with Compact Design
+  PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
+    return PopupMenuItem<String>(
+      value: value,
+      height: 36, // Reduce the default height
+      child: HoverableMenuItem(title: title),
     );
   }
 }
-
+/// Hoverable Menu Item Widget with Compact Styling
 class HoverableMenuItem extends StatefulWidget {
   final String title;
   HoverableMenuItem({required this.title});
   @override
   _HoverableMenuItemState createState() => _HoverableMenuItemState();
 }
-
 class _HoverableMenuItemState extends State<HoverableMenuItem> {
   bool _isHovered = false;
   @override
@@ -269,29 +96,26 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0), // Adjusted padding
+        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
-          color: _isHovered ? Colors.orange.shade100 : Colors.transparent,
-          borderRadius: BorderRadius.circular(6.0), // Slightly more rounded
+          color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
+          borderRadius: BorderRadius.circular(4.0),
         ),
         child: Text(
           widget.title,
           style: TextStyle(
-            fontSize: 15, // Slightly larger font
-            color: _isHovered ? Colors.deepOrange : Colors.grey[800], // Darker color on hover
-            fontWeight: _isHovered ? FontWeight.bold : FontWeight.normal, // Bold on hover
+            fontSize: 14, // Compact font size
+            color: _isHovered ? Colors.black : Colors.grey[800],
           ),
         ),
       ),
     );
   }
 }
-
 class HeroSection extends StatefulWidget {
   @override
   _HeroSectionState createState() => _HeroSectionState();
 }
-
 class _HeroSectionState extends State<HeroSection> {
   final PageController _pageController = PageController();
   final List<Map<String, String>> _slides = [
@@ -318,11 +142,11 @@ class _HeroSectionState extends State<HeroSection> {
   void initState() {
     super.initState();
     _startAutoSwipe();
-    _pageController.addListener(_onPageChanged);
+    _pageController.addListener(_onPageChanged); // Listen for page change
   }
 
   void _startAutoSwipe() {
-    _timer = Timer.periodic(Duration(seconds: 8), (Timer timer) {
+    _timer = Timer.periodic(Duration(seconds: 20), (Timer timer) {
       if (_currentPage < _slides.length - 1) {
         _currentPage++;
       } else {
@@ -336,10 +160,11 @@ class _HeroSectionState extends State<HeroSection> {
     });
   }
 
+  // This function will update the current page index when the page is swiped
   void _onPageChanged() {
-    if (_pageController.page?.round() != _currentPage) { // Use round() for more reliable integer conversion
+    if (_pageController.page?.toInt() != _currentPage) {
       setState(() {
-        _currentPage = _pageController.page?.round() ?? 0;
+        _currentPage = _pageController.page?.toInt() ?? 0;
       });
     }
   }
@@ -347,7 +172,7 @@ class _HeroSectionState extends State<HeroSection> {
   @override
   void dispose() {
     _timer?.cancel();
-    _pageController.removeListener(_onPageChanged);
+    _pageController.removeListener(_onPageChanged); // Remove listener when disposed
     _pageController.dispose();
     super.dispose();
   }
@@ -356,7 +181,7 @@ class _HeroSectionState extends State<HeroSection> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 480, // Increased height for more impact
+      height: 500,
       child: Stack(
         children: [
           PageView.builder(
@@ -369,85 +194,61 @@ class _HeroSectionState extends State<HeroSection> {
                   Image.asset(
                     _slides[index]['image']!,
                     fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
                   Container(
-                    color: Colors.black.withOpacity(0.45), // Slightly darker overlay
+                    color: Colors.black.withOpacity(0.3), // Overlay for readability
                   ),
-                  Positioned.fill( // Use Positioned.fill to center content
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 48.0), // Increased padding
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center, // Center vertically
-                          children: [
-                            Text(
-                              _slides[index]['title']!,
-                              style: TextStyle(
-                                color: Color(0xFFFFD700), // Gold-like color
-                                fontSize: 42, // Larger font size
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.5, // Increased letter spacing
-                                shadows: [
-                                  Shadow(
-                                    blurRadius: 8.0,
-                                    color: Colors.black54, // More pronounced shadow
-                                    offset: Offset(3.0, 3.0),
-                                  ),
-                                ],
+                  // Title and Subtitle at the Top
+                  Positioned(
+                    top: 40,
+                    left: 16,
+                    right: 16,
+                    child: Column(
+                      children: [
+                        Text(
+                          _slides[index]['title']!,
+                          style: TextStyle(
+                            color: Color(0xFFFFD700), // Gold Color
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 5.0,
+                                color: Colors.black45,
+                                offset: Offset(2.0, 2.0),
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 16), // Increased spacing
-                            Text(
-                              _slides[index]['subtitle']!,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22, // Larger font size
-                                fontWeight: FontWeight.w400,
-                                shadows: [
-                                  Shadow(
-                                    blurRadius: 4.0,
-                                    color: Colors.black45,
-                                    offset: Offset(1.5, 1.5),
-                                  ),
-                                ],
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 30), // Spacing before potential call to action
-                            ElevatedButton(
-                              onPressed: () {
-                                context.go('/contactus');
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.orange.shade700, // Darker orange
-                                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                elevation: 5, // Add elevation
-                              ),
-                              child: Text(
-                                'GET A QUOTE',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
+                        SizedBox(height: 8),
+                        Text(
+                          _slides[index]['subtitle']!,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 3.0,
+                                color: Colors.black38,
+                                offset: Offset(1.0, 1.0),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
                 ],
               );
             },
           ),
+          // Dots Indicator
           Positioned(
-            bottom: 24, // Adjusted position
+            bottom: 16,
             left: 0,
             right: 0,
             child: Row(
@@ -455,6 +256,9 @@ class _HeroSectionState extends State<HeroSection> {
               children: _slides.asMap().entries.map((entry) {
                 return GestureDetector(
                   onTap: () {
+                    setState(() {
+                      _currentPage = entry.key; // Update current page on tap
+                    });
                     _pageController.animateToPage(
                       entry.key,
                       duration: Duration(milliseconds: 800),
@@ -462,14 +266,14 @@ class _HeroSectionState extends State<HeroSection> {
                     );
                   },
                   child: Container(
-                    width: 12, // Slightly larger dots
-                    height: 12,
-                    margin: EdgeInsets.symmetric(horizontal: 6), // Increased margin
+                    width: 8,
+                    height: 8,
+                    margin: EdgeInsets.symmetric(horizontal: 4),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _currentPage == entry.key
-                          ? Colors.orange.shade700 // Match button color
-                          : Colors.white.withOpacity(0.7),
+                          ? Colors.white
+                          : Colors.grey,
                     ),
                   ),
                 );
@@ -482,38 +286,35 @@ class _HeroSectionState extends State<HeroSection> {
   }
 }
 
+// Services Section
+// -------------------------
 class ServicesSection extends StatefulWidget {
   const ServicesSection({super.key});
   @override
   State<ServicesSection> createState() => _ServicesSectionState();
 }
-
 class _ServicesSectionState extends State<ServicesSection> {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
-  int _currentIndex = 0;
-
   @override
   void initState() {
     super.initState();
     _startAutoScroll();
   }
-
   @override
   void dispose() {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
-
+  /// Start Auto Scroll Timer
   void _startAutoScroll() {
-    _timer = Timer.periodic(Duration(seconds: 4), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_scrollController.hasClients) {
         double maxScroll = _scrollController.position.maxScrollExtent;
         double currentScroll = _scrollController.offset;
-        double itemWidth = 300 + 12; // Card width + margin
-        double nextScroll = currentScroll + itemWidth;
-
+        // Scroll to the next card
+        double nextScroll = currentScroll + 300 + 12; // Card width + spacing
         if (nextScroll >= maxScroll) {
           _scrollController.animateTo(
             0,
@@ -530,150 +331,160 @@ class _ServicesSectionState extends State<ServicesSection> {
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 48.0, horizontal: 24.0), // Increased padding
-      color: Color(0xFF1A1A1A), // Darker background for contrast
+      padding: EdgeInsets.all(16.0),
+      color: Colors.black, // Background for the entire section
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Section Title and Description
           Text(
             'Our',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 38, // Larger font
+              fontSize: 32,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             'SERVICES',
             style: TextStyle(
-              color: Colors.orange.shade600, // More vibrant orange
-              fontSize: 42, // Larger font
+              color: Colors.red,
+              fontSize: 32,
               fontWeight: FontWeight.bold,
-              letterSpacing: 2.0, // Increased letter spacing
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 8),
           Text(
             'At WGW, we pride ourselves on delivering tailored construction solutions that adapt to your unique project needs. With a commitment to quality and innovation, we ensure every structure is built to exceed expectations.',
             style: TextStyle(
               color: Colors.white70,
-              fontSize: 17, // Slightly larger font
-              height: 1.5, // Line height for readability
+              fontSize: 14,
             ),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              context.go('/services');
+              context.go('/service');
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange.shade700,
+              backgroundColor: Colors.red,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10), // More rounded corners
+                borderRadius: BorderRadius.circular(8),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16), // Larger padding
-              elevation: 5,
             ),
             child: Text(
-              'VIEW ALL SERVICES »',
+              'VIEW MORE »',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
               ),
             ),
           ),
-          SizedBox(height: 40), // Increased spacing
+          SizedBox(height: 16),
+
+          // Horizontal Scrollable Service Cards
           SizedBox(
-            height: 360, // Increased height for cards
-            child: ListView.separated(
+            height: 320,
+            child: ListView(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
-              itemCount: _serviceData.length,
-              separatorBuilder: (context, index) => SizedBox(width: 20), // Spacing between cards
-              itemBuilder: (context, index) {
-                final service = _serviceData[index];
+              children: _serviceData.map((service) {
                 return _buildServiceCard(
                   imagePath: service['imagePath']!,
                   title: service['title']!,
                   description: service['description']!,
                 );
-              },
+              }).toList(),
+            ),
+          ),
+
+          SizedBox(height: 16),
+          // Indicator Dots
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.circle, size: 8, color: Colors.red),
+                SizedBox(width: 4),
+                Icon(Icons.circle, size: 8, color: Colors.white),
+                SizedBox(width: 4),
+                Icon(Icons.circle, size: 8, color: Colors.white),
+              ],
             ),
           ),
         ],
       ),
     );
   }
-
+  /// Service Card Widget
   Widget _buildServiceCard({
     required String imagePath,
     required String title,
     required String description,
   }) {
     return Container(
-      width: 320, // Slightly wider cards
+      width: 300, // Fixed width for each card
+      margin: EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16), // More rounded corners
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2), // Darker shadow
-            blurRadius: 10, // Increased blur
-            offset: Offset(0, 5),
+            color: Colors.black26,
+            blurRadius: 4,
+            offset: Offset(0, 2),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-            child: Image.asset(
-              imagePath,
-              height: 180, // Taller image area
-              fit: BoxFit.cover,
+          Container(
+            height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+              image: DecorationImage(
+                image: AssetImage(imagePath),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0), // Increased padding
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 18, // Larger title font
-                    fontWeight: FontWeight.bold,
-                    color: Colors.orange.shade700, // Darker orange
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 10),
-                Text(
-                  description,
-                  style: TextStyle(
-                    fontSize: 14, // Consistent font size
-                    color: Colors.grey[700], // Darker grey
-                  ),
-                  maxLines: 4, // Allow more lines for description
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                ),
-              ],
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.red,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
-          Spacer(), // Push content to top if necessary
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              description,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black87,
+              ),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Spacer(),
+
         ],
       ),
     );
   }
 }
-
+/// Service Data
 final List<Map<String, String>> _serviceData = [
   {
     'imagePath': 'assets/images/Cont1.jpg',
@@ -716,38 +527,35 @@ final List<Map<String, String>> _serviceData = [
     'description': 'We provide customized fit-out and interior design services, creating functional and stylish spaces that reflect your vision, with high-quality finishes and attention to detail for both commercial and residential projects.',
   },
 ];
-
+//Business Section
 class BusinessSection extends StatefulWidget {
   const BusinessSection({super.key});
+
   @override
   State<BusinessSection> createState() => _BusinessSectionState();
 }
-
 class _BusinessSectionState extends State<BusinessSection> {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
-
   @override
   void initState() {
     super.initState();
     _startAutoScroll();
   }
-
   @override
   void dispose() {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
-
+  /// Start Auto Scroll Timer
   void _startAutoScroll() {
-    _timer = Timer.periodic(Duration(seconds: 4), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_scrollController.hasClients) {
         double maxScroll = _scrollController.position.maxScrollExtent;
         double currentScroll = _scrollController.offset;
-        double itemWidth = 350 + 16; // Card width + separator width
-        double nextScroll = currentScroll + itemWidth;
-
+        // Scroll to the next card
+        double nextScroll = currentScroll + 300 + 12; // Card width + spacing
         if (nextScroll >= maxScroll) {
           _scrollController.animateTo(
             0,
@@ -764,111 +572,129 @@ class _BusinessSectionState extends State<BusinessSection> {
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 48.0, horizontal: 24.0),
-      color: Color(0xFFF7F7F7), // Light background for this section
+      padding: EdgeInsets.all(16.0),
+      color: Colors.white, // Background for the entire section
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // Section Title and Description
           Text(
             'Our',
             style: TextStyle(
-              color: Colors.black,
-              fontSize: 38,
+              color: Colors.white,
+              fontSize: 32,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             'Other Divisions',
             style: TextStyle(
-              color: Colors.orange.shade600,
-              fontSize: 42,
+              color: Colors.red,
+              fontSize: 32,
               fontWeight: FontWeight.bold,
-              letterSpacing: 2.0,
             ),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 16),
+          // Horizontal Scrollable Service Cards
           SizedBox(
-            height: 400, // Increased height for business cards
+            height: 350, // Increased height
             child: ListView.separated(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: _businessData.length,
-              separatorBuilder: (context, index) => SizedBox(width: 24), // Increased spacing
+              separatorBuilder: (context, index) => SizedBox(width: 16), // Consistent spacing
               itemBuilder: (context, index) {
                 final service = _businessData[index];
-                return _buildBusinessCard(
+                return _buildbusinessCard(
                   imagePath: service['imagePath']!,
                   title: service['title']!,
                 );
               },
             ),
           ),
+          SizedBox(height: 16),
+          // Indicator Dots
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.circle, size: 8, color: Colors.red),
+                SizedBox(width: 4),
+                Icon(Icons.circle, size: 8, color: Colors.white),
+                SizedBox(width: 4),
+                Icon(Icons.circle, size: 8, color: Colors.white),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
-
-  Widget _buildBusinessCard({
+  /// Service Card Widget
+  Widget _buildbusinessCard({
     required String imagePath,
     required String title,
   }) {
     return GestureDetector(
       onTap: () {
         if (title == 'Construction') {
-          context.go('/aboutconstruction');
+          context.go('/aboutconstruction'); // GoRouter Navigation
         } else if (title == 'Manpower') {
-          context.go('/manpower');
+          context.go('/manpower'); // You'll add this route later
         } else if (title == 'Event Management') {
-          context.go('/event'); // Corrected to match GoRouter path
+          context.go('/eventmanagement'); // You'll add this route later
         }
       },
       child: Container(
-        width: 380, // Wider cards for business section
+        width: 350,
+        margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(18), // More rounded corners
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 12, // Increased blur
-              offset: Offset(0, 6),
+              color: Colors.black26,
+              blurRadius: 6,
+              offset: Offset(0, 3),
             ),
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
-              child: Image.asset(
-                imagePath,
-                height: 280, // Taller image for impact
-                fit: BoxFit.cover,
+            Container(
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0), // Increased padding
+              padding: const EdgeInsets.all(12.0),
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 24, // Larger title font
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.orange.shade700,
+                  color: Colors.red,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
+            Spacer(),
           ],
         ),
       ),
     );
   }
 }
-
+/// Service Data
 final List<Map<String, String>> _businessData = [
   {
     'imagePath': 'assets/images/Cont1.jpg',
@@ -883,251 +709,185 @@ final List<Map<String, String>> _businessData = [
     'title': 'Event Management',
   },
 ];
-
+//About us//
 class AboutUsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFF5F5F5),
-      padding: EdgeInsets.symmetric(vertical: 60, horizontal: 48), // Increased padding
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center, // Vertically align content
-        children: [
-          Expanded(
-            flex: 3, // Give more space to text
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome to',
-                  style: TextStyle(
-                    fontSize: 32, // Larger font
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  'Al Wajhat Global Western Groups',
-                  style: TextStyle(
-                    fontSize: 40, // Larger and more impactful
-                    fontWeight: FontWeight.bold,
-                    color: Colors.orange.shade700, // Consistent orange
-                    height: 1.2, // Tighter line height
-                  ),
-                ),
-                SizedBox(height: 24),
-                Text(
-                  'Welcome to Wajhat Global Western Groups – Your Trusted Partner in Construction and Engineering.',
-                  style: TextStyle(fontSize: 18, color: Colors.black87, height: 1.4),
-                ),
-                SizedBox(height: 12),
-                Text(
-                  'At Wajhat Global Western Groups, we take pride in being a leader in the construction industry for over a decade. Our commitment to excellence has earned us a reputation built on quality, innovation, and reliability. With a wealth of experience and a skilled team, we deliver top-tier construction solutions that meet the highest standards. Join us and experience construction services that go beyond expectations, building success at every stage.',
-                  style: TextStyle(fontSize: 17, color: Colors.black87, height: 1.4),
-                ),
-                SizedBox(height: 12),
-                Text(
-                  'Founded in 2021, Wajhat Global Western Contracting was established with a singular vision: to be the trusted partner in our clients journey to success. With a commitment to innovation and excellence, we have consistently worked alongside our clients, transforming visions into reality and building a future of strength and sustainability every step of the way.',
-                  style: TextStyle(fontSize: 17, color: Colors.black87, height: 1.4),
-                ),
-                SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: () {
-                    context.go('/AboutUsPage');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange.shade700,
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    elevation: 5,
-                  ),
-                  child: Text(
-                    'READ MORE',
-                    style: TextStyle(fontSize: 17, color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: 48), // Increased spacing
-          Expanded(
-            flex: 2, // Less space for image
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16), // More rounded corners
-              child: Image.asset(
-                'assets/images/build5.jpg',
-                fit: BoxFit.cover,
-                height: 400, // Taller image
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FooterSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFF2C0105), // Darker, richer red for footer
-      padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 48.0), // Increased padding
+      color: Color(0xFFF5F5F5), // Light gray background
+      padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround, // Distribute space more evenly
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Contact Info Column (Left)
               Expanded(
-                flex: 1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Get In Touch:',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                      'Welcome to',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                      ),
                     ),
-                    SizedBox(height: 12.0),
                     Text(
-                      'Phone: +966567273714',
-                      style: TextStyle(color: Colors.white70, fontSize: 16),
+                      'Al Wajhat Global Western Groups',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFD32F2F), // Red color
+                      ),
                     ),
-                    SizedBox(height: 8.0),
+                    SizedBox(height: 20),
                     Text(
-                      'Email: info@wgwcltd.com',
-                      style: TextStyle(color: Colors.white70, fontSize: 16),
+                      'Welcome to Wajhat Global Western Groups – Your Trusted Partner in Construction and Engineering.',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'At Wajhat Global Western Groups, we take pride in being a leader in the construction industry for over a decade. Our commitment to excellence has earned us a reputation built on quality, innovation, and reliability. With a wealth of experience and a skilled team, we deliver top-tier construction solutions that meet the highest standards. Join us and experience construction services that go beyond expectations, building success at every stage.',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Founded in 2021, Wajhat Global Western Contracting was established with a singular vision: to be the trusted partner in our clients journey to success. With a commitment to innovation and excellence, we have consistently worked alongside our clients, transforming visions into reality and building a future of strength and sustainability every step of the way.',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        print('Navigating to AboutUsPage');
+                        // Ensure the path matches the defined route in GoRouter
+                        context.go('/AboutUsPage');},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFD32F2F), // Red color
+                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      ),
+                      child: Text(
+                        'READ MORE',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                     ),
                   ],
                 ),
               ),
-              // Spacer for separation
-              SizedBox(width: 40),
-              // Address Column (Right)
+              SizedBox(width: 20),
               Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Address:',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                    SizedBox(height: 12.0),
-                    Text(
-                      'Al Azhar Building Tower',
-                      style: TextStyle(color: Colors.white70, fontSize: 16),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Al Safa Dist',
-                      style: TextStyle(color: Colors.white70, fontSize: 16),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Jeddah 23535, Saudi Arabia',
-                      style: TextStyle(color: Colors.white70, fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-              // Adding a placeholder for quick links or social media
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Quick Links:',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                    SizedBox(height: 12.0),
-                    InkWell(
-                      onTap: () => context.go('/AboutUsPage'),
-                      child: Text('About Us', style: TextStyle(color: Colors.white70, fontSize: 16)),
-                    ),
-                    SizedBox(height: 8.0),
-                    InkWell(
-                      onTap: () => context.go('/services'),
-                      child: Text('Our Services', style: TextStyle(color: Colors.white70, fontSize: 16)),
-                    ),
-                    SizedBox(height: 8.0),
-                    InkWell(
-                      onTap: () => context.go('/contactus'),
-                      child: Text('Contact Us', style: TextStyle(color: Colors.white70, fontSize: 16)),
-                    ),
-                  ],
+                child: Image.asset(
+                  'assets/images/build5.jpg', // Replace with your image asset path
+                  fit: BoxFit.cover,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 30.0),
-          Divider(color: Colors.white30, thickness: 1), // Thicker divider
+        ],
+      ),
+    );
+  }
+}
+// Footer Section//
+class FooterSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0xFF49020C),
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
           SizedBox(height: 16.0),
-          Text(
-            '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
-            style: TextStyle(color: Colors.white60, fontSize: 14), // Slightly larger and lighter copyright
-            textAlign: TextAlign.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Contact Info Column (Left)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Get In Touch:',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Phone: +966567273714',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  // Text(
+                  //   'Phone: +966593619999',
+                  //   style: TextStyle(color: Colors.orange),
+                  // ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Email: info@wgwcltd.com',
+                    style: TextStyle(color: Colors.white),
+                  ),
+
+                ],
+              ),
+              // Address Column (Right)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                children: [
+                  Text(
+                    'Address:',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Al Azhar Building Tower',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    'Al Safa Dist',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    'Jeddah 23535, Saudi Arabia',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 16.0),
+          // Footer Text
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 }
-
-// A placeholder page for routes that are "under construction"
-class UnderConstructionPage extends StatelessWidget {
-  final String title;
-
-  const UnderConstructionPage({Key? key, required this.title}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title, style: TextStyle(color: Colors.white)),
-        backgroundColor: Color(0xFF3A0303),
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.construction, size: 80, color: Colors.orange),
-            SizedBox(height: 20),
-            Text(
-              '$title Page Under Construction',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10),
-            Text(
-              'We are working hard to bring you this content soon!',
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 30),
-            ElevatedButton.icon(
-              onPressed: () {
-                context.go('/');
-              },
-              icon: Icon(Icons.home, color: Colors.white),
-              label: Text('Go to Home', style: TextStyle(color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ],
+/// Helper method to build dropdown items with custom spacing
+DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
+    {bool isHeader = false, bool isBold = false, Color? color}) {
+  return DropdownMenuItem<String>(
+    value: value,
+    enabled: !isHeader, // Disable header row selection
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 2.0), // Controls vertical spacing
+      child: Text(
+        text,
+        style: TextStyle(
+          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+          color: color ?? (isHeader ? Colors.grey : Colors.black),
+          fontSize: isHeader ? 14 : 14,
         ),
       ),
-    );
-  }
+    ),
+  );
 }
+
+
+
+

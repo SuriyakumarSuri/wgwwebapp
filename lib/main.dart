@@ -6,6 +6,10 @@ import 'package:wgwwebapp/pages/ConstructionPage.dart';
 import 'package:wgwwebapp/pages/EventManagementPage.dart';
 import 'package:wgwwebapp/pages/ManpowerPage.dart';
 import 'package:wgwwebapp/pages/servicesconstruction.dart' as service;
+import 'package:wgwwebapp/pages/ouroffices.dart' as office;
+import 'package:wgwwebapp/pages/contactus.dart' as contact;
+import 'package:wgwwebapp/pages/careers.dart' as careers;
+import 'package:wgwwebapp/pages/QuoteRequest.dart' as quote;
 
 
 void main() {
@@ -48,6 +52,32 @@ class MyApp extends StatelessWidget {
         path: '/services',
         builder: (context, state) => service.ServicePageScreen(), // not ServicePageApp
       ),
+
+      GoRoute(
+        path: '/AboutUsPage',
+        builder: (context, state) =>  about.AboutUsPage(),
+      ),
+
+      GoRoute(
+        path: '/officeaddress',
+        builder: (context, state) => office.OurOfficesPage(),
+      ),
+
+      GoRoute(
+        path: "/contactus",
+        builder: (context, state) => contact.ContactUsPage()
+      ),
+
+      GoRoute(
+        path: '/careers',
+        builder:(context, state) => careers.CareersPage(),
+      ),
+
+       GoRoute(
+        path: '/quoterequest',
+        builder:(context, state) => quote.QuoteRequestPage(),
+      )
+
     ],
   );
 
@@ -59,7 +89,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       debugShowCheckedModeBanner: false,
-      routerConfig: _router, // ✅ Add this line to use GoRouter
+      routerConfig: _router,
     );
   }
 }
