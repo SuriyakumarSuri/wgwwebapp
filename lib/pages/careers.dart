@@ -19,91 +19,127 @@ class _CareersPageState extends State<CareersPage> {
     return Scaffold(
       appBar: MainPageAppBar(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Careers", style: Theme.of(context).textTheme.titleLarge),
-              SizedBox(height: 20),
+        padding: EdgeInsets.all(16),
+        child: Center(
+          child: Card(
+            elevation: 8,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min, // To shrink to fit content
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        "Careers Form",
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueAccent,
+                            ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
 
-              TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Username'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
-              ),
+                    // Username
+                    TextFormField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your username';
+                        }
+                        return null;
+                      },
+                    ),
 
-              SizedBox(height: 15),
-              TextFormField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(labelText: 'Phone/Mobile Number'),
-                validator: (value) {
-                  if (value == null || value.isEmpty || value.length < 10) {
-                    return 'Enter a valid phone number';
-                  }
-                  return null;
-                },
-              ),
+                    SizedBox(height: 15),
 
-              SizedBox(height: 15),
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(labelText: 'Gmail'),
-                validator: (value) {
-                  if (value == null ||
-                      !RegExp(r'^[^@]+@gmail\.com$').hasMatch(value)) {
-                    return 'Enter a valid Gmail address';
-                  }
-                  return null;
-                },
-              ),
+                    // Phone
+                    TextFormField(
+                      controller: _phoneController,
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        labelText: 'Phone / Mobile Number',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.length < 10) {
+                          return 'Enter a valid phone number';
+                        }
+                        return null;
+                      },
+                    ),
 
-              SizedBox(height: 15),
-              TextFormField(
-                controller: _messageController,
-                maxLines: 4,
-                decoration: InputDecoration(labelText: 'Message'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a message';
-                  }
-                  return null;
-                },
-              ),
+                    SizedBox(height: 15),
 
-              SizedBox(height: 25),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // You can handle form submission here
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: Text("Submitted"),
-                          content: Text("Thank you, ${_usernameController.text}!"),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text("OK"),
-                            )
-                          ],
-                        ),
-                      );
-                    }
-                  },
-                  child: Text('Submit'),
+                    // Gmail
+                    TextFormField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: 'Gmail',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || !RegExp(r'^[^@]+@gmail\.com$').hasMatch(value)) {
+                          return 'Enter a valid Gmail address';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    SizedBox(height: 15),
+
+                    // Message
+                    TextFormField(
+                      controller: _messageController,
+                      maxLines: 4,
+                      decoration: InputDecoration(
+                        labelText: 'Message',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a message';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    SizedBox(height: 20),
+
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text("Submitted"),
+                                content: Text("Thank you, ${_usernameController.text}!"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text("OK"),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
+                        child: Text("Submit"),
+                      ),
+                    )
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ),
