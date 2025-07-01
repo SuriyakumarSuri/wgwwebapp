@@ -367,7 +367,7 @@ class _ServicesSectionState extends State<ServicesSection> {
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              context.go('/service');
+              context.go('/services');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
@@ -887,7 +887,3 @@ DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     ),
   );
 }
-
-
-
-
