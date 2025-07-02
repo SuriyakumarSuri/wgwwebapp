@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? currentRoute;
-  CustomAppBar({this.currentRoute});
+  const CustomAppBar({Key? key, this.currentRoute}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
@@ -61,9 +61,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         actions: [
           Padding(
-              padding:
-                  const EdgeInsets.only(top: 20), // adjust this value as needed
-              child: Row(mainAxisSize: MainAxisSize.min, children: [
+            padding: const EdgeInsets.only(top: 20), // adjust this value as needed
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 TextButton(
                   onPressed: () {
                     context.go('/'); // Navigate to home page
@@ -88,53 +89,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.0),
-                  child: PopupMenuButton<String>(
-                    offset: Offset(0, 50), // Adjust dropdown position
-                    color: Colors.white,
-                    child: Row(
-                      children: [
-                        Text(
-                          'Our Services',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                      ],
+                TextButton(
+                  onPressed: () {
+                    context.go('/services'); // Navigate to Services page
+                  },
+                  child: Text(
+                    'Our Services',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
                     ),
-                    onSelected: (String value) {
-                      context.go(value); // Navigate to selected route
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return [
-                        buildPopupMenuItem(
-                            'Project Handling Services', '/projecthandling'),
-                        buildPopupMenuItem(
-                            'DG Cargo Handling', '/cargohandling'),
-                        buildPopupMenuItem('Packaging Services', '/packaging'),
-                        buildPopupMenuItem(
-                            'Custom Clearance Services', '/custom'),
-                        buildPopupMenuItem(
-                            'Warehouse Freight Service', '/warehouse'),
-                        buildPopupMenuItem('Land Freight Service', '/land'),
-                        buildPopupMenuItem('Ocean Freight Service', '/ocean'),
-                        buildPopupMenuItem('Air Freight Service', '/air'),
-                        buildPopupMenuItem('Browse all', '/service'),
-                      ];
-                    },
                   ),
                 ),
                 TextButton(
                   onPressed: () {
-                    context
-                        .go('/officeaddress'); // Navigates to Contact Us page
+                    context.go('/officeaddress'); // Navigates to Contact Us page
                   },
                   child: Text('Our Offices',
                       style: TextStyle(color: Colors.white)),
@@ -146,7 +115,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child:
                       Text('Contact Us', style: TextStyle(color: Colors.white)),
                 ),
-              ]))
+              ],
+            ),
+          ),
         ],
       ),
     );
