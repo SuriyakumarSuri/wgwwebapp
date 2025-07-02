@@ -21,43 +21,49 @@ class ServicePageScreen extends StatelessWidget {
     {
       'title': 'General Contracting',
       'description':
-          'Complete solutions for commercial and residential projects.',
+          'As a full-service general contractor, we manage all aspects of your project—from initial planning and budgeting to final delivery. Our commitment to quality, safety, and efficiency ensures outstanding results every time.',
       'image': 'assets/images/servicescons/general.jpg',
     },
     {
       'title': 'Design & Build',
-      'description': 'From concept to completion, we handle it all.',
+      'description':
+          'We offer a streamlined process that combines design and construction under one roof. This ensures faster delivery, better coordination, and a single point of contact from start to finish.',
       'image': 'assets/images/servicescons/design.jpg',
     },
     {
       'title': 'Civil Engineering',
       'description':
-          'Expertise in infrastructure and large-scale developments.',
+          'Our civil engineering services cover planning, design, and supervision of construction projects. We ensure structural strength, regulatory compliance, and cost efficiency across all phases of development.',
       'image': 'assets/images/servicescons/civil.jpg',
     },
     {
       'title': 'Residential Construction',
-      'description': 'Building dream homes with precision and care.',
+      'description':
+          'We build homes that match your lifestyle and expectations. With a strong focus on quality materials, skilled craftsmanship, and timely delivery, we turn your residential vision into a lasting reality.',
       'image': 'assets/images/servicescons/res.jpg',
     },
     {
       'title': 'Infrastructure Development',
-      'description': 'Creating essential infrastructure for tomorrow.',
+      'description':
+          'From roads and drainage to utilities and public facilities, we offer complete infrastructure development solutions. We combine technical expertise with sustainable practices to support long-term growth and functionality.',
       'image': 'assets/images/servicescons/civil.jpg',
     },
     {
       'title': 'MEP Services',
-      'description': 'Ensuring buildings operate efficiently.',
+      'description':
+          'We specialize in Mechanical, Electrical, and Plumbing (MEP) services essential for efficient and safe building operations. Our team ensures all systems are designed, installed, and maintained to meet the highest industry standards.',
       'image': 'assets/images/servicescons/mep.jpg',
     },
     {
       'title': 'Renovation Works',
-      'description': 'Breathing new life into old spaces.',
+      'description':
+          'Our renovation services breathe new life into existing spaces. Whether it’s a full remodel or targeted upgrades, we handle structural, aesthetic, and utility improvements with precision and care.',
       'image': 'assets/images/servicescons/renovation.jpg',
     },
     {
       'title': 'Interior Solutions',
-      'description': 'Beautiful interiors tailored to your lifestyle.',
+      'description':
+          'We provide end-to-end interior design and execution services tailored to your vision. From space planning and material selection to final finishes, we create beautiful and functional interiors that reflect your style and needs.',
       'image': 'assets/images/servicescons/interior.jpg',
     },
   ];
@@ -121,7 +127,7 @@ class ServicePageScreen extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 20),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 3, // 🔥 Updated to 3 columns
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 childAspectRatio: 3 / 2,
@@ -192,9 +198,8 @@ class _ServiceCardState extends State<ServiceCard>
       position: _animation,
       child: Container(
         width: screenWidth * 0.9,
-// Only constrain maxHeight instead of fixed height
         constraints: BoxConstraints(
-          maxHeight: screenHeight * 0.6,
+          maxHeight: screenHeight * 0.4,
         ),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -209,7 +214,6 @@ class _ServiceCardState extends State<ServiceCard>
         ),
         child: Column(
           children: [
-// Image section
             Flexible(
               flex: 4,
               child: ClipRRect(
@@ -221,35 +225,33 @@ class _ServiceCardState extends State<ServiceCard>
                 ),
               ),
             ),
-
-// Text section
-            Flexible(
-              flex: 4,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.title,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      widget.description,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.grey[600],
-                          ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize:
+                    MainAxisSize.min,
+                children: [
+                  Text(
+                    widget.title,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    widget.description
+                        .trim(),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Colors.grey[700],
+                        ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
               ),
             ),
           ],
@@ -267,11 +269,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
     final isSmallScreen = screenWidth < 600;
 
     return AppBar(
-      backgroundColor: const Color(0xFF003366),
+      backgroundColor: const Color(0xFF3A0303),
       title: GestureDetector(
         onTap: () => context.go("/"),
         child: Image.asset(
@@ -282,7 +283,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: isSmallScreen
           ? [
-// Small screen: Show a popup menu (hamburger menu style)
               PopupMenuButton<String>(
                 icon: Icon(Icons.menu, color: Colors.white),
                 onSelected: (value) {
@@ -299,21 +299,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               )
             ]
           : [
-// Large screen: Show horizontal menu
-              _buildNavButton(context, 'Home', '/', currentRoute),
-              _buildNavButton(
-                  context, 'About Us', '/AboutUsPage', currentRoute),
-              _buildNavButton(
-                  context, 'Our Offices', '/officeaddress', currentRoute),
-              _buildNavButton(
-                  context, 'Quote Request', '/quoterequest', currentRoute),
-              _buildNavButton(
-                  context, 'Contact Us', '/contactus', currentRoute),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(mainAxisSize: MainAxisSize.min, children: [
+                  _buildNavButton(context, 'Home', '/', currentRoute),
+                  _buildNavButton(
+                      context, 'About Us', '/AboutUsPage', currentRoute),
+                  _buildNavButton(
+                      context, 'Our Offices', '/officeaddress', currentRoute),
+                  _buildNavButton(
+                      context, 'Quote Request', '/quoterequest', currentRoute),
+                  _buildNavButton(
+                      context, 'Contact Us', '/contactus', currentRoute),
+                ]),
+              ),
             ],
     );
   }
 
-// Navigation button for large screens
   Widget _buildNavButton(
       BuildContext context, String label, String route, String? currentRoute) {
     return TextButton(
@@ -328,7 +331,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-// Popup menu item for small screens
   PopupMenuItem<String> _buildMenuItem(
       String label, String route, String? currentRoute) {
     return PopupMenuItem<String>(
