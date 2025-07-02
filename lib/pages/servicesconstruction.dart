@@ -230,8 +230,7 @@ class _ServiceCardState extends State<ServiceCard>
                   const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize:
-                    MainAxisSize.min,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     widget.title,
@@ -244,8 +243,7 @@ class _ServiceCardState extends State<ServiceCard>
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    widget.description
-                        .trim(),
+                    widget.description.trim(),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Colors.grey[700],
                         ),
@@ -354,47 +352,23 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF003366),
+      color: Color(0xFF3A0303),
       padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 16.0),
+
+          SizedBox(height: 16.0),
+          // Footer Text
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Get In Touch:',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 8.0),
-                  Text('Phone: +966567273714',
-                      style: TextStyle(color: Colors.white)),
-                  Text('Email: sales@mwtworld.com',
-                      style: TextStyle(color: Colors.white)),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Address:',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
-                  Text('Al Azhar Building Tower',
-                      style: TextStyle(color: Colors.white)),
-                  Text('Al Safa Dist', style: TextStyle(color: Colors.white)),
-                  Text('Jeddah 23535, Saudi Arabia',
-                      style: TextStyle(color: Colors.white)),
-                ],
+              Text(
+                '© 2030 Al Wajhat Global Western Company Ltd., All rights reserved.',
+                style: TextStyle(color: Colors.white),
               ),
             ],
-          ),
-          SizedBox(height: 16.0),
-          Center(
-            child: Text('© 2024 MWT Solutions. All rights reserved.',
-                style: TextStyle(color: Colors.white)),
           ),
         ],
       ),

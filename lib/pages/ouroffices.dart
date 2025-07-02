@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
 
-
 class OurOfficesPage extends StatelessWidget {
   final List<Map<String, String>> offices = [
     {
@@ -43,7 +42,7 @@ class OurOfficesPage extends StatelessWidget {
   Widget officeCard(Map<String, String> office) {
     return Card(
       elevation: 8,
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
+      margin: const EdgeInsets.symmetric(vertical: 14),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
       ),
@@ -138,47 +137,65 @@ class OurOfficesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainPageAppBar(),
-      body: Stack(
-        children: [
-          // Gradient background
-                   Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg-career.jpg'), // Replace with your image path
-                fit: BoxFit.cover,
-              ),
-              gradient: LinearGradient(
-                colors: [
-                  Colors.black.withOpacity(0.6),
-                  Colors.orange.shade100.withOpacity(0.6),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-          ),// Optional background image with opacity
-          // Positioned.fill(
-          //   child: Opacity(
-          //     opacity: 0.08,
-          //     child: Image.asset( 
-          //       'assets\images\contact_bg.jpg', // Replace with your image asset
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          // ),
-          // Content
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: offices.map((office) {
-                  return Expanded(child: officeCard(office));
-                }).toList(),
-              ),
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg-career.jpg'),
+            fit: BoxFit.cover,
           ),
-        ],
+          gradient: LinearGradient(
+            colors: [
+              Colors.black.withOpacity(0.6),
+              Colors.orange.shade100.withOpacity(0.6),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20),
+                    child: Wrap(
+                      spacing: 20,
+                      runSpacing: 20,
+                      children: offices.map((office) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width >= 900
+                              ? MediaQuery.of(context).size.width / 3 - 40
+                              : MediaQuery.of(context).size.width,
+                          child: officeCard(office),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+                FooterSection(),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class FooterSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0xFF3A0303),
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      child: Center(
+        child: Text(
+          '© 2030 Al Wajhat Global Western Company Ltd., All rights reserved.',
+          style: TextStyle(color: Colors.white, fontSize: 14),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
