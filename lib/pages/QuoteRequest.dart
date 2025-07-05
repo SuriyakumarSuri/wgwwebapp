@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
+import 'package:wgwwebapp/pages/thankyoupage.dart';
+import 'package:wgwwebapp/pages/thankyoupage.dart' as lower;
 import 'ThankYouPage.dart'; // Make sure this path is correct in your project
 
 class QuoteRequestPage extends StatefulWidget {
@@ -84,7 +86,8 @@ class _QuoteRequestPageState extends State<QuoteRequestPage> {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 24),
-                      Text("Type of Event", style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text("Type of Event",
+                          style: TextStyle(fontWeight: FontWeight.w600)),
                       const SizedBox(height: 8),
                       DropdownButtonFormField<String>(
                         value: _selectedEventType,
@@ -94,16 +97,21 @@ class _QuoteRequestPageState extends State<QuoteRequestPage> {
                                   child: Text(type),
                                 ))
                             .toList(),
-                        onChanged: (value) => setState(() => _selectedEventType = value),
+                        onChanged: (value) =>
+                            setState(() => _selectedEventType = value),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: "Select event type",
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 14),
                         ),
-                        validator: (value) => value == null ? "Please select an event type" : null,
+                        validator: (value) => value == null
+                            ? "Please select an event type"
+                            : null,
                       ),
                       const SizedBox(height: 16),
-                      Text("Number of Guests", style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text("Number of Guests",
+                          style: TextStyle(fontWeight: FontWeight.w600)),
                       const SizedBox(height: 8),
                       TextFormField(
                         controller: _guestsController,
@@ -111,16 +119,20 @@ class _QuoteRequestPageState extends State<QuoteRequestPage> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: "Enter number of guests",
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 14),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) return "Please enter number of guests";
-                          if (int.tryParse(value) == null) return "Enter a valid number";
+                          if (value == null || value.isEmpty)
+                            return "Please enter number of guests";
+                          if (int.tryParse(value) == null)
+                            return "Enter a valid number";
                           return null;
                         },
                       ),
                       const SizedBox(height: 16),
-                      Text("Date", style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text("Date",
+                          style: TextStyle(fontWeight: FontWeight.w600)),
                       const SizedBox(height: 8),
                       TextFormField(
                         controller: _dateController,
@@ -129,13 +141,17 @@ class _QuoteRequestPageState extends State<QuoteRequestPage> {
                           border: OutlineInputBorder(),
                           hintText: "Select a date",
                           suffixIcon: Icon(Icons.calendar_today),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 14),
                         ),
                         onTap: () => _pickDate(context),
-                        validator: (value) => value == null || value.isEmpty ? "Please select a date" : null,
+                        validator: (value) => value == null || value.isEmpty
+                            ? "Please select a date"
+                            : null,
                       ),
                       const SizedBox(height: 16),
-                      Text("Budget", style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text("Budget",
+                          style: TextStyle(fontWeight: FontWeight.w600)),
                       const SizedBox(height: 8),
                       TextFormField(
                         controller: _budgetController,
@@ -144,16 +160,20 @@ class _QuoteRequestPageState extends State<QuoteRequestPage> {
                           border: OutlineInputBorder(),
                           hintText: "Enter your budget",
                           prefixText: "\$ ",
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 14),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) return "Please enter your budget";
-                          if (double.tryParse(value) == null) return "Enter a valid amount";
+                          if (value == null || value.isEmpty)
+                            return "Please enter your budget";
+                          if (double.tryParse(value) == null)
+                            return "Enter a valid amount";
                           return null;
                         },
                       ),
                       const SizedBox(height: 16),
-                      Text("Preferences", style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text("Preferences",
+                          style: TextStyle(fontWeight: FontWeight.w600)),
                       const SizedBox(height: 8),
                       TextFormField(
                         controller: _preferencesController,
@@ -161,7 +181,8 @@ class _QuoteRequestPageState extends State<QuoteRequestPage> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: "Enter any preferences",
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 14),
                         ),
                       ),
                       const SizedBox(height: 28),
@@ -178,15 +199,17 @@ class _QuoteRequestPageState extends State<QuoteRequestPage> {
                           ),
                           onPressed: () {
                             if (_formKey.currentState?.validate() ?? false) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => ThankYouPage()),
+                              showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => lower.ThankYouDialog(),
                               );
                             }
                           },
                           child: Text(
                             "Get My Custom Quote",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
