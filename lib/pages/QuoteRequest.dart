@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
 import 'package:wgwwebapp/pages/thankyoupage.dart';
 import 'package:wgwwebapp/pages/thankyoupage.dart' as lower;
-import 'ThankYouPage.dart'; // Make sure this path is correct in your project
+
 
 class QuoteRequestPage extends StatefulWidget {
   @override

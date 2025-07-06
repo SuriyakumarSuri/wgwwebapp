@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wgwwebapp/pages/BusinessIndustries.dart';
+import 'package:wgwwebapp/pages/BusinessServices.dart';
 import 'package:wgwwebapp/pages/OurBuisnessPage.dart';
 import 'package:wgwwebapp/pages/home.dart' as home;
 import 'package:wgwwebapp/pages/aboutconstruction.dart' as about;
@@ -80,6 +82,16 @@ class MyApp extends StatelessWidget {
        GoRoute(
         path: '/quoterequest',
         builder:(context, state) => quote.QuoteRequestPage(),
+      ),
+
+       GoRoute(
+        path: '/businessservices',
+        builder:(context, state) => BuisnessServicePage(),
+      ),
+
+       GoRoute(
+        path: '/businessindustries',
+        builder:(context, state) => Businessindustries(),
       )
 
     ],

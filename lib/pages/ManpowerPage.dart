@@ -143,22 +143,22 @@ class _HomePageState extends State<ManpowerPage> with SingleTickerProviderStateM
             ),
             TextButton(
               onPressed: () {
-                context.go('/contactus'); // Navigates to Contact Us page
+                context.go('/businessservices'); // Navigates to Contact Us page
               },
               child: Text('Our Services', style: TextStyle(color: Colors.white)),
             ),
             TextButton(
               onPressed: () {
-                context.go('/contactus'); // Navigates to Contact Us page
+                context.go('/businessindustries'); // Navigates to Contact Us page
               },
               child: Text('Industries', style: TextStyle(color: Colors.white)),
             ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus'); // Navigates to Contact Us page
-              },
-              child: Text('Job Seekers', style: TextStyle(color: Colors.white)),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     context.go('/contactus'); // Navigates to Contact Us page
+            //   },
+            //   child: Text('Job Seekers', style: TextStyle(color: Colors.white)),
+            // ),
             TextButton(
               onPressed: () {
                 context.go('/officeaddress'); // Navigates to Contact Us page

@@ -148,10 +148,10 @@ class AboutUsPage extends StatelessWidget {
           ).animate().slideX(
                 begin: -0.5,
                 end: 0,
-                duration: 600.ms,
+                duration: 1000.ms,
                 curve: Curves.easeOut,
               ).fadeIn(
-                duration: 600.ms,
+                duration: 1000.ms,
               ),
 
           Stack(
