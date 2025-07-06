@@ -138,17 +138,18 @@ class _CareersPageState extends State<CareersPage> {
                                       filled: true,
                                       fillColor: Colors.white,
                                     ),
-                                    validator: (value) => value == null ||
-                                            value.isEmpty
-                                        ? 'Please enter a message'
-                                        : null,
+                                    validator: (value) =>
+                                        value == null || value.isEmpty
+                                            ? 'Please enter a message'
+                                            : null,
                                   ),
                                   SizedBox(height: 20),
 
                                   // Resume Upload
                                   Text(
                                     "Upload Resume / CV",
-                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(height: 8),
                                   Row(
@@ -215,8 +216,8 @@ class _CareersPageState extends State<CareersPage> {
                                             showDialog(
                                               context: context,
                                               builder: (_) => AlertDialog(
-                                                title:
-                                                    Text("Application Submitted"),
+                                                title: Text(
+                                                    "Application Submitted"),
                                                 content: Text(
                                                     "Thank you, ${_usernameController.text}!"),
                                                 actions: [
@@ -236,8 +237,8 @@ class _CareersPageState extends State<CareersPage> {
                                         label: Text("Reset"),
                                         style: OutlinedButton.styleFrom(
                                           foregroundColor: Colors.deepOrange,
-                                          side:
-                                              BorderSide(color: Colors.deepOrange),
+                                          side: BorderSide(
+                                              color: Colors.deepOrange),
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 14),
                                           shape: RoundedRectangleBorder(

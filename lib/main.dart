@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wgwwebapp/pages/OurBuisnessPage.dart';
 import 'package:wgwwebapp/pages/home.dart' as home;
 import 'package:wgwwebapp/pages/aboutconstruction.dart' as about;
 import 'package:wgwwebapp/pages/ConstructionPage.dart';
@@ -44,10 +45,13 @@ class MyApp extends StatelessWidget {
         builder: (context, state) => about.AboutUsPage(),
       ),
       GoRoute(
-        path: '/eventmanagement',
+        path: '/event',
         builder: (context, state) => EventManagementPage(),
       ),
-
+      GoRoute(
+        path: '/ourbusiness',
+        builder: (context, state) => OurBuisnessPage(),
+      ),
       GoRoute(
         path: '/services',
         builder: (context, state) => service.ServicePageScreen(), // not ServicePageApp

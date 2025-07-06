@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart'; // Added for animations
+import 'package:wgwwebapp/components/AppBarComponents.dart';
 import 'package:wgwwebapp/pages/home.dart' as home;
 
 void main() {
@@ -136,7 +137,7 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: MainPageAppBar(),
       body: ListView(
         children: [
           Section(

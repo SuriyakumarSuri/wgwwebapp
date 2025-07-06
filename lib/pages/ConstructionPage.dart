@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:wgwwebapp/components/AppBarComponents.dart';
 
 class ConstructionPage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-class _HomePageState extends State<ConstructionPage> with SingleTickerProviderStateMixin {
+
+class _HomePageState extends State<ConstructionPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
   @override
@@ -30,118 +32,17 @@ class _HomePageState extends State<ConstructionPage> with SingleTickerProviderSt
     // Start the animation
     _controller.forward();
   }
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(85), // Increased height for AppBar
-        child: AppBar(
-          backgroundColor: Color(0xFF3A0303), // Deep blue background color
-          flexibleSpace: Row(
-            children: [
-              SlideTransition(
-                position: _animation,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10), // Adjust padding as needed
-                  child: GestureDetector(
-                    onTap: () {
-                      // Navigate to home page on image tap
-                      Navigator.pushNamed(context, '/home');
-                    },
-                    child: Image.asset(
-                      'assets/images/wgw.jpg',
-                      height: 80, // Adjust logo height
-                      width: 70, // Increased width for enhanced appearance
-                      fit: BoxFit.fill, // Ensure the image doesn't crop
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {},
-              child: Text('Home', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/aboutconstruction');
-              },
-              child: Text('About Us', style: TextStyle(color: Colors.white)),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.0),
-              child: PopupMenuButton<String>(
-                offset: Offset(0, 50), // Adjust dropdown position
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Text(
-                      'Business Groups',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ],
-                ),
-                onSelected: (String value) {
-                  context.go(value); // Navigate to selected route
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    buildPopupMenuItem('Construction', '/construction'),
-                    buildPopupMenuItem('Manpower', '/manpower'),
-                    buildPopupMenuItem('Event Management', '/event'),
-                    buildPopupMenuItem('Browse all', '/ourbusiness'),
-                  ];
-                },
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/service'); // Navigates to Contact Us page
-              },
-              child: Text('Our Services', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/officeaddress'); // Navigates to Contact Us page
-              },
-              child: Text('Our Offices', style: TextStyle(color: Colors.white)),
-            ),
-            // TextButton(
-            //   onPressed: () {
-            //     context.go('/quoterequest'); // Navigates to Contact Us page
-            //   },
-            //   child: Text('Quote Request', style: TextStyle(color: Colors.white)),
-            // ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus'); // Navigates to Contact Us page
-              },
-              child: Text('Careers', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus'); // Navigates to Contact Us page
-              },
-              child: Text('Contact Us', style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        ),
-      ),
+      appBar: MainPageAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,6 +57,7 @@ class _HomePageState extends State<ConstructionPage> with SingleTickerProviderSt
       ),
     );
   }
+
   /// Helper Method for PopupMenuItem with Compact Design
   PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
     return PopupMenuItem<String>(
@@ -165,6 +67,7 @@ class _HomePageState extends State<ConstructionPage> with SingleTickerProviderSt
     );
   }
 }
+
 /// Hoverable Menu Item Widget with Compact Styling
 class HoverableMenuItem extends StatefulWidget {
   final String title;
@@ -174,6 +77,7 @@ class HoverableMenuItem extends StatefulWidget {
   @override
   _HoverableMenuItemState createState() => _HoverableMenuItemState();
 }
+
 class _HoverableMenuItemState extends State<HoverableMenuItem> {
   bool _isHovered = false;
 
@@ -183,7 +87,8 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(
+            vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -199,10 +104,12 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
     );
   }
 }
+
 class HeroSection extends StatefulWidget {
   @override
   _HeroSectionState createState() => _HeroSectionState();
 }
+
 class _HeroSectionState extends State<HeroSection> {
   final PageController _pageController = PageController();
   final List<Map<String, String>> _slides = [
@@ -219,7 +126,8 @@ class _HeroSectionState extends State<HeroSection> {
     {
       'image': 'assets/images/build3.jpg',
       'title': 'BUILDING THE FUTURE, BRICK BY BRICK',
-      'subtitle': 'Reliable, Efficient, and High-Quality Construction Solutions',
+      'subtitle':
+          'Reliable, Efficient, and High-Quality Construction Solutions',
     },
   ];
   int _currentPage = 0;
@@ -259,7 +167,8 @@ class _HeroSectionState extends State<HeroSection> {
   @override
   void dispose() {
     _timer?.cancel();
-    _pageController.removeListener(_onPageChanged); // Remove listener when disposed
+    _pageController
+        .removeListener(_onPageChanged); // Remove listener when disposed
     _pageController.dispose();
     super.dispose();
   }
@@ -284,7 +193,8 @@ class _HeroSectionState extends State<HeroSection> {
                     width: double.infinity,
                   ),
                   Container(
-                    color: Colors.black.withOpacity(0.3), // Overlay for readability
+                    color: Colors.black
+                        .withOpacity(0.3), // Overlay for readability
                   ),
                   // Title and Subtitle at the Top
                   Positioned(
@@ -372,12 +282,14 @@ class _HeroSectionState extends State<HeroSection> {
     );
   }
 }
+
 class ServicesSection extends StatefulWidget {
   const ServicesSection({super.key});
 
   @override
   State<ServicesSection> createState() => _ServicesSectionState();
 }
+
 class _ServicesSectionState extends State<ServicesSection> {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
@@ -386,12 +298,14 @@ class _ServicesSectionState extends State<ServicesSection> {
     super.initState();
     _startAutoScroll();
   }
+
   @override
   void dispose() {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
+
   /// Start Auto Scroll Timer
   void _startAutoScroll() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
@@ -416,6 +330,7 @@ class _ServicesSectionState extends State<ServicesSection> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -504,6 +419,7 @@ class _ServicesSectionState extends State<ServicesSection> {
       ),
     );
   }
+
   /// Service Card Widget
   Widget _buildServiceCard({
     required String imagePath,
@@ -563,61 +479,71 @@ class _ServicesSectionState extends State<ServicesSection> {
             ),
           ),
           Spacer(),
-
         ],
       ),
     );
   }
 }
+
 /// Service Data
 final List<Map<String, String>> _serviceData = [
   {
     'imagePath': 'assets/images/Cont1.jpg',
     'title': 'General Contracting',
-    'description': 'We provide end-to-end construction management, ensuring high-quality execution, timely delivery, and adherence to safety standards. From planning to completion, we handle every aspect of your project with precision and expertise.',
+    'description':
+        'We provide end-to-end construction management, ensuring high-quality execution, timely delivery, and adherence to safety standards. From planning to completion, we handle every aspect of your project with precision and expertise.',
   },
   {
     'imagePath': 'assets/images/build.jpg',
     'title': 'Design & Build',
-    'description': 'Our integrated Design & Build approach streamlines the construction process, combining innovative design with expert execution to deliver cost-effective, high-quality projects on time.',
+    'description':
+        'Our integrated Design & Build approach streamlines the construction process, combining innovative design with expert execution to deliver cost-effective, high-quality projects on time.',
   },
   {
     'imagePath': 'assets/images/civil.jpg',
     'title': 'Civil & Structural Engineering',
-    'description': 'We specialize in designing and constructing durable, high-performance structures, ensuring safety, stability, and efficiency in every project, from foundations to complex infrastructures.',
+    'description':
+        'We specialize in designing and constructing durable, high-performance structures, ensuring safety, stability, and efficiency in every project, from foundations to complex infrastructures.',
   },
   {
     'imagePath': 'assets/images/res.jpg',
     'title': 'Commercial & Residential Construction',
-    'description': 'We provide comprehensive construction services for both commercial and residential projects, delivering custom-built solutions that meet client specifications while ensuring quality, safety, and timely completion.',
+    'description':
+        'We provide comprehensive construction services for both commercial and residential projects, delivering custom-built solutions that meet client specifications while ensuring quality, safety, and timely completion.',
   },
   {
     'imagePath': 'assets/images/road.png',
     'title': 'Infrastructure & Heavy Construction',
-    'description': 'We specialize in large-scale infrastructure projects, including roads, bridges, and utilities, delivering durable, efficient, and sustainable solutions that meet the demands of modern urban development.',
+    'description':
+        'We specialize in large-scale infrastructure projects, including roads, bridges, and utilities, delivering durable, efficient, and sustainable solutions that meet the demands of modern urban development.',
   },
   {
     'imagePath': 'assets/images/mep.jpg',
     'title': 'Mechanical, Electrical & Plumbing (MEP) Services',
-    'description': 'We offer integrated MEP solutions, ensuring the efficient design, installation, and maintenance of heating, ventilation, air conditioning (HVAC), electrical, and plumbing systems to optimize building performance and comfort.',
+    'description':
+        'We offer integrated MEP solutions, ensuring the efficient design, installation, and maintenance of heating, ventilation, air conditioning (HVAC), electrical, and plumbing systems to optimize building performance and comfort.',
   },
   {
     'imagePath': 'assets/images/renovate.jpg',
     'title': 'Renovation & Remodeling',
-    'description': 'We transform existing spaces with expert renovation and remodeling services, enhancing functionality and aesthetics while preserving structural integrity to meet modern needs and design preferences.',
+    'description':
+        'We transform existing spaces with expert renovation and remodeling services, enhancing functionality and aesthetics while preserving structural integrity to meet modern needs and design preferences.',
   },
   {
     'imagePath': 'assets/images/interior.jpg',
     'title': 'Fit-Out & Interior Solutions',
-    'description': 'We provide customized fit-out and interior design services, creating functional and stylish spaces that reflect your vision, with high-quality finishes and attention to detail for both commercial and residential projects.',
+    'description':
+        'We provide customized fit-out and interior design services, creating functional and stylish spaces that reflect your vision, with high-quality finishes and attention to detail for both commercial and residential projects.',
   },
 ];
+
 //Business Section
 class BusinessSection extends StatefulWidget {
   const BusinessSection({super.key});
   @override
   State<BusinessSection> createState() => _BusinessSectionState();
 }
+
 class _BusinessSectionState extends State<BusinessSection> {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
@@ -626,12 +552,14 @@ class _BusinessSectionState extends State<BusinessSection> {
     super.initState();
     _startAutoScroll();
   }
+
   @override
   void dispose() {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
+
   /// Start Auto Scroll Timer
   void _startAutoScroll() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
@@ -656,6 +584,7 @@ class _BusinessSectionState extends State<BusinessSection> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -689,7 +618,8 @@ class _BusinessSectionState extends State<BusinessSection> {
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: _businessData.length,
-              separatorBuilder: (context, index) => SizedBox(width: 16), // Consistent spacing
+              separatorBuilder: (context, index) =>
+                  SizedBox(width: 16), // Consistent spacing
               itemBuilder: (context, index) {
                 final service = _businessData[index];
                 return _buildbusinessCard(
@@ -699,7 +629,6 @@ class _BusinessSectionState extends State<BusinessSection> {
               },
             ),
           ),
-
 
           SizedBox(height: 16),
           // Indicator Dots
@@ -719,6 +648,7 @@ class _BusinessSectionState extends State<BusinessSection> {
       ),
     );
   }
+
   /// Service Card Widget
   Widget _buildbusinessCard({
     required String imagePath,
@@ -779,9 +709,8 @@ class _BusinessSectionState extends State<BusinessSection> {
       ),
     );
   }
-
-
 }
+
 /// Service Data
 final List<Map<String, String>> _businessData = [
   {
@@ -797,6 +726,7 @@ final List<Map<String, String>> _businessData = [
     'title': 'Event Management',
   },
 ];
+
 //About us//
 class AboutUsSection extends StatelessWidget {
   @override
@@ -849,10 +779,12 @@ class AboutUsSection extends StatelessWidget {
                       onPressed: () {
                         print('Navigating to AboutUsPage');
                         // Ensure the path matches the defined route in GoRouter
-                        context.go('/AboutUsPage');},
+                        context.go('/AboutUsPage');
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F), // Red color
-                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
                       child: Text(
                         'READ MORE',
@@ -876,6 +808,7 @@ class AboutUsSection extends StatelessWidget {
     );
   }
 }
+
 // Footer Section//
 class FooterSection extends StatelessWidget {
   @override
@@ -896,7 +829,8 @@ class FooterSection extends StatelessWidget {
                 children: [
                   Text(
                     'Get In Touch:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.0),
                   Text(
@@ -912,16 +846,17 @@ class FooterSection extends StatelessWidget {
                     'Email: info@wgwcltd.com',
                     style: TextStyle(color: Colors.white),
                   ),
-
                 ],
               ),
               // Address Column (Right)
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // Align text to the left
                 children: [
                   Text(
                     'Address:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.0),
                   Text(
@@ -956,6 +891,7 @@ class FooterSection extends StatelessWidget {
     );
   }
 }
+
 /// Helper method to build dropdown items with custom spacing
 DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     {bool isHeader = false, bool isBold = false, Color? color}) {
@@ -975,4 +911,3 @@ DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     ),
   );
 }
-

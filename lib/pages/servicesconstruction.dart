@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wgwwebapp/components/AppBarComponents.dart';
 
 void main() {
   runApp(ServicePageApp());
@@ -72,7 +73,7 @@ class ServicePageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      appBar: CustomAppBar(currentRoute: '/service'),
+      appBar: MainPageAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

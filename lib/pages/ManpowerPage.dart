@@ -96,7 +96,9 @@ class _HomePageState extends State<ManpowerPage> with SingleTickerProviderStateM
           ),
           actions: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                context.go('/');
+              },
               child: Text('Home', style: TextStyle(color: Colors.white)),
             ),
             TextButton(
