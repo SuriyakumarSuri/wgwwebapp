@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
-
+import 'package:wgwwebapp/utils/pageTheme.dart';
 class OurOfficesPage extends StatelessWidget {
+  final PageTheme theme;
+  OurOfficesPage({Key? key, required this.theme}) : super(key: key);
   final List<Map<String, String>> offices = [
     {
       'title': 'MWT Logistic Solution Head Office - JEDDAH',
@@ -133,10 +135,20 @@ class OurOfficesPage extends StatelessWidget {
     );
   }
 
+  PreferredSizeWidget getAppBar() {
+    switch (theme) {
+      case PageTheme.construction:
+        return const MainPageAppBar();
+      case PageTheme.manpower:
+        return const SubMainPageAppBar();
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainPageAppBar(),
+      appBar: getAppBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -173,7 +185,7 @@ class OurOfficesPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                FooterSection(),
+                FooterSection(theme: theme),
               ],
             );
           },
@@ -183,20 +195,3 @@ class OurOfficesPage extends StatelessWidget {
   }
 }
 
-class FooterSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFF3A0303),
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-      child: Center(
-        child: Text(
-          '© 2030 Al Wajhat Global Western Company Ltd., All rights reserved.',
-          style: TextStyle(color: Colors.white, fontSize: 14),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wgwwebapp/pages/BusinessIndustries.dart';
 import 'package:wgwwebapp/pages/BusinessServices.dart';
+import 'package:wgwwebapp/pages/Businessabout.dart';
 import 'package:wgwwebapp/pages/OurBuisnessPage.dart';
 import 'package:wgwwebapp/pages/home.dart' as home;
 import 'package:wgwwebapp/pages/aboutconstruction.dart' as about;
@@ -13,7 +14,7 @@ import 'package:wgwwebapp/pages/ouroffices.dart' as office;
 import 'package:wgwwebapp/pages/contactus.dart' as contact;
 import 'package:wgwwebapp/pages/careers.dart' as careers;
 import 'package:wgwwebapp/pages/QuoteRequest.dart' as quote;
-
+import 'package:wgwwebapp/utils/pageTheme.dart';
 
 void main() {
   runApp(MyApp());
@@ -66,17 +67,31 @@ class MyApp extends StatelessWidget {
 
       GoRoute(
         path: '/officeaddress',
-        builder: (context, state) => office.OurOfficesPage(),
+        builder: (context, state) => office.OurOfficesPage(theme: PageTheme.construction)
+      ),
+      GoRoute(
+        path: '/officeaddress-manpower',
+        builder: (context, state) => office.OurOfficesPage(theme: PageTheme.manpower)
+      ),
+      
+      GoRoute(
+        path: "/contactus",
+        builder: (context, state) => contact.ContactUsPage(theme: PageTheme.construction)
       ),
 
       GoRoute(
-        path: "/contactus",
-        builder: (context, state) => contact.ContactUsPage()
+        path: "/contactus-manpower",
+        builder: (context, state) => contact.ContactUsPage(theme: PageTheme.manpower)
       ),
 
       GoRoute(
         path: '/careers',
-        builder:(context, state) => careers.CareersPage(),
+        builder:(context, state) => careers.CareersPage(theme: PageTheme.construction),
+      ),
+
+       GoRoute(
+        path: '/careers-manpower',
+        builder:(context, state) => careers.CareersPage(theme: PageTheme.manpower),
       ),
 
        GoRoute(
@@ -92,6 +107,11 @@ class MyApp extends StatelessWidget {
        GoRoute(
         path: '/businessindustries',
         builder:(context, state) => Businessindustries(),
+      ),
+
+       GoRoute(
+        path: '/businessabout',
+        builder:(context, state) => BusinessAbout(),
       )
 
     ],

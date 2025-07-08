@@ -3,7 +3,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
 import 'dart:io';
 
+import 'package:wgwwebapp/utils/pageTheme.dart';
+
 class CareersPage extends StatefulWidget {
+  final PageTheme theme;
+  CareersPage({Key? key, required this.theme}) : super(key: key);
   @override
   _CareersPageState createState() => _CareersPageState();
 }
@@ -35,10 +39,19 @@ class _CareersPageState extends State<CareersPage> {
     setState(() => _resumeFile = null);
   }
 
+PreferredSizeWidget getAppBar() {
+    switch (widget.theme) {
+      case PageTheme.construction:
+        return const MainPageAppBar();
+      case PageTheme.manpower:
+        return const SubMainPageAppBar();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainPageAppBar(),
+      appBar: getAppBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -259,7 +272,7 @@ class _CareersPageState extends State<CareersPage> {
                     ),
                   ),
                 ),
-                FooterSection(), // Footer always visible
+                FooterSection(theme: widget.theme), // Footer always visible
               ],
             );
           },
@@ -286,24 +299,6 @@ class _CareersPageState extends State<CareersPage> {
         fillColor: Colors.white,
       ),
       validator: validator,
-    );
-  }
-}
-
-class FooterSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFF3A0303),
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-      child: Center(
-        child: Text(
-          '© 2030 Al Wajhat Global Western Company Ltd., All rights reserved.',
-          style: TextStyle(color: Colors.white, fontSize: 14),
-          textAlign: TextAlign.center,
-        ),
-      ),
     );
   }
 }
