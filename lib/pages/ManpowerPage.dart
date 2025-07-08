@@ -97,13 +97,13 @@ class _HomePageState extends State<ManpowerPage> with SingleTickerProviderStateM
           actions: [
             TextButton(
               onPressed: () {
-                context.go('/');
+                context.go('/manpower');
               },
               child: Text('Home', style: TextStyle(color: Colors.white)),
             ),
             TextButton(
               onPressed: () {
-                context.go('/AboutUsPage');
+                context.go('/businessabout');
               },
               child: Text('About Us', style: TextStyle(color: Colors.white)),
             ),
