@@ -5,29 +5,29 @@ import 'package:wgwwebapp/components/AppBarComponents.dart';
 class OurOfficesPage extends StatelessWidget {
   final List<Map<String, String>> offices = [
     {
-      'title': 'MWT Logistic Solution Head Office - JEDDAH',
+      'title': 'Al Wajhat Global Western Company Ltd., Head Office - JEDDAH',
       'address':
           'Al Azhar Building Tower - 7th Floor - Office # 601, Al Safa Dist., Jeddah 23535 - Kingdom of Saudi Arabia',
       'phone': '+966567273714',
-      'email': 'sales@mwtworld.com',
+      'email': 'info@wgwcltd.com',
       'mapUrl':
           'https://www.google.com/maps/search/?api=1&query=Jeddah,+Saudi+Arabia',
     },
     {
-      'title': 'MWT Logistic Solution - Oman',
+      'title': 'Al Wajhat Global Western Company Ltd., - Oman',
       'address':
           '111 - Ruwi Street, 1st Floor - Building 202, Muscat, Oman',
       'phone': '+96898803274',
-      'email': 'sales@mwtworld.com',
+      'email': 'info@wgwcltd.com',
       'mapUrl':
           'https://www.google.com/maps/search/?api=1&query=Muscat,+Oman',
     },
     {
-      'title': 'MWT Logistic Solution - Dubai',
+      'title': 'Al Wajhat Global Western Company Ltd., - Dubai',
       'address':
           'Adel Ahmed Al Wahedi Building, Office # 273, Al Marrar, Dubai, United Arab Emirates',
       'phone': '+971585005581',
-      'email': 'sales@mwtworld.com',
+      'email': 'info@wgwcltd.com',
       'mapUrl':
           'https://www.google.com/maps/search/?api=1&query=Dubai,+UAE',
     },
