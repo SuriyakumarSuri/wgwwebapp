@@ -47,6 +47,34 @@ class _EventManagementPageState extends State<EventManagementPage>
     );
   }
 
+  final List<Map<String, dynamic>> eventData = [
+    {
+      'title': 'Corporate Events',
+      'description': 'Conferences, product launches, and leadership summits.',
+      'icon': Icons.business_center,
+    },
+    {
+      'title': 'Weddings & Socials',
+      'description': 'From grand weddings to intimate receptions.',
+      'icon': Icons.favorite,
+    },
+    {
+      'title': 'Birthday Parties',
+      'description': 'Themed birthday experiences for all ages.',
+      'icon': Icons.cake,
+    },
+    {
+      'title': 'Cultural & Sports',
+      'description': 'Cultural fests, sports days, and tournaments.',
+      'icon': Icons.celebration,
+    },
+    {
+      'title': 'Stage & AV Production',
+      'description': 'Lighting, sound, multimedia displays, and live streaming.',
+      'icon': Icons.theaters,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,13 +176,11 @@ class _EventManagementPageState extends State<EventManagementPage>
                 Wrap(
                   spacing: 20,
                   runSpacing: 20,
-                  children: [
-                    EventCardItem(title: 'Corporate Events', description: 'Conferences, product launches, and leadership summits.', icon: Icons.business_center),
-                    EventCardItem(title: 'Weddings & Socials', description: 'From grand weddings to intimate receptions.', icon: Icons.favorite),
-                    EventCardItem(title: 'Birthday Parties', description: 'Themed birthday experiences for all ages.', icon: Icons.cake),
-                    EventCardItem(title: 'Cultural & Sports', description: 'Cultural fests, sports days, and tournaments.', icon: Icons.celebration),
-                    EventCardItem(title: 'Stage & AV Production', description: 'Lighting, sound, multimedia displays, and live streaming.', icon: Icons.theaters),
-                  ],
+                  children: eventData.map((event) => EventCardItem(
+                    title: event['title'],
+                    description: event['description'],
+                    icon: event['icon'],
+                  )).toList(),
                 ),
               ],
             ),
@@ -187,7 +213,7 @@ class FooterSection extends StatelessWidget {
   }
 }
 
-class EventCardItem extends StatelessWidget {
+class EventCardItem extends StatefulWidget {
   final String title;
   final String description;
   final IconData icon;
@@ -195,27 +221,47 @@ class EventCardItem extends StatelessWidget {
   const EventCardItem({required this.title, required this.description, required this.icon});
 
   @override
+  State<EventCardItem> createState() => _EventCardItemState();
+}
+
+class _EventCardItemState extends State<EventCardItem> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Color(0xFF6A0DAD)),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(color: Colors.grey.shade300, blurRadius: 6, offset: Offset(0, 3)),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: Color(0xFF6A0DAD), size: 36),
-          SizedBox(height: 12),
-          Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6A0DAD))),
-          SizedBox(height: 8),
-          Text(description, style: TextStyle(fontSize: 16, color: Colors.blueGrey[700])),
-        ],
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedScale(
+        scale: _isHovered ? 1.03 : 1.0,
+        duration: Duration(milliseconds: 200),
+        child: Container(
+          width: 300,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Color(0xFF6A0DAD)),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(color: Colors.grey.shade300, blurRadius: 6, offset: Offset(0, 3)),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(widget.icon, color: Color(0xFF6A0DAD), size: 36),
+              SizedBox(height: 12),
+              Text(widget.title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6A0DAD))),
+              SizedBox(height: 8),
+              Text(widget.description, style: TextStyle(fontSize: 16, color: Colors.blueGrey[700])),
+              SizedBox(height: 12),
+              TextButton(
+                onPressed: () => context.go('/quoterequest'),
+                child: Text('Book Now', style: TextStyle(color: Color(0xFF6A0DAD))),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
