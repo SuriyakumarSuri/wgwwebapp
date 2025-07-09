@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wgwwebapp/components/AppBarComponents.dart';
 
 class BusinessAbout extends StatefulWidget {
   @override
@@ -46,137 +47,7 @@ class _BusinessAboutState extends State<BusinessAbout> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade50,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(85),
-        child: AppBar(
-          backgroundColor: Color(0xFF022025),
-          flexibleSpace: Row(
-            children: [
-              SlideTransition(
-                position: _animation,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      context.go('/');
-                    },
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/wgw.png',
-                          height: 80,
-                          width: 70,
-                          fit: BoxFit.contain,
-                        ),
-                        SizedBox(width: 8),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'AL Wajhat Global Western',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              'Company Ltd.',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                context.go('/');
-              },
-              child: Text('Home', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/AboutUsPage');
-              },
-              child: Text('About Us', style: TextStyle(color: Colors.white)),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.0),
-              child: PopupMenuButton<String>(
-                offset: Offset(0, 50),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Text(
-                      'Business Groups',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ],
-                ),
-                onSelected: (String value) {
-                  context.go(value);
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    buildPopupMenuItem('Construction', '/construction'),
-                    buildPopupMenuItem('Manpower', '/manpower'),
-                    buildPopupMenuItem('Event Management', '/event'),
-                    buildPopupMenuItem('Browse all', '/ourbusiness'),
-                  ];
-                },
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/businessservices');
-              },
-              child: Text('Our Services', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/businessindustries');
-              },
-              child: Text('Industries', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/officeaddress');
-              },
-              child: Text('Our Offices', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus');
-              },
-              child: Text('Careers', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus');
-              },
-              child: Text('Contact Us', style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        ),
-      ),
+      appBar:SubMainPageAppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [

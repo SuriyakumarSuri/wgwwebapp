@@ -137,12 +137,10 @@ class _MainPageAppBarState extends State<MainPageAppBar>
                   offset: const Offset(0, 50),
                   color: Colors.white,
                   child: const Row(
-                    children: [
-                      Text('Business Groups',
-                          style: TextStyle(color: Colors.white, fontSize: 16)),
-                      Icon(Icons.arrow_drop_down,
-                          color: Colors.white, size: 18),
-                    ],
+                      children: [
+                    Text('Business Groups', style: TextStyle(color: Colors.white)),
+                    Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+                  ],
                   ),
                   onSelected: (value) => context.go(value),
                   itemBuilder: (_) => [
@@ -302,11 +300,11 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
-                onPressed: () => context.go('/'),
+                onPressed: () => context.go('/manpower'),
                 child: const Text('Home', style: TextStyle(color: Colors.white)),
               ),
               TextButton(
-                onPressed: () => context.go('/AboutUsPage'),
+                onPressed: () => context.go('/businessabout'),
                 child: const Text('About Us', style: TextStyle(color: Colors.white)),
               ),
                Padding(

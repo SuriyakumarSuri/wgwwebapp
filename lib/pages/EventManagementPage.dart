@@ -6,9 +6,11 @@ class EventManagementPage extends StatefulWidget {
   _EventManagementPageState createState() => _EventManagementPageState();
 }
 
-class _EventManagementPageState extends State<EventManagementPage> with SingleTickerProviderStateMixin {
+class _EventManagementPageState extends State<EventManagementPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -24,6 +26,10 @@ class _EventManagementPageState extends State<EventManagementPage> with SingleTi
       parent: _controller,
       curve: Curves.easeInOut,
     ));
+    _fadeAnimation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
+    );
     _controller.forward();
   }
 
@@ -44,11 +50,11 @@ class _EventManagementPageState extends State<EventManagementPage> with SingleTi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade50,
+      backgroundColor: Color(0xFFE6E6FA),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(85),
         child: AppBar(
-          backgroundColor: Color(0xFF800020),
+          backgroundColor: Color(0xFF6A0DAD),
           flexibleSpace: Row(
             children: [
               SlideTransition(
@@ -56,9 +62,7 @@ class _EventManagementPageState extends State<EventManagementPage> with SingleTi
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: GestureDetector(
-                    onTap: () {
-                      context.go('/');
-                    },
+                    onTap: () => context.go('/'),
                     child: Row(
                       children: [
                         Image.asset(
@@ -74,18 +78,11 @@ class _EventManagementPageState extends State<EventManagementPage> with SingleTi
                           children: [
                             Text(
                               'AL Wajhat Global Western',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                             ),
                             Text(
                               'Company Ltd.',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                              ),
+                              style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ],
                         ),
@@ -97,96 +94,70 @@ class _EventManagementPageState extends State<EventManagementPage> with SingleTi
             ],
           ),
           actions: [
-            TextButton(
-              onPressed: () {
-                context.go('/');
-              },
-              child: Text('Home', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/AboutUsPage');
-              },
-              child: Text('About Us', style: TextStyle(color: Colors.white)),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.0),
-              child: PopupMenuButton<String>(
-                offset: Offset(0, 50),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Text(
-                      'Business Groups',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ],
-                ),
-                onSelected: (String value) {
-                  context.go(value);
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    buildPopupMenuItem('Construction', '/construction'),
-                    buildPopupMenuItem('Manpower', '/manpower'),
-                    buildPopupMenuItem('Event Management', '/event'),
-                    buildPopupMenuItem('Browse all', '/ourbusiness'),
-                  ];
-                },
+            for (var item in [
+              {'title': 'Home', 'route': '/'},
+              {'title': 'About Us', 'route': '/AboutUsPage'},
+              {'title': 'Our Services', 'route': '/businessservices'},
+              {'title': 'Industries', 'route': '/businessindustries'},
+              {'title': 'Our Offices', 'route': '/officeaddress'},
+              {'title': 'Careers', 'route': '/contactus'},
+              {'title': 'Contact Us', 'route': '/contactus'},
+            ])
+              TextButton(
+                onPressed: () => context.go(item['route']!),
+                child: Text(item['title']!, style: TextStyle(color: Colors.white)),
               ),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/businessservices');
-              },
-              child: Text('Our Services', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/businessindustries');
-              },
-              child: Text('Industries', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/officeaddress');
-              },
-              child: Text('Our Offices', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus');
-              },
-              child: Text('Careers', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus');
-              },
-              child: Text('Contact Us', style: TextStyle(color: Colors.white)),
+            PopupMenuButton<String>(
+              offset: Offset(0, 50),
+              color: Colors.white,
+              child: Row(
+                children: [
+                  Text('Business Groups', style: TextStyle(color: Colors.white, fontSize: 16)),
+                  Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+                ],
+              ),
+              onSelected: (value) => context.go(value),
+              itemBuilder: (_) => [
+                buildPopupMenuItem('Construction', '/construction'),
+                buildPopupMenuItem('Manpower', '/manpower'),
+                buildPopupMenuItem('Event Management', '/event'),
+                buildPopupMenuItem('Browse all', '/ourbusiness'),
+              ],
             ),
           ],
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 24.0),
-          child: Text(
-            'Event Management Page Content Goes Here',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueGrey[900],
+      body: SingleChildScrollView(
+        child: FadeTransition(
+          opacity: _fadeAnimation,
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Event Management',
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFF6A0DAD)),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'We craft unforgettable experiences with precision and elegance. Whether it\'s a corporate function, a cultural fest, or a birthday celebration, our dedicated team brings your vision to life.',
+                  style: TextStyle(fontSize: 18, color: Colors.blueGrey[800]),
+                ),
+                SizedBox(height: 32),
+                Wrap(
+                  spacing: 20,
+                  runSpacing: 20,
+                  children: [
+                    EventCardItem(title: 'Corporate Events', description: 'Conferences, product launches, and leadership summits.', icon: Icons.business_center),
+                    EventCardItem(title: 'Weddings & Socials', description: 'From grand weddings to intimate receptions.', icon: Icons.favorite),
+                    EventCardItem(title: 'Birthday Parties', description: 'Themed birthday experiences for all ages.', icon: Icons.cake),
+                    EventCardItem(title: 'Cultural & Sports', description: 'Cultural fests, sports days, and tournaments.', icon: Icons.celebration),
+                    EventCardItem(title: 'Stage & AV Production', description: 'Lighting, sound, multimedia displays, and live streaming.', icon: Icons.theaters),
+                  ],
+                ),
+              ],
             ),
-            textAlign: TextAlign.center,
           ),
         ),
       ),
@@ -198,23 +169,52 @@ class _EventManagementPageState extends State<EventManagementPage> with SingleTi
 class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container( 
-      color: Color(0xFF800020),
+    return Container(
+      color: Color(0xFF6A0DAD),
       padding: EdgeInsets.all(16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '© 2030 Al Wajhat Global Western Company Ltd., All rights reserved.',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+          SizedBox(height: 8.0),
+          Text(
+            '© 2030 Al Wajhat Global Western Company Ltd., All rights reserved.',
+            style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class EventCardItem extends StatelessWidget {
+  final String title;
+  final String description;
+  final IconData icon;
+
+  const EventCardItem({required this.title, required this.description, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Color(0xFF6A0DAD)),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(color: Colors.grey.shade300, blurRadius: 6, offset: Offset(0, 3)),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: Color(0xFF6A0DAD), size: 36),
+          SizedBox(height: 12),
+          Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6A0DAD))),
+          SizedBox(height: 8),
+          Text(description, style: TextStyle(fontSize: 16, color: Colors.blueGrey[700])),
         ],
       ),
     );
@@ -224,9 +224,11 @@ class FooterSection extends StatelessWidget {
 class HoverableMenuItem extends StatefulWidget {
   final String title;
   HoverableMenuItem({required this.title});
+
   @override
   _HoverableMenuItemState createState() => _HoverableMenuItemState();
 }
+
 class _HoverableMenuItemState extends State<HoverableMenuItem> {
   bool _isHovered = false;
 
@@ -243,10 +245,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
         ),
         child: Text(
           widget.title,
-          style: TextStyle(
-            fontSize: 14,
-            color: _isHovered ? Colors.black : Colors.grey[800],
-          ),
+          style: TextStyle(fontSize: 14, color: _isHovered ? Colors.black : Colors.grey[800]),
         ),
       ),
     );

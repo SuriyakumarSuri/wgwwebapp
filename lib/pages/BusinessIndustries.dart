@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wgwwebapp/components/AppBarComponents.dart';
 
 class Businessindustries extends StatelessWidget {
   final List<Industry> industries = [
@@ -84,48 +85,7 @@ class Businessindustries extends StatelessWidget {
     final int crossAxisCount = isWide ? 3 : 1;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(85),
-        child: AppBar(
-          backgroundColor: Color(0xFF022025),
-          elevation: 0,
-          flexibleSpace: Row(),
-          actions: [
-            _navBtn(context, 'Home', '/'),
-            _navBtn(context, 'About Us', '/AboutUsPage'),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.0),
-              child: PopupMenuButton<String>(
-                offset: Offset(0, 50),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Text(
-                      'Business Groups',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
-                  ],
-                ),
-                onSelected: (String value) => context.go(value),
-                itemBuilder: (BuildContext context) {
-                  return [
-                    _buildPopupMenuItem('Construction', '/construction'),
-                    _buildPopupMenuItem('Manpower', '/manpower'),
-                    _buildPopupMenuItem('Event Management', '/event'),
-                    _buildPopupMenuItem('Browse all', '/ourbusiness'),
-                  ];
-                },
-              ),
-            ),
-            _navBtn(context, 'Our Services', '/businessservices'),
-            _navBtn(context, 'Industries', '/businessindustries'),
-            _navBtn(context, 'Our Offices', '/officeaddress'),
-            _navBtn(context, 'Careers', '/contactus'),
-            _navBtn(context, 'Contact Us', '/contactus'),
-          ],
-        ),
-      ),
+      appBar:SubMainPageAppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
