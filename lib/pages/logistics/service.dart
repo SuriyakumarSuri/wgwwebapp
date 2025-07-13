@@ -21,15 +21,15 @@ class ServicePageApp extends StatelessWidget {
       home: ServicePageScreen(),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/service': (context) => ServicePageScreen(),
-        '/air': (context) => AirFreightPage(),
-        '/ocean': (context) => OceanFreightScreen(),
-        '/land': (context) => LandFreightPage(),
-        '/warehouse': (context) => WarehouseFreightServicesPage(),
-        '/custom': (context) => CustomClearancePage(),
-        '/packaging': (context) => PackagingPage(),
-        '/cargohandling': (context) => CargoHandlingPage(),
-        '/projecthandling': (context) => ProjectHandlingPage(),
+        '/logistics/service': (context) => ServicePageScreen(),
+        '/logistics/air': (context) => AirFreightPage(),
+        '/logistics/ocean': (context) => OceanFreightScreen(),
+        '/logistics/land': (context) => LandFreightPage(),
+        '/logistics/warehouse': (context) => WarehouseFreightServicesPage(),
+        '/logistics/custom': (context) => CustomClearancePage(),
+        '/logistics/packaging': (context) => PackagingPage(),
+        '/logistics/cargohandling': (context) => CargoHandlingPage(),
+        '/logistics/projecthandling': (context) => ProjectHandlingPage(),
       },
     );
   }
@@ -41,49 +41,49 @@ class ServicePageScreen extends StatelessWidget {
       'title': 'Air Freight Service',
       'description': 'Fast and reliable air freight solutions for your business needs.',
       'image': 'assets/images/images/airservice.png',
-      'route': '/air',
+      'route': '/logistics/air',
     },
     {
       'title': 'Ocean Freight Service',
       'description': 'Cost-effective ocean freight services to transport your goods.',
       'image': 'assets/images/images/ocean2.jpg',
-      'route': '/ocean',
+      'route': '/logistics/ocean',
     },
     {
       'title': 'Land Freight Service',
       'description': 'Secure land transportation across various regions.',
       'image': 'assets/images/images/land.jpeg',
-      'route': '/land',
+      'route': '/logistics/land',
     },
     {
       'title': 'Warehouse Freight Service',
       'description': 'Modern warehousing solutions for efficient storage and handling.',
       'image': 'assets/images/images/warehouse2.jpg',
-      'route': '/warehouse',
+      'route': '/logistics/warehouse',
     },
     {
       'title': 'Custom Clearance Services',
       'description': 'Hassle-free custom clearance for your shipments.',
       'image': 'assets/images/images/custom.jpeg',
-      'route': '/custom',
+      'route': '/logistics/custom',
     },
     {
       'title': 'Packaging Services',
       'description': 'Professional packaging services to ensure safe delivery.',
       'image': 'assets/images/images/pack.jpeg',
-      'route': '/packaging',
+      'route': '/logistics/packaging',
     },
     {
       'title': 'DG Cargo Handling',
       'description': 'Specialized handling for dangerous goods cargo.',
       'image': 'assets/images/images/dg.jpeg',
-      'route': '/cargohandling',
+      'route': '/logistics/cargohandling',
     },
     {
       'title': 'Project Handling Services',
       'description': 'End-to-end project handling for large-scale shipments.',
       'image': 'assets/images/images/project2.jpg',
-      'route': '/projecthandling',
+      'route': '/logistics/projecthandling',
     },
   ];
 
@@ -246,7 +246,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.only(left: 10), // Adjust padding as needed
               child: GestureDetector(
                 onTap: () {
-                  context.go('/'); // Navigate to home page on image tap
+                  context.go('/logistics/home'); // Navigate to home page on image tap
                 },
                 child: Image.asset(
                   'assets/images/images/MWT.png', // Image for the logo
@@ -261,23 +261,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: [
           TextButton(
             onPressed: () {
-              context.go('/'); // Navigate to home page
+              context.go('/logistics/home'); // Navigate to home page
             },
             child: Text(
               'Home',
               style: TextStyle(
-                color: currentRoute == '/' ? Colors.yellow : Colors.white,
+                color: currentRoute == '/logistics/home' ? Colors.yellow : Colors.white,
               ),
             ),
           ),
           TextButton(
             onPressed: () {
-              context.go('/AboutUsPage');
+              context.go('/logistics/AboutUsPage');
             },
             child: Text(
               'About Us',
               style: TextStyle(
-                color: currentRoute == '/AboutUsPage' ? Colors.yellow : Colors.white,
+                color: currentRoute == '/logistics/AboutUsPage' ? Colors.yellow : Colors.white,
               ),
             ),
           ),
@@ -307,15 +307,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/warehouse'),
-                  buildPopupMenuItem('Land Freight Service', '/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/ocean'),
-                  buildPopupMenuItem('Air Freight Service', '/air'),
-                  buildPopupMenuItem('Browse all', '/service'),
+                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
+                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Land Freight Service', '/logistics/land'),
+                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem('Air Freight Service', '/logistics/air'),
+                  buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
               },
             ),
@@ -420,7 +420,7 @@ class HomePage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context.go('/AboutUsPage');
+              context.go('/logistics/AboutUsPage');
             },
             child: Text('About Us', style: TextStyle(color: Colors.white)),
           ),
@@ -452,15 +452,15 @@ class HomePage extends StatelessWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/warehouse'),
-                  buildPopupMenuItem('Land Freight Service', '/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/ocean'),
-                  buildPopupMenuItem('Air Freight Service', '/air'),
-                  buildPopupMenuItem('Browse all', '/service'),
+                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
+                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Land Freight Service', '/logistics/land'),
+                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem('Air Freight Service', '/logistics/air'),
+                  buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
               },
             ),
@@ -468,7 +468,7 @@ class HomePage extends StatelessWidget {
 
           TextButton(
             onPressed: () {
-              context.go('/contactus'); // Navigates to Contact Us page
+              context.go('/logistics/contactus'); // Navigates to Contact Us page
             },
             child: Text('Contact Us', style: TextStyle(color: Colors.white)),
           ),

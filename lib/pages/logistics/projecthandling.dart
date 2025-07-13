@@ -12,18 +12,18 @@ class MyApp extends StatelessWidget {
       title: 'MWT Logistics',
       debugShowCheckedModeBanner: false,
       routerConfig: GoRouter(
-        initialLocation: '/', // It’s common to start from home screen
+        initialLocation: '/logistics/home', // It’s common to start from home screen
         routes: [
           GoRoute(
-            path: '/',
+            path: '/logistics/home',
             builder: (context, state) => HomePage(),
           ),
           GoRoute(
-            path: '/AboutUsPage',
+            path: '/logistics/AboutUsPage',
             builder: (context, state) => AboutUsPage(),
           ),
           GoRoute(
-            path: '/projecthandling',
+            path: '/logistics/projecthandling',
             builder: (context, state) => ProjectHandlingPage(), // Rename to ProjectHandlingPage
           ),
         ],
@@ -64,18 +64,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Text(
             'Home',
             style: TextStyle(
-              color: currentRoute == '/' ? Colors.yellow : Colors.white,
+              color: currentRoute == '/logistics/home' ? Colors.yellow : Colors.white,
             ),
           ),
         ),
         TextButton(
           onPressed: () {
-            context.go('/AboutUsPage');
+            context.go('/logistics/AboutUsPage');
           },
           child: Text(
             'About Us',
             style: TextStyle(
-              color: currentRoute == '/AboutUsPage' ? Colors.yellow : Colors.white,
+              color: currentRoute == '/logistics/AboutUsPage' ? Colors.yellow : Colors.white,
             ),
           ),
         ),
@@ -704,15 +704,15 @@ class HomePage extends StatelessWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/warehouse'),
-                  buildPopupMenuItem('Land Freight Service', '/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/ocean'),
-                  buildPopupMenuItem('Air Freight Service', '/air'),
-                  buildPopupMenuItem('Browse all', '/service'),
+                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
+                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Land Freight Service', '/logistics/land'),
+                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem('Air Freight Service', '/logistics/air'),
+                  buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
               },
             ),

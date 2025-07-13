@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     child: GestureDetector(
                       onTap: () {
                         // Navigate to home page on image tap
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/logistics/home');
                       },
                       child: Image.asset(
                         'assets/images/images/MWT.png',
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
             TextButton(
               onPressed: () {
-                context.go('/AboutUsPage');
+                context.go('/logistics/AboutUsPage');
               },
               child: Text('About Us', style: TextStyle(color: Colors.white)),
             ),
@@ -117,34 +117,34 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 },
                 itemBuilder: (BuildContext context) {
                   return [
-                    buildPopupMenuItem('Project Handling Services', '/projecthandling'),
-                    buildPopupMenuItem('DG Cargo Handling', '/cargohandling'),
-                    buildPopupMenuItem('Packaging Services', '/packaging'),
-                    buildPopupMenuItem('Custom Clearance Services', '/custom'),
-                    buildPopupMenuItem('Warehouse Freight Service', '/warehouse'),
-                    buildPopupMenuItem('Land Freight Service', '/land'),
-                    buildPopupMenuItem('Ocean Freight Service', '/ocean'),
-                    buildPopupMenuItem('Air Freight Service', '/air'),
-                    buildPopupMenuItem('Browse all', '/service'),
+                    buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
+                    buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
+                    buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
+                    buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
+                    buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                    buildPopupMenuItem('Land Freight Service', '/logistics/land'),
+                    buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                    buildPopupMenuItem('Air Freight Service', '/logistics/air'),
+                    buildPopupMenuItem('Browse all', '/logistics/service'),
                   ];
                 },
               ),
             ),
               TextButton(
                 onPressed: () {
-                  context.go('/officeaddress'); // Navigates to Contact Us page
+                  context.go('/logistics/officeaddress'); // Navigates to Contact Us page
                 },
                 child: Text('Our Offices', style: TextStyle(color: Colors.white)),
               ),
               TextButton(
                 onPressed: () {
-                  context.go('/quoterequest'); // Navigates to Contact Us page
+                  context.go('/logistics/quoterequest'); // Navigates to Contact Us page
                 },
                 child: Text('Quote Request', style: TextStyle(color: Colors.white)),
               ),
             TextButton(
               onPressed: () {
-                context.go('/contactus'); // Navigates to Contact Us page
+                context.go('/logistics/contactus'); // Navigates to Contact Us page
               },
               child: Text('Contact Us', style: TextStyle(color: Colors.white)),
             ),
@@ -693,7 +693,7 @@ class AboutUsSection extends StatelessWidget {
                       onPressed: () {
                         print('Navigating to AboutUsPage');
                       // Ensure the path matches the defined route in GoRouter
-                      context.go('/AboutUsPage');},
+                      context.go('/logistics/AboutUsPage');},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F), // Red color
                         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
