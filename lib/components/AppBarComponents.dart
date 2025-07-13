@@ -147,7 +147,7 @@ class _MainPageAppBarState extends State<MainPageAppBar>
                     buildPopupMenuItem('Construction', '/construction'),
                     buildPopupMenuItem('Manpower', '/manpower'),
                     buildPopupMenuItem('Event Management', '/event'),
-                    buildPopupMenuItem('Browse all', '/ourbusiness'),
+                    buildPopupMenuItem('Logistics', '/logistics/home'),
                   ],
                 ),
               ),

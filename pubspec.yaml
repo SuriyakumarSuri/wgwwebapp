@@ -103,6 +103,52 @@ flutter:
     - assets/images/servicescons/mep.jpg
     - assets/images/servicescons/interior.jpg
 
+    - assets/images/images/logistics.jpg
+    - assets/images/images/log1.jpg
+    - assets/images/images/log2.jpg
+    - assets/images/images/log3.jpg
+    - assets/images/images/log4.jpg
+    - assets/images/images/log5.jpg
+    - assets/images/images/newlog.webp
+    - assets/images/images/newlog2.webp
+    - assets/images/images/newlog3.webp
+    - assets/images/images/freight.jpg
+    - assets/images/images/supplychain.jpg
+    - assets/images/images/inventory.jpg
+    - assets/images/images/distribution.jpg
+    - assets/images/images/consult.jpg
+    - assets/images/images/ecomerce.jpg
+    - assets/images/images/warehouse.jpg
+    - assets/images/images/warehouse2.jpg
+    - assets/images/images/custom.jpg
+    - assets/images/images/pexels1.webp
+    - assets/images/images/pexels2.jpeg
+    - assets/images/images/pexels3.jpeg
+    - assets/images/images/pexels4.jpeg
+    - assets/images/images/port.jpg
+    - assets/images/images/port4.jpg
+    - assets/images/images/road.jpg
+    - assets/images/images/ship.jpg
+    - assets/images/images/MWT.png
+    - assets/images/images/hamburg.jpg
+    - assets/images/images/newhero1.jpg
+    - assets/images/images/hero4.jpg
+    - assets/images/images/project2.jpg
+    - assets/images/images/dg.jpeg
+    - assets/images/images/pack.jpeg
+    - assets/images/images/custom.jpeg
+    - assets/images/images/warehouseservice.jpeg
+    - assets/images/images/land.jpeg
+    - assets/images/images/air.webp
+    - assets/images/images/ocean.jpeg
+    - assets/images/images/airservice.png
+    - assets/images/images/landservice.jpg
+    - assets/images/images/landservice2.jpg
+    - assets/images/images/ocean2.jpg
+    - assets/images/images/MWT1.png
+    - assets/icon/favicon.ico
+
+
 
   fonts:
     - family: Roboto

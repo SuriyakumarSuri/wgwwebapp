@@ -801,6 +801,8 @@ class _BusinessSectionState extends State<BusinessSection> {
           context.go('/manpower');
         } else if (title == 'Event Management') {
           context.go('/eventmanagement');
+        }else if (title == 'Logistics') {
+          context.go('/logistics/home');
         }
       },
       child: AnimatedContainer(
