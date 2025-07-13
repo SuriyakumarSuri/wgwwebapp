@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/animation.dart';
+import 'package:wgwwebapp/components/AppBarComponents.dart';
 
 class ManpowerPage extends StatefulWidget {
   @override
@@ -39,149 +40,7 @@ class _HomePageState extends State<ManpowerPage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(85), // Increased height for AppBar
-        child: AppBar(
-          backgroundColor: Color(0xFF022025), // Deep blue background color
-          flexibleSpace: Row(
-            children: [
-              SlideTransition(
-                position: _animation,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10), // Adjust padding as needed
-                  child: GestureDetector(
-                    onTap: () {
-                      // Navigate to home page on image tap
-                      Navigator.pushNamed(context, '/home');
-                    },
-                    child: Row(
-                      children: [
-                        // Logo
-                        Image.asset(
-                          'assets/images/wgw.png',
-                          height: 80, // Adjust logo height
-                          width: 70, // Adjust width for proper appearance
-                          fit: BoxFit.contain, // Keep aspect ratio intact
-                        ),
-                        SizedBox(width: 8), // Space between logo and text column
-                        // Column for Text
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center, // Center text vertically
-                          crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
-                          children: [
-                            Text(
-                              'AL Wajhat Global Western',
-                              style: TextStyle(
-                                fontSize: 20, // Adjust font size as needed
-                                fontWeight: FontWeight.bold, // Make "Manpower" bold
-                                color: Colors.white, // Text color
-                              ),
-                            ),
-                            Text(
-                              'Company Ltd.',
-                              style: TextStyle(
-                                fontSize: 16, // Adjust font size for "Services"
-                                fontWeight: FontWeight.normal, // Regular weight for "Services"
-                                color: Colors.white, // Text color
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                context.go('/');
-              },
-              child: Text('Home', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/AboutUsPage');
-              },
-              child: Text('About Us', style: TextStyle(color: Colors.white)),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.0),
-              child: PopupMenuButton<String>(
-                offset: Offset(0, 50), // Adjust dropdown position
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Text(
-                      'Business Groups',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ],
-                ),
-                onSelected: (String value) {
-                  context.go(value); // Navigate to selected route
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    buildPopupMenuItem('Construction', '/construction'),
-                    buildPopupMenuItem('Manpower', '/manpower'),
-                    buildPopupMenuItem('Event Management', '/event'),
-                    buildPopupMenuItem('Browse all', '/ourbusiness'),
-                  ];
-                },
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/businessservices'); // Navigates to Contact Us page
-              },
-              child: Text('Our Services', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/businessindustries'); // Navigates to Contact Us page
-              },
-              child: Text('Industries', style: TextStyle(color: Colors.white)),
-            ),
-            // TextButton(
-            //   onPressed: () {
-            //     context.go('/contactus'); // Navigates to Contact Us page
-            //   },
-            //   child: Text('Job Seekers', style: TextStyle(color: Colors.white)),
-            // ),
-            TextButton(
-              onPressed: () {
-                context.go('/officeaddress'); // Navigates to Contact Us page
-              },
-              child: Text('Our Offices', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus'); // Navigates to Contact Us page
-              },
-              child: Text('Careers', style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/contactus'); // Navigates to Contact Us page
-              },
-              child: Text('Contact Us', style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        ),
-
-
-      ),
+      appBar: SubMainPageAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

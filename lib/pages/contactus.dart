@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
+import 'package:wgwwebapp/utils/pageTheme.dart';
 
 class ContactUsPage extends StatefulWidget {
+  final PageTheme theme;
+  const ContactUsPage({Key? key, required this.theme}) : super(key: key);
   @override
   _ContactUsPageState createState() => _ContactUsPageState();
 }
@@ -22,11 +25,19 @@ class _ContactUsPageState extends State<ContactUsPage> {
     _messageController.clear();
   }
 
+PreferredSizeWidget getAppBar() {
+    switch (widget.theme) {
+      case PageTheme.construction:
+        return const MainPageAppBar();
+      case PageTheme.manpower:
+        return const SubMainPageAppBar();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainPageAppBar(),
+      appBar: getAppBar(),
       body: Column(
         children: [
           // Scrollable form section
@@ -215,7 +226,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
           ),
 
           // Always-visible footer
-          FooterSection(),
+          FooterSection(theme: widget.theme,),
         ],
       ),
     );
@@ -240,24 +251,6 @@ class _ContactUsPageState extends State<ContactUsPage> {
         fillColor: Colors.white,
       ),
       validator: validator,
-    );
-  }
-}
-
-class FooterSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFF3A0303),
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-      child: Center(
-        child: Text(
-          '© 2030 Al Wajhat Global Western Company Ltd., All rights reserved.',
-          style: TextStyle(color: Colors.white, fontSize: 14),
-          textAlign: TextAlign.center,
-        ),
-      ),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wgwwebapp/pages/BusinessIndustries.dart';
 import 'package:wgwwebapp/pages/BusinessServices.dart';
+import 'package:wgwwebapp/pages/Businessabout.dart';
 import 'package:wgwwebapp/pages/OurBuisnessPage.dart';
 import 'package:wgwwebapp/pages/home.dart' as home;
 import 'package:wgwwebapp/pages/aboutconstruction.dart' as aboutcons;
@@ -13,7 +14,7 @@ import 'package:wgwwebapp/pages/ouroffices.dart' as office;
 import 'package:wgwwebapp/pages/contactus.dart' as contact;
 import 'package:wgwwebapp/pages/careers.dart' as careers;
 import 'package:wgwwebapp/pages/QuoteRequest.dart' as quote;
-import 'package:wgwwebapp/pages/logistics/home.dart' as homelog;
+import 'package:wgwwebapp/utils/pageTheme.dart';import 'package:wgwwebapp/pages/logistics/home.dart' as homelog;
 import 'package:wgwwebapp/pages/logistics/AboutUsPage.dart' as aboutlog;
 import 'package:wgwwebapp/pages/logistics/projecthandling.dart' as projecthandling;
 import 'package:wgwwebapp/pages/logistics/cargohandling.dart' as cargohandling;
@@ -69,16 +70,31 @@ class MyApp extends StatelessWidget {
       ),
       GoRoute(
         path: '/officeaddress',
-        builder: (context, state) => office.OurOfficesPage(),
+        builder: (context, state) => office.OurOfficesPage(theme: PageTheme.construction)
       ),
       GoRoute(
+        path: '/officeaddress-manpower',
+        builder: (context, state) => office.OurOfficesPage(theme: PageTheme.manpower)
+      ),
+
+      GoRoute(
         path: "/contactus",
-        builder: (context, state) => contact.ContactUsPage()
+        builder: (context, state) => contact.ContactUsPage(theme: PageTheme.construction)
+      ),
+
+      GoRoute(
+        path: "/contactus-manpower",
+        builder: (context, state) => contact.ContactUsPage(theme: PageTheme.manpower)
       ),
 
       GoRoute(
         path: '/careers',
-        builder:(context, state) => careers.CareersPage(),
+        builder:(context, state) => careers.CareersPage(theme: PageTheme.construction),
+      ),
+
+       GoRoute(
+        path: '/careers-manpower',
+        builder:(context, state) => careers.CareersPage(theme: PageTheme.manpower),
       ),
 
        GoRoute(
@@ -94,63 +110,8 @@ class MyApp extends StatelessWidget {
        GoRoute(
         path: '/businessindustries',
         builder:(context, state) => Businessindustries(),
-      ),
-      GoRoute(
-        path: '/logistics/home',
-        builder: (context, state) => homelog.HomePage(),
-      ),
-          GoRoute(
-        path: '/logistics/AboutUsPage',
-        builder: (context, state) => aboutlog.AboutUsPage(),
-      ),
-      GoRoute(
-        path: '/logistics/projecthandling',
-        builder: (context, state) => projecthandling.ProjectHandlingPage(),
-      ),
-      GoRoute(
-        path: '/logistics/cargohandling',
-        builder: (context, state) => cargohandling.CargoHandlingPage(),
-      ),
-      GoRoute(
-        path: '/logistics/packaging',
-        builder: (context, state) => packaging.PackagingPage(),
-      ),
-      GoRoute(
-        path: '/logistics/custom',
-        builder: (context, state) => custom.CustomClearancePage(),
-      ),
-      GoRoute(
-        path: '/logistics/warehouse',
-        builder: (context, state) => warehouse.WarehouseFreightServicesPage(),
-      ),
-      GoRoute(
-        path: '/logistics/land',
-        builder: (context, state) => land.LandFreightPage(),
-      ),
-      GoRoute(
-        path: '/logistics/air',
-        builder: (context, state) => air.AirFreightPage(),
-      ),
-      GoRoute(
-        path: '/logistics/ocean',
-        builder: (context, state) => ocean.OceanFreightScreen(),
-      ),
-      GoRoute(
-        path: '/logistics/service',
-        builder: (context, state) => servicelog.ServicePageApp(),
-      ),
-      GoRoute(
-        path: '/logistics/contactus',
-        builder: (context, state) => contactus.ContactForm(),
-      ),
-      GoRoute(
-        path: '/logistics/officeaddress',
-        builder: (context, state) => officeaddress.OfficeAddressMenu(),
-      ),
-      GoRoute(
-        path: '/logistics/quoterequest',
-        builder: (context, state) => quoterequest.QuoteRequest(),
-      ),
+      )
+
     ],
   );
   @override

@@ -1,0 +1,1 @@
+enum PageTheme { construction, manpower }
