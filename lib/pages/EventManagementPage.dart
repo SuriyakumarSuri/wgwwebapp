@@ -57,29 +57,34 @@ class _EventManagementPageState extends State<EventManagementPage>
                 opacity: _fadeAnimation,
                 child: ScaleTransition(
                   scale: _scaleAnimation,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 40),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        HeaderSection(),
-                        SizedBox(height: 48),
-                        EventGrid(),
-                        SizedBox(height: 48),
-                      ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 1200),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            HeaderSection(),
+                            SizedBox(height: 48),
+                            EventGrid(),
+                            SizedBox(height: 48),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: FooterSection()),
+            const SliverToBoxAdapter(child: FooterSection()),
           ],
         ),
       ),
     );
   }
 
-  SliverAppBar _buildAppBar(BuildContext context) {
+ SliverAppBar _buildAppBar(BuildContext context) {
     return SliverAppBar(
       expandedHeight: 100,
       backgroundColor: Colors.transparent,
@@ -94,76 +99,84 @@ class _EventManagementPageState extends State<EventManagementPage>
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => context.go('/'),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/wgw.png',
-                        height: 60,
-                        width: 60,
-                        fit: BoxFit.contain,
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'AL Wajhat Global',
-                            style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            'Western Company Ltd.',
-                            style: GoogleFonts.montserrat(
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    for (var item in [
-                      {'title': 'Home', 'route': '/'},
-                      {'title': 'About Us', 'route': '/AboutUsPage'},
-                      {'title': 'Services', 'route': '/businessservices'},
-                      {'title': 'Industries', 'route': '/businessindustries'},
-                      {'title': 'Offices', 'route': '/officeaddress'},
-                      {'title': 'Careers', 'route': '/contactus'},
-                      {'title': 'Contact', 'route': '/contactus'},
-                    ])
-                      _buildNavButton(context, item['title']!, item['route']!),
-                    _buildBusinessGroupsMenu(context),
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: () => context.go('/'),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/wgw.png',
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.contain,
+                            ),
+                            const SizedBox(width: 8),
+                            Flexible(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'AL Wajhat Global',
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Western Company Ltd.',
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.white70,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            for (var item in [
+                              {'title': 'Home', 'route': '/event'},
+                              {'title': 'About Us', 'route': '/eventaboutus'},
+                              {'title': 'Quote Request', 'route': '/QuoteRequest'},
+                            ])
+                              _buildNavButton(context, item['title']!, item['route']!),
+                            _buildBusinessGroupsMenu(context),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
-                ),
-              ],
+                );
+              },
             ),
           ),
         ),
       ),
     );
   }
-
   Widget _buildNavButton(BuildContext context, String title, String route) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
       child: TextButton(
         onPressed: () => context.go(route),
         style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           foregroundColor: Colors.white,
         ),
         child: Text(
@@ -171,7 +184,7 @@ class _EventManagementPageState extends State<EventManagementPage>
           style: GoogleFonts.montserrat(
             color: Colors.white,
             fontWeight: FontWeight.w500,
-            fontSize: 16,
+            fontSize: 14,
           ),
         ),
       ),
@@ -187,7 +200,7 @@ class _EventManagementPageState extends State<EventManagementPage>
         side: BorderSide(color: Colors.deepPurple[200]!, width: 1),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: Row(
           children: [
             Text(
@@ -195,10 +208,10 @@ class _EventManagementPageState extends State<EventManagementPage>
               style: GoogleFonts.montserrat(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 14,
               ),
             ),
-            const Icon(Icons.arrow_drop_down, color: Colors.white, size: 24),
+            const Icon(Icons.arrow_drop_down, color: Colors.white, size: 20),
           ],
         ),
       ),
@@ -207,7 +220,7 @@ class _EventManagementPageState extends State<EventManagementPage>
         _buildPopupMenuItem('Construction', '/construction'),
         _buildPopupMenuItem('Manpower', '/manpower'),
         _buildPopupMenuItem('Event Management', '/event'),
-        _buildPopupMenuItem('Browse All', '/ourbusiness'),
+        _buildPopupMenuItem('Logistics', '/logistics/home'),
       ],
     );
   }
@@ -233,17 +246,17 @@ class HeaderSection extends StatelessWidget {
           'Event Management',
           style: GoogleFonts.montserrat(
             color: Colors.white,
-            fontSize: 48,
+            fontSize: 42,
             fontWeight: FontWeight.w800,
             letterSpacing: 1.2,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         Text(
           'Transform your vision into unforgettable experiences with our world-class event management services. From corporate galas to intimate celebrations, we deliver perfection.',
           style: GoogleFonts.montserrat(
             color: Colors.white70,
-            fontSize: 18,
+            fontSize: 16,
             height: 1.6,
             fontWeight: FontWeight.w400,
           ),
@@ -298,18 +311,20 @@ class EventGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final crossAxisCount = constraints.maxWidth > 1200
-            ? 4
-            : constraints.maxWidth > 800
+        final width = constraints.maxWidth;
+        final crossAxisCount = width > 1000
+            ? 3
+            : width > 600
                 ? 2
                 : 1;
+
         return GridView.count(
           crossAxisCount: crossAxisCount,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          crossAxisSpacing: 24,
-          mainAxisSpacing: 24,
-          childAspectRatio: 1.2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          childAspectRatio: 1.1,
           children: eventData
               .asMap()
               .entries
@@ -458,7 +473,7 @@ class _EventCardItemState extends State<EventCardItem>
                             widget.title,
                             style: GoogleFonts.montserrat(
                               color: Colors.white,
-                              fontSize: 24,
+                              fontSize: 22,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -467,7 +482,7 @@ class _EventCardItemState extends State<EventCardItem>
                             widget.description,
                             style: GoogleFonts.montserrat(
                               color: Colors.white70,
-                              fontSize: 16,
+                              fontSize: 14,
                               height: 1.5,
                             ),
                           ),
@@ -480,8 +495,8 @@ class _EventCardItemState extends State<EventCardItem>
                                 backgroundColor: widget.color,
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 12,
+                                  horizontal: 20,
+                                  vertical: 10,
                                 ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -492,7 +507,7 @@ class _EventCardItemState extends State<EventCardItem>
                                 'Book Now',
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 14,
+                                  fontSize: 13,
                                 ),
                               ),
                             ),
@@ -517,7 +532,7 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.deepPurple[900]!.withOpacity(0.9),
         border: const Border(
@@ -531,7 +546,7 @@ class FooterSection extends StatelessWidget {
             '© 2030 Al Wajhat Global Western Company Ltd.',
             style: GoogleFonts.montserrat(
               color: Colors.white70,
-              fontSize: 14,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -539,7 +554,7 @@ class FooterSection extends StatelessWidget {
             'All rights reserved.',
             style: GoogleFonts.montserrat(
               color: Colors.white70,
-              fontSize: 14,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -568,7 +583,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
         decoration: BoxDecoration(
           color: _isHovered ? Colors.deepPurple[100] : Colors.transparent,
           borderRadius: BorderRadius.circular(12),

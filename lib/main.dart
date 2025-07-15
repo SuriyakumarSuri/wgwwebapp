@@ -4,6 +4,7 @@ import 'package:wgwwebapp/pages/BusinessIndustries.dart';
 import 'package:wgwwebapp/pages/BusinessServices.dart';
 import 'package:wgwwebapp/pages/Businessabout.dart';
 import 'package:wgwwebapp/pages/OurBuisnessPage.dart';
+import 'package:wgwwebapp/pages/eventaboutus.dart';
 import 'package:wgwwebapp/pages/home.dart' as home;
 import 'package:wgwwebapp/pages/aboutconstruction.dart' as aboutcons;
 import 'package:wgwwebapp/pages/ConstructionPage.dart';
@@ -180,6 +181,10 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/logistics/quoterequest',
         builder: (context, state) => quoterequest.QuoteRequest(),
+      ),
+      GoRoute(
+        path: '/eventaboutus',
+        builder: (context, state) => EventAboutUs(),
       ),
 
     ],

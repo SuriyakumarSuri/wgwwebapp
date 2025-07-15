@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:wgwwebapp/components/AppBarComponents.dart';
 import 'dart:io';
 
+import 'package:wgwwebapp/components/AppBarComponents.dart';
 import 'package:wgwwebapp/utils/pageTheme.dart';
 
 class CareersPage extends StatefulWidget {
   final PageTheme theme;
   CareersPage({Key? key, required this.theme}) : super(key: key);
+
   @override
   _CareersPageState createState() => _CareersPageState();
 }
@@ -39,7 +40,7 @@ class _CareersPageState extends State<CareersPage> {
     setState(() => _resumeFile = null);
   }
 
-PreferredSizeWidget getAppBar() {
+  PreferredSizeWidget getAppBar() {
     switch (widget.theme) {
       case PageTheme.construction:
         return const MainPageAppBar();
@@ -102,6 +103,40 @@ PreferredSizeWidget getAppBar() {
                                           ),
                                     ),
                                   ),
+                                  SizedBox(height: 30),
+
+                                  // Inner Card Section
+                                  Card(
+                                    elevation: 4,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    color: Colors.orange.shade50,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Why Join Us?",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.deepOrange,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            "We’re a growing company looking for passionate individuals. "
+                                            "Submit your application to become a part of something meaningful.",
+                                            style: TextStyle(fontSize: 14),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+
                                   SizedBox(height: 30),
                                   _buildTextField(
                                     controller: _usernameController,
@@ -272,7 +307,7 @@ PreferredSizeWidget getAppBar() {
                     ),
                   ),
                 ),
-                FooterSection(theme: widget.theme), // Footer always visible
+                FooterSection(theme: widget.theme),
               ],
             );
           },
