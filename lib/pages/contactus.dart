@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
 import 'package:wgwwebapp/utils/pageTheme.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ContactUsPage extends StatefulWidget {
   final PageTheme theme;
@@ -25,12 +27,74 @@ class _ContactUsPageState extends State<ContactUsPage> {
     _messageController.clear();
   }
 
-PreferredSizeWidget getAppBar() {
+  PreferredSizeWidget getAppBar() {
     switch (widget.theme) {
       case PageTheme.construction:
         return const MainPageAppBar();
       case PageTheme.manpower:
         return const SubMainPageAppBar();
+    }
+  }
+
+  Future<void> submitForm() async {
+    final url = Uri.parse('https://arcane-savannah-81157-3910b63c09f7.herokuapp.com/contact');
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'name': _usernameController.text,
+          'email': _emailController.text,
+          'phone': _phoneController.text,
+          'message': _messageController.text,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Success'),
+            content: Text('Your details have been submitted successfully! Our executive will contact you soon.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+        _resetForm();
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Failed'),
+            content: Text('Failed to submit query. Please try again later.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (error) {
+      print(error);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('An unexpected error occurred. Please try again.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -40,11 +104,9 @@ PreferredSizeWidget getAppBar() {
       appBar: getAppBar(),
       body: Column(
         children: [
-          // Scrollable form section
           Expanded(
             child: Stack(
               children: [
-                // Background image
                 Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -53,8 +115,6 @@ PreferredSizeWidget getAppBar() {
                     ),
                   ),
                 ),
-
-                // Gradient overlay
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -67,11 +127,8 @@ PreferredSizeWidget getAppBar() {
                     ),
                   ),
                 ),
-
-                // Scrollable form content
                 SingleChildScrollView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                   child: Center(
                     child: ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: 600),
@@ -93,10 +150,7 @@ PreferredSizeWidget getAppBar() {
                                   child: Text(
                                     "Have Questions? Fill Out The Form Below To Get In Touch:",
                                     textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall
-                                        ?.copyWith(
+                                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.deepOrange,
                                         ),
@@ -108,9 +162,7 @@ PreferredSizeWidget getAppBar() {
                                   label: 'Full Name',
                                   icon: Icons.person,
                                   validator: (value) =>
-                                      value == null || value.isEmpty
-                                          ? 'Please enter your name'
-                                          : null,
+                                      value == null || value.isEmpty ? 'Please enter your name' : null,
                                 ),
                                 SizedBox(height: 20),
                                 _buildTextField(
@@ -119,9 +171,7 @@ PreferredSizeWidget getAppBar() {
                                   icon: Icons.phone,
                                   keyboardType: TextInputType.phone,
                                   validator: (value) =>
-                                      value == null || value.length < 10
-                                          ? 'Enter a valid phone number'
-                                          : null,
+                                      value == null || value.length < 10 ? 'Enter a valid phone number' : null,
                                 ),
                                 SizedBox(height: 20),
                                 _buildTextField(
@@ -130,9 +180,7 @@ PreferredSizeWidget getAppBar() {
                                   icon: Icons.email,
                                   keyboardType: TextInputType.emailAddress,
                                   validator: (value) {
-                                    if (value == null ||
-                                        !RegExp(r'^[^@]+@gmail\.com$')
-                                            .hasMatch(value)) {
+                                    if (value == null || !RegExp(r'^[^@]+@gmail\.com$').hasMatch(value)) {
                                       return 'Enter a valid Gmail address';
                                     }
                                     return null;
@@ -145,21 +193,16 @@ PreferredSizeWidget getAppBar() {
                                   decoration: InputDecoration(
                                     labelText: 'Message',
                                     prefixIcon: Icon(Icons.message),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                                     filled: true,
                                     fillColor: Colors.white,
                                   ),
                                   validator: (value) =>
-                                      value == null || value.isEmpty
-                                          ? 'Please enter a message'
-                                          : null,
+                                      value == null || value.isEmpty ? 'Please enter a message' : null,
                                 ),
                                 SizedBox(height: 30),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     ElevatedButton.icon(
                                       icon: Icon(Icons.send),
@@ -167,31 +210,15 @@ PreferredSizeWidget getAppBar() {
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.deepOrange,
                                         foregroundColor: Colors.white,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 24, vertical: 14),
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(12),
                                         ),
                                       ),
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
-                                          showDialog(
-                                            context: context,
-                                            builder: (_) => AlertDialog(
-                                              title:
-                                                  Text("Application Submitted"),
-                                              content: Text(
-                                                  "Thank you, ${_usernameController.text}!"),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(context),
-                                                  child: Text("Close"),
-                                                ),
-                                              ],
-                                            ),
-                                          );
+                                          submitForm();
                                         }
                                       },
                                     ),
@@ -200,13 +227,11 @@ PreferredSizeWidget getAppBar() {
                                       label: Text("Reset"),
                                       style: OutlinedButton.styleFrom(
                                         foregroundColor: Colors.deepOrange,
-                                        side: BorderSide(
-                                            color: Colors.deepOrange),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 14),
+                                        side: BorderSide(color: Colors.deepOrange),
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(12),
                                         ),
                                       ),
                                       onPressed: _resetForm,
@@ -224,14 +249,11 @@ PreferredSizeWidget getAppBar() {
               ],
             ),
           ),
-
-          // Always-visible footer
-          FooterSection(theme: widget.theme,),
+          FooterSection(theme: widget.theme),
         ],
       ),
     );
   }
-
 
   Widget _buildTextField({
     required TextEditingController controller,
