@@ -33,7 +33,7 @@ class Businessindustries extends StatelessWidget {
       title: 'Facility Management',
       description:
           'Maintenance, cleaning, security, and landscaping services ensuring safe, efficient, and sustainable environments.',
-      imagePath: 'assets/images/construction/Project2.jpg',
+      imagePath: 'assets/images/b1.jpg',
       moreDetails:
           'Our facility management services are tailored for commercial, residential, and industrial properties. We use smart technologies for preventive maintenance and energy management.',
     ),
@@ -41,7 +41,7 @@ class Businessindustries extends StatelessWidget {
       title: 'Industrial Services',
       description:
           'Equipment supply, maintenance, and technical support for manufacturing, energy, and petrochemical sectors.',
-      imagePath: 'assets/images/industrial.jpg',
+      imagePath: 'assets/images/b2.jpg',
       moreDetails:
           'We provide industrial cleaning, shutdown maintenance, and supply of specialized machinery. Our technical teams are available 24/7 for emergency support.',
     ),
@@ -49,7 +49,7 @@ class Businessindustries extends StatelessWidget {
       title: 'Logistics & Transportation',
       description:
           'End-to-end freight, warehousing, and distribution solutions for timely and secure delivery across Saudi Arabia.',
-      imagePath: 'assets/images/logistics.jpg',
+      imagePath: 'assets/images/b3.jpeg',
       moreDetails:
           'Our logistics network covers all major cities and industrial zones. We offer temperature-controlled storage, customs clearance, and last-mile delivery.',
     ),
@@ -57,7 +57,7 @@ class Businessindustries extends StatelessWidget {
       title: 'Technology Solutions',
       description:
           'Innovative technology solutions, including software development, IT consulting, and digital transformation.',
-      imagePath: 'assets/images/technology.jpg',
+      imagePath: 'assets/images/b4.webp',
       moreDetails:
           'We deliver ERP systems, cloud migration, cybersecurity, and custom app development. Our consultants help businesses embrace Industry 4.0.',
     ),
@@ -65,7 +65,7 @@ class Businessindustries extends StatelessWidget {
       title: 'Healthcare',
       description:
           'Medical staffing, equipment supply, and facility management for hospitals and clinics.',
-      imagePath: 'assets/images/healthcare.jpg',
+      imagePath: 'assets/images/b5.jpeg',
       moreDetails:
           'We supply certified medical professionals, manage healthcare facilities, and provide advanced medical equipment and consumables.',
     ),
@@ -73,7 +73,7 @@ class Businessindustries extends StatelessWidget {
       title: 'Flotter',
       description:
           'Advanced floating solutions—modular floating platforms for events, leisure, and industrial applications.',
-      imagePath: 'assets/images/flotter.jpg',
+      imagePath: 'assets/images/b6.webp',
       moreDetails:
           'Our flotter systems are customizable for marinas, floating stages, and offshore operations. We ensure safety, durability, and quick installation.',
     ),

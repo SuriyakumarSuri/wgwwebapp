@@ -761,7 +761,7 @@ class AboutUsSection extends StatelessWidget {
                       onPressed: () {
                         print('Navigating to AboutUsPage');
                         // Ensure the path matches the defined route in GoRouter
-                        context.go('/AboutUsPage');},
+                        context.go('/aboutconstruction');},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F), // Red color
                         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),

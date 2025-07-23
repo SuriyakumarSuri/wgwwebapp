@@ -304,7 +304,7 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
                 child: const Text('Home', style: TextStyle(color: Colors.white)),
               ),
               TextButton(
-                onPressed: () => context.go('/businessabout'),
+                onPressed: () => context.go('/BusinessAbout'),
                 child: const Text('About Us', style: TextStyle(color: Colors.white)),
               ),
                Padding(

@@ -198,6 +198,8 @@ SliverAppBar _buildAppBar(BuildContext context) {
                               {'title': 'Home', 'route': '/event'},
                               {'title': 'About Us', 'route': '/eventaboutus'},
                               {'title': 'Quote Request', 'route': '/QuoteRequest'},
+                              {'title': 'Contact Us', 'route': '/EventContactus'},
+                              // {'title': 'Contact Us', 'route': '/contactus'},
                             ])
                               _buildNavButton(context, item['title']!, item['route']!),
                             _buildBusinessGroupsMenu(context),
