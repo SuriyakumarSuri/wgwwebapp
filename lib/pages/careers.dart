@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
-
 import 'package:wgwwebapp/components/AppBarComponents.dart';
 import 'package:wgwwebapp/utils/pageTheme.dart';
+import 'dart:typed_data';
 
 class CareersPage extends StatefulWidget {
   final PageTheme theme;
@@ -19,15 +19,21 @@ class _CareersPageState extends State<CareersPage> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
-  File? _resumeFile;
+
+  String? _filePath;
+  Uint8List? _fileBytes;
 
   Future<void> _pickResume() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
       allowedExtensions: ['pdf', 'doc', 'docx'],
+      type: FileType.custom,
     );
-    if (result != null && result.files.single.path != null) {
-      setState(() => _resumeFile = File(result.files.single.path!));
+
+    if (result != null) {
+      setState(() {
+        _filePath = result.files.single.name;
+        _fileBytes = result.files.single.bytes;
+      });
     }
   }
 
@@ -37,15 +43,18 @@ class _CareersPageState extends State<CareersPage> {
     _phoneController.clear();
     _emailController.clear();
     _messageController.clear();
-    setState(() => _resumeFile = null);
+    setState(() {
+      _filePath = null;
+      _fileBytes = null;
+    });
   }
 
   PreferredSizeWidget getAppBar() {
     switch (widget.theme) {
       case PageTheme.construction:
-        return const MainPageAppBar();
+        return AppBar(title: Text("Construction Careers"));
       case PageTheme.manpower:
-        return const SubMainPageAppBar();
+        return AppBar(title: Text("Manpower Careers"));
     }
   }
 
@@ -104,39 +113,7 @@ class _CareersPageState extends State<CareersPage> {
                                     ),
                                   ),
                                   SizedBox(height: 30),
-
-                                  // Inner Card Section
-                                  Card(
-                                    elevation: 4,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    color: Colors.orange.shade50,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Why Join Us?",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.deepOrange,
-                                            ),
-                                          ),
-                                          SizedBox(height: 8),
-                                          Text(
-                                            "We’re a growing company looking for passionate individuals. "
-                                            "Submit your application to become a part of something meaningful.",
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-
+                                  _buildInfoCard(),
                                   SizedBox(height: 30),
                                   _buildTextField(
                                     controller: _usernameController,
@@ -192,43 +169,8 @@ class _CareersPageState extends State<CareersPage> {
                                             : null,
                                   ),
                                   SizedBox(height: 20),
-
-                                  // Resume Upload
-                                  Text(
-                                    "Upload Resume / CV",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      ElevatedButton.icon(
-                                        icon: Icon(Icons.upload_file),
-                                        label: Text(_resumeFile == null
-                                            ? "Choose File"
-                                            : "Change File"),
-                                        onPressed: _pickResume,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.orange,
-                                          foregroundColor: Colors.white,
-                                        ),
-                                      ),
-                                      SizedBox(width: 12),
-                                      Expanded(
-                                        child: Text(
-                                          _resumeFile != null
-                                              ? _resumeFile!.path
-                                                  .split('/')
-                                                  .last
-                                              : "No file selected",
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  _buildFilePicker(),
                                   SizedBox(height: 30),
-
-                                  // Buttons
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -249,7 +191,7 @@ class _CareersPageState extends State<CareersPage> {
                                         onPressed: () {
                                           if (_formKey.currentState!
                                               .validate()) {
-                                            if (_resumeFile == null) {
+                                            if (_fileBytes == null) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 SnackBar(
@@ -307,7 +249,6 @@ class _CareersPageState extends State<CareersPage> {
                     ),
                   ),
                 ),
-                FooterSection(theme: widget.theme),
               ],
             );
           },
@@ -334,6 +275,67 @@ class _CareersPageState extends State<CareersPage> {
         fillColor: Colors.white,
       ),
       validator: validator,
+    );
+  }
+
+  Widget _buildInfoCard() {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      color: Colors.orange.shade50,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Why Join Us?",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.deepOrange,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              "We’re a growing company looking for passionate individuals. "
+              "Submit your application to become a part of something meaningful.",
+              style: TextStyle(fontSize: 14),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilePicker() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Attach Resume / CV',
+            style: TextStyle(fontWeight: FontWeight.w600)),
+        SizedBox(height: 8),
+        ElevatedButton(
+          onPressed: _pickResume,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.grey[300],
+            padding: EdgeInsets.symmetric(vertical: 12),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Choose File', style: TextStyle(color: Colors.black)),
+              SizedBox(width: 10),
+              Text(
+                _filePath != null ? _filePath! : 'No file chosen',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
