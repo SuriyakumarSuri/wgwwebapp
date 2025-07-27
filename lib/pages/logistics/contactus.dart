@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:go_router/go_router.dart';
+
 void main() {
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -85,23 +88,50 @@ class HomePage extends StatelessWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem(
+                      'DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem(
+                      'Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem(
+                      'Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem(
+                      'Warehouse Freight Service', '/logistics/warehouse'),
                   buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem(
+                      'Ocean Freight Service', '/logistics/ocean'),
                   buildPopupMenuItem('Air Freight Service', '/logistics/air'),
                   buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
               },
             ),
           ),
-
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: PopupMenuButton<String>(
+              offset: const Offset(0, 60),
+              color: Colors.white,
+              child: const Row(
+                children: [
+                  Text('Business Groups',
+                      style: TextStyle(color: Colors.white)),
+                  Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+                ],
+              ),
+              onSelected: (value) => context.go(value),
+              itemBuilder: (_) => [
+                buildPopupMenuItem('Construction', '/'),
+                buildPopupMenuItem('Manpower', '/manpower'),
+                buildPopupMenuItem('Event Management', '/event'),
+                buildPopupMenuItem('Browse all', '/ourbusiness'),
+              ],
+            ),
+          ),
           TextButton(
             onPressed: () {
-              context.go('/logistics/contactus'); // Navigates to Contact Us page
+              context
+                  .go('/logistics/contactus'); // Navigates to Contact Us page
             },
             child: Text('Contact Us', style: TextStyle(color: Colors.white)),
           ),
@@ -111,7 +141,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           // HeroSection(),
+            // HeroSection(),
             AboutUsSection(),
             //ServicesSection(),
             FooterSection(),
@@ -140,6 +170,7 @@ class HoverableMenuItem extends StatefulWidget {
   @override
   _HoverableMenuItemState createState() => _HoverableMenuItemState();
 }
+
 class _HoverableMenuItemState extends State<HoverableMenuItem> {
   bool _isHovered = false;
   @override
@@ -148,7 +179,8 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(
+            vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -164,11 +196,12 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
     );
   }
 }
+
 class ContactForm extends StatefulWidget {
   @override
-
   ContactFormState createState() => ContactFormState();
 }
+
 class ContactFormState extends State<ContactForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -176,7 +209,8 @@ class ContactFormState extends State<ContactForm> {
   final _phoneController = TextEditingController();
   final _messageController = TextEditingController();
   Future<void> submitForm() async {
-    final url = Uri.parse('https://arcane-savannah-81157-3910b63c09f7.herokuapp.com/contact');
+    final url = Uri.parse(
+        'https://arcane-savannah-81157-3910b63c09f7.herokuapp.com/contact');
     try {
       final response = await http.post(
         url,
@@ -253,6 +287,7 @@ class ContactFormState extends State<ContactForm> {
       );
     }
   }
+
   void resetForm() {
     _formKey.currentState?.reset();
     _nameController.clear();
@@ -277,6 +312,7 @@ class ContactFormState extends State<ContactForm> {
       ),
     );
   }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -314,7 +350,8 @@ class ContactFormState extends State<ContactForm> {
                     TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(labelText: 'Name'),
-                      validator: (value) => value!.isEmpty ? 'Enter your name' : null,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Enter your name' : null,
                     ),
                     TextFormField(
                       controller: _emailController,
@@ -324,7 +361,8 @@ class ContactFormState extends State<ContactForm> {
                           return 'Enter your email';
                         }
                         // Regular expression for a valid email
-                        String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+                        String emailPattern =
+                            r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
                         RegExp regex = RegExp(emailPattern);
                         if (!regex.hasMatch(value)) {
                           return 'Enter a valid email address';
@@ -335,12 +373,14 @@ class ContactFormState extends State<ContactForm> {
                     TextFormField(
                       controller: _phoneController,
                       decoration: InputDecoration(labelText: 'Phone'),
-                      validator: (value) => value!.isEmpty ? 'Enter your phone' : null,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Enter your phone' : null,
                     ),
                     TextFormField(
                       controller: _messageController,
                       decoration: InputDecoration(labelText: 'Message'),
-                      validator: (value) => value!.isEmpty ? 'Enter your message' : null,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Enter your message' : null,
                     ),
                     SizedBox(height: 20),
                     Row(
@@ -390,16 +430,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         flexibleSpace: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10), // Adjust padding as needed
+              padding:
+                  const EdgeInsets.only(left: 10), // Adjust padding as needed
               child: GestureDetector(
                 onTap: () {
-                  context.go('/logistics/home'); // Navigate to home page on image tap
+                  context.go(
+                      '/logistics/home'); // Navigate to home page on image tap
                 },
                 child: Image.asset(
                   'assets/images/images/MWT.png', // Image for the logo
                   height: 80, // Height of the image (same as home page)
                   width: 80, // Width of the image (same as home page)
-                  fit: BoxFit.fill, // Ensures the image fills the space without distortion
+                  fit: BoxFit
+                      .fill, // Ensures the image fills the space without distortion
                 ),
               ),
             ),
@@ -413,7 +456,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               'Home',
               style: TextStyle(
-                color: currentRoute == '/logistics/home' ? Colors.yellow : Colors.white,
+                color: currentRoute == '/logistics/home'
+                    ? Colors.yellow
+                    : Colors.white,
               ),
             ),
           ),
@@ -424,7 +469,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               'About Us',
               style: TextStyle(
-                color: currentRoute == '/logistics/AboutUsPage' ? Colors.yellow : Colors.white,
+                color: currentRoute == '/logistics/AboutUsPage'
+                    ? Colors.yellow
+                    : Colors.white,
               ),
             ),
           ),
@@ -454,13 +501,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem(
+                      'DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem(
+                      'Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem(
+                      'Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem(
+                      'Warehouse Freight Service', '/logistics/warehouse'),
                   buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem(
+                      'Ocean Freight Service', '/logistics/ocean'),
                   buildPopupMenuItem('Air Freight Service', '/logistics/air'),
                   buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
@@ -469,13 +522,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           TextButton(
             onPressed: () {
-              context.go('/logistics/officeaddress'); // Navigates to Contact Us page
+              context.go(
+                  '/logistics/officeaddress'); // Navigates to Contact Us page
             },
             child: Text('Our Offices', style: TextStyle(color: Colors.white)),
           ),
           TextButton(
             onPressed: () {
-              context.go('/logistics/quoterequest'); // Navigates to Contact Us page
+              context.go(
+                  '/logistics/quoterequest'); // Navigates to Contact Us page
             },
             child: Text('Quote Request', style: TextStyle(color: Colors.white)),
           ),
@@ -502,6 +557,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
+
 //About us//
 class AboutUsSection extends StatelessWidget {
   @override
@@ -554,7 +610,8 @@ class AboutUsSection extends StatelessWidget {
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F), // Red color
-                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
                       child: Text(
                         'READ MORE',
@@ -578,6 +635,7 @@ class AboutUsSection extends StatelessWidget {
     );
   }
 }
+
 // --------------------------
 // Footer Section
 // --------------------------

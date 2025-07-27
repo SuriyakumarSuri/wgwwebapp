@@ -12,19 +12,19 @@ class MyApp extends StatelessWidget {
       title: 'MWT Logistics',
       debugShowCheckedModeBanner: false,
       routerConfig: GoRouter(
-        initialLocation: '/logistics/home', // It’s common to start from home screen
+        initialLocation:
+            '/logistics/home', // It’s common to start from home screen
         routes: [
-
           GoRoute(
             path: '/cargohandling',
-            builder: (context, state) => CargoHandlingPage(), // Rename to ProjectHandlingPage
+            builder: (context, state) =>
+                CargoHandlingPage(), // Rename to ProjectHandlingPage
           ),
         ],
       ),
     );
   }
 }
-
 
 // -------------------------- HomePage AppBar --------------------------
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -70,7 +70,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Text(
             'About Us',
             style: TextStyle(
-              color: currentRoute == '/AboutUsPage' ? Colors.yellow : Colors.white,
+              color:
+                  currentRoute == '/AboutUsPage' ? Colors.yellow : Colors.white,
             ),
           ),
         ),
@@ -101,11 +102,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               context.go(value); // Navigate to selected route
             },
             itemBuilder: (BuildContext context) => [
-              buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-              buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
+              buildPopupMenuItem(
+                  'Project Handling Services', '/logistics/projecthandling'),
+              buildPopupMenuItem(
+                  'DG Cargo Handling', '/logistics/cargohandling'),
               buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-              buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-              buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+              buildPopupMenuItem(
+                  'Custom Clearance Services', '/logistics/custom'),
+              buildPopupMenuItem(
+                  'Warehouse Freight Service', '/logistics/warehouse'),
               buildPopupMenuItem('Land Freight Service', '/logistics/land'),
               buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
               buildPopupMenuItem('Air Freight Service', '/logistics/air'),
@@ -113,15 +118,37 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 60),
+            color: Colors.white,
+            child: const Row(
+              children: [
+                Text('Business Groups', style: TextStyle(color: Colors.white)),
+                Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+              ],
+            ),
+            onSelected: (value) => context.go(value),
+            itemBuilder: (_) => [
+              buildPopupMenuItem('Construction', '/'),
+              buildPopupMenuItem('Manpower', '/manpower'),
+              buildPopupMenuItem('Event Management', '/event'),
+              buildPopupMenuItem('Browse all', '/ourbusiness'),
+            ],
+          ),
+        ),
         TextButton(
           onPressed: () {
-            context.go('/logistics/officeaddress'); // Navigates to Contact Us page
+            context
+                .go('/logistics/officeaddress'); // Navigates to Contact Us page
           },
           child: Text('Our Offices', style: TextStyle(color: Colors.white)),
         ),
         TextButton(
           onPressed: () {
-            context.go('/logistics/quoterequest'); // Navigates to Contact Us page
+            context
+                .go('/logistics/quoterequest'); // Navigates to Contact Us page
           },
           child: Text('Quote Request', style: TextStyle(color: Colors.white)),
         ),
@@ -147,6 +174,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
+
 class CargoHandlingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -156,9 +184,10 @@ class CargoHandlingPage extends StatelessWidget {
         children: [
           // Introduction Section with Reduced Space
           _buildColoredSection(
-            title: 'DG Cargo Handling – Safe, Secure, and Specialized Logistics',
+            title:
+                'DG Cargo Handling – Safe, Secure, and Specialized Logistics',
             content:
-            'Handling Dangerous Goods (DG) is a critical aspect of logistics, requiring the highest standards of safety, compliance, and expertise. At Modern Western Trans, we specialize in the safe and efficient transportation of hazardous materials, ensuring the secure movement of goods while meeting all international safety regulations. Our comprehensive DG cargo handling solutions are designed to address the specific needs of each type of dangerous good, minimizing risks while maximizing efficiency.',
+                'Handling Dangerous Goods (DG) is a critical aspect of logistics, requiring the highest standards of safety, compliance, and expertise. At Modern Western Trans, we specialize in the safe and efficient transportation of hazardous materials, ensuring the secure movement of goods while meeting all international safety regulations. Our comprehensive DG cargo handling solutions are designed to address the specific needs of each type of dangerous good, minimizing risks while maximizing efficiency.',
             backgroundColor: Colors.teal[50],
             titleColor: Colors.teal[900],
             textColor: Colors.teal[700],
@@ -169,14 +198,14 @@ class CargoHandlingPage extends StatelessWidget {
             imagePath: 'assets/images/images/dg.jpeg',
             title: 'Our Expertise in DG Cargo Handling',
             content:
-            'We ensure the safe transportation of dangerous goods (DG) by adhering to the highest safety protocols and utilizing specialized equipment for every shipment.',
+                'We ensure the safe transportation of dangerous goods (DG) by adhering to the highest safety protocols and utilizing specialized equipment for every shipment.',
           ),
 
           // Why Choose Us Section with Reduced Space
           _buildColoredSection(
             title: 'Why Choose Us for DG Cargo Handling?',
             content:
-            'We offer comprehensive safety standards, expert handling, advanced technology, customized solutions, and global reach, ensuring the best service for DG cargo.',
+                'We offer comprehensive safety standards, expert handling, advanced technology, customized solutions, and global reach, ensuring the best service for DG cargo.',
             backgroundColor: Colors.teal[50],
             titleColor: Colors.teal[900],
             textColor: Colors.teal[700],
@@ -186,7 +215,7 @@ class CargoHandlingPage extends StatelessWidget {
           _buildColoredSection(
             title: 'Our DG Cargo Handling Process:',
             content:
-            'Our process ensures smooth, compliant, and safe transportation of dangerous goods at every step, from consultation to post-delivery support.',
+                'Our process ensures smooth, compliant, and safe transportation of dangerous goods at every step, from consultation to post-delivery support.',
             backgroundColor: Colors.teal[50],
             titleColor: Colors.teal[900],
             textColor: Colors.teal[700],
@@ -199,7 +228,7 @@ class CargoHandlingPage extends StatelessWidget {
           _buildColoredSection(
             title: 'Our Commitment to Excellence in DG Cargo Handling:',
             content:
-            'At Modern Western Trans, we guarantee the safe and timely delivery of your hazardous materials, exceeding international safety standards and ensuring customer satisfaction.',
+                'At Modern Western Trans, we guarantee the safe and timely delivery of your hazardous materials, exceeding international safety standards and ensuring customer satisfaction.',
             backgroundColor: Colors.teal[50],
             titleColor: Colors.teal[900],
             textColor: Colors.teal[700],
@@ -221,7 +250,8 @@ class CargoHandlingPage extends StatelessWidget {
   }) {
     return Container(
       color: backgroundColor,
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20), // Reduced vertical space
+      padding: EdgeInsets.symmetric(
+          vertical: 16, horizontal: 20), // Reduced vertical space
       margin: EdgeInsets.only(bottom: 16), // Reduced margin for space
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +267,10 @@ class CargoHandlingPage extends StatelessWidget {
           SizedBox(height: 8), // Reduced space between title and content
           Text(
             content,
-            style: TextStyle(fontSize: 16, color: textColor, height: 1.4), // Reduced line height
+            style: TextStyle(
+                fontSize: 16,
+                color: textColor,
+                height: 1.4), // Reduced line height
           ),
         ],
       ),
@@ -247,16 +280,23 @@ class CargoHandlingPage extends StatelessWidget {
   // DG Cargo Steps Section with Reduced Space
   Widget _buildStepSection() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0), // Reduced padding
+      padding: const EdgeInsets.symmetric(
+          vertical: 8.0, horizontal: 16.0), // Reduced padding
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildStep('1. Initial Consultation & Assessment', 'We begin by understanding the specific characteristics of your DG cargo to ensure safe and efficient transport.'),
-          _buildStep('2. Regulatory Compliance & Documentation', 'Our team ensures proper documentation, labeling, and compliance with all relevant regulations.'),
-          _buildStep('3. Packaging & Labeling', 'We use specialized packaging and labels according to the classification of your hazardous material.'),
-          _buildStep('4. Transportation & Delivery', 'Our fleet and partners safely transport DG cargo via land, sea, or air with trained drivers.'),
-          _buildStep('5. Monitoring & Tracking', 'Real-time tracking ensures you are updated on your DG cargo’s status throughout the journey.'),
-          _buildStep('6. Post-Delivery Support', 'We provide post-delivery assistance and help with any regulatory filings or claims.'),
+          _buildStep('1. Initial Consultation & Assessment',
+              'We begin by understanding the specific characteristics of your DG cargo to ensure safe and efficient transport.'),
+          _buildStep('2. Regulatory Compliance & Documentation',
+              'Our team ensures proper documentation, labeling, and compliance with all relevant regulations.'),
+          _buildStep('3. Packaging & Labeling',
+              'We use specialized packaging and labels according to the classification of your hazardous material.'),
+          _buildStep('4. Transportation & Delivery',
+              'Our fleet and partners safely transport DG cargo via land, sea, or air with trained drivers.'),
+          _buildStep('5. Monitoring & Tracking',
+              'Real-time tracking ensures you are updated on your DG cargo’s status throughout the journey.'),
+          _buildStep('6. Post-Delivery Support',
+              'We provide post-delivery assistance and help with any regulatory filings or claims.'),
         ],
       ),
     );
@@ -265,11 +305,13 @@ class CargoHandlingPage extends StatelessWidget {
   // Step Widget (For each step in the DG cargo process)
   Widget _buildStep(String step, String description) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0), // Reduced vertical space
+      padding:
+          const EdgeInsets.symmetric(vertical: 6.0), // Reduced vertical space
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.arrow_right_alt, color: Colors.teal, size: 20), // Slightly smaller icon
+          Icon(Icons.arrow_right_alt,
+              color: Colors.teal, size: 20), // Slightly smaller icon
           SizedBox(width: 8), // Reduced space between icon and text
           Expanded(
             child: Text(
@@ -292,7 +334,8 @@ class CargoHandlingPage extends StatelessWidget {
     required String content,
   }) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16), // Reduced padding
+      padding:
+          EdgeInsets.symmetric(vertical: 16, horizontal: 16), // Reduced padding
       margin: EdgeInsets.only(bottom: 16), // Reduced margin for space
       child: Row(
         children: [
@@ -333,7 +376,6 @@ class CargoHandlingPage extends StatelessWidget {
   }
 }
 
-
 class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -344,7 +386,8 @@ class AboutUsPage extends StatelessWidget {
           Section(
             backgroundColor: Colors.blue[50],
             title: 'About MWT Logistics',
-            content: 'About MWT Logistics Welcome to MWT Logistics, a leader in the logistics and supply chain industry. We are dedicated to providing comprehensive and efficient solutions for businesses of all sizes. With a focus on reliability, innovation, and customer satisfaction, MWT Logistics ensures the seamless movement of goods across the globe, empowering businesses to grow and thrive in an increasingly connected world.',
+            content:
+                'About MWT Logistics Welcome to MWT Logistics, a leader in the logistics and supply chain industry. We are dedicated to providing comprehensive and efficient solutions for businesses of all sizes. With a focus on reliability, innovation, and customer satisfaction, MWT Logistics ensures the seamless movement of goods across the globe, empowering businesses to grow and thrive in an increasingly connected world.',
           ),
 
           // Image with Text on Top
@@ -357,18 +400,17 @@ class AboutUsPage extends StatelessWidget {
                 height: 350,
                 fit: BoxFit.cover,
               ),
-
               Text(
                 'With a focus on reliability, we guarantee that your cargo is delivered safely and securely,\n                                                              '
-                    'no matter the distance.',
+                'no matter the distance.',
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  backgroundColor: Colors.black.withOpacity(0.5), // Optional for better visibility
+                  backgroundColor: Colors.black
+                      .withOpacity(0.5), // Optional for better visibility
                 ),
               )
-
             ],
           ),
           // Add Advantages Section
@@ -395,19 +437,19 @@ class AboutUsPage extends StatelessWidget {
                       icon: Icons.rocket,
                       title: 'Fast Delivery',
                       description:
-                      'With our Express Delivery network, we provide swift and seamless transportation of your cargo to destinations within the Kingdom and nearby countries, meeting your tight schedules.',
+                          'With our Express Delivery network, we provide swift and seamless transportation of your cargo to destinations within the Kingdom and nearby countries, meeting your tight schedules.',
                     ),
                     AdvantageCard(
                       icon: Icons.headset_mic,
                       title: 'Client Support',
                       description:
-                      'A 24/7 customer dedicated service enabling us to strengthen our support with tailor-made solutions beyond your expectations.',
+                          'A 24/7 customer dedicated service enabling us to strengthen our support with tailor-made solutions beyond your expectations.',
                     ),
                     AdvantageCard(
                       icon: Icons.security,
                       title: 'Secure Services',
                       description:
-                      'MWYT deployed technologies will provide you with a multitude of services to secure your interest at the highest international standard.',
+                          'MWYT deployed technologies will provide you with a multitude of services to secure your interest at the highest international standard.',
                     ),
                   ],
                 ),
@@ -418,17 +460,16 @@ class AboutUsPage extends StatelessWidget {
           CustomCard(
             backgroundColor: Colors.white,
             title: 'Our Vision',
-            content:'To be the most trusted and innovative logistics partner, '
+            content: 'To be the most trusted and innovative logistics partner, '
                 'providing exceptional services that help businesses thrive '
                 'in a dynamic global economy.',
-
           ),
           const SizedBox(height: 16.0),
           CustomCard(
             backgroundColor: Colors.white,
             title: 'Our Mission',
             content:
-            'Our mission is to provide efficient, reliable, and cost-effective '
+                'Our mission is to provide efficient, reliable, and cost-effective '
                 'logistics solutions that empower businesses, enhance supply chain '
                 'management, and create lasting relationships with our clients.',
           ),
@@ -454,9 +495,11 @@ class AboutUsPage extends StatelessWidget {
 
               // Center the text and button in the middle of the image
               Align(
-                alignment: Alignment.center, // Center the content inside the Stack
+                alignment:
+                    Alignment.center, // Center the content inside the Stack
                 child: Column(
-                  mainAxisSize: MainAxisSize.min, // Ensure the Column takes up minimum space
+                  mainAxisSize: MainAxisSize
+                      .min, // Ensure the Column takes up minimum space
                   children: [
                     Text(
                       'Would you like to know more?',
@@ -465,16 +508,19 @@ class AboutUsPage extends StatelessWidget {
                         fontSize: 24,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        backgroundColor: Colors.black.withOpacity(0.5), // Optional for better visibility
+                        backgroundColor: Colors.black
+                            .withOpacity(0.5), // Optional for better visibility
                       ),
                     ),
-                    SizedBox(height: 20), // Optional space between text and button
+                    SizedBox(
+                        height: 20), // Optional space between text and button
                     ElevatedButton(
                       onPressed: () {
                         // Define what happens when the button is pressed
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.black.withOpacity(0.5)),
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.black.withOpacity(0.5)),
                       ),
                       child: Text(
                         'Contact Us',
@@ -491,19 +537,13 @@ class AboutUsPage extends StatelessWidget {
             ],
           ),
 
-
-
-
-
-
-
-
           FooterSection(), // Footer will appear at the bottom after scrolling
         ],
       ),
     );
   }
 }
+
 class LogisticsDistributionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -570,11 +610,10 @@ class LogisticsDistributionContainer extends StatelessWidget {
           Expanded(
             flex: 1, // Adjust flex to control space allocation
             child: Image.asset(
-
                 'assets/images/images/newhero1.jpg', // Replace with your image path
                 fit: BoxFit.fill,
-                height: 300// Adjust to fit within the available space
-            ),
+                height: 300 // Adjust to fit within the available space
+                ),
           ),
         ],
       ),
@@ -614,6 +653,7 @@ class LogisticsDistributionContainer extends StatelessWidget {
     );
   }
 }
+
 // Section Widget --------------------------
 class Section extends StatelessWidget {
   final Color? backgroundColor;
@@ -652,6 +692,7 @@ class Section extends StatelessWidget {
     );
   }
 }
+
 // -------------------------- HomePage --------------------------
 class HomePage extends StatelessWidget {
   @override
@@ -711,13 +752,19 @@ class HomePage extends StatelessWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem(
+                      'DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem(
+                      'Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem(
+                      'Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem(
+                      'Warehouse Freight Service', '/logistics/warehouse'),
                   buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem(
+                      'Ocean Freight Service', '/logistics/ocean'),
                   buildPopupMenuItem('Air Freight Service', '/logistics/air'),
                   buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
@@ -727,7 +774,8 @@ class HomePage extends StatelessWidget {
 
           TextButton(
             onPressed: () {
-              context.go('/logistics/contactus'); // Navigates to Contact Us page
+              context
+                  .go('/logistics/contactus'); // Navigates to Contact Us page
             },
             child: Text('Contact Us', style: TextStyle(color: Colors.white)),
           ),
@@ -738,7 +786,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //HeroSection(),
-           // AboutUsSection(),
+            // AboutUsSection(),
             //ServicesSection(),
             FooterSection(),
           ],
@@ -756,6 +804,7 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
 /// Hoverable Menu Item Widget with Compact Styling
 class HoverableMenuItem extends StatefulWidget {
   final String title;
@@ -775,7 +824,8 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(
+            vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -913,6 +963,7 @@ class AdvantageCard extends StatelessWidget {
     );
   }
 }
+
 // Vision, Mission, and Values Section
 class CustomCard extends StatelessWidget {
   final Color backgroundColor;
@@ -962,4 +1013,3 @@ class CustomCard extends StatelessWidget {
     );
   }
 }
-

@@ -14,11 +14,12 @@ import 'package:wgwwebapp/pages/ManpowerPage.dart';
 import 'package:wgwwebapp/pages/servicesconstruction.dart' as service;
 import 'package:wgwwebapp/pages/ouroffices.dart' as office;
 import 'package:wgwwebapp/pages/contactus.dart' as contact;
-import 'package:wgwwebapp/pages/careers.dart' as careers;
 import 'package:wgwwebapp/pages/QuoteRequest.dart' as quote;
-import 'package:wgwwebapp/utils/pageTheme.dart';import 'package:wgwwebapp/pages/logistics/home.dart' as homelog;
+import 'package:wgwwebapp/utils/pageTheme.dart';
+import 'package:wgwwebapp/pages/logistics/home.dart' as homelog;
 import 'package:wgwwebapp/pages/logistics/AboutUsPage.dart' as aboutlog;
-import 'package:wgwwebapp/pages/logistics/projecthandling.dart' as projecthandling;
+import 'package:wgwwebapp/pages/logistics/projecthandling.dart'
+    as projecthandling;
 import 'package:wgwwebapp/pages/logistics/cargohandling.dart' as cargohandling;
 import 'package:wgwwebapp/pages/logistics/packaging.dart' as packaging;
 import 'package:wgwwebapp/pages/logistics/custom.dart' as custom;
@@ -32,7 +33,8 @@ import 'package:wgwwebapp/pages/logistics/officeaddress.dart' as officeaddress;
 import 'package:wgwwebapp/pages/logistics/quoterequest.dart' as quoterequest;
 import 'package:wgwwebapp/pages/logistics/home.dart' as homelog;
 import 'package:wgwwebapp/pages/logistics/AboutUsPage.dart' as aboutlog;
-import 'package:wgwwebapp/pages/logistics/projecthandling.dart' as projecthandling;
+import 'package:wgwwebapp/pages/logistics/projecthandling.dart'
+    as projecthandling;
 import 'package:wgwwebapp/pages/logistics/cargohandling.dart' as cargohandling;
 import 'package:wgwwebapp/pages/logistics/packaging.dart' as packaging;
 import 'package:wgwwebapp/pages/logistics/custom.dart' as custom;
@@ -44,11 +46,13 @@ import 'package:wgwwebapp/pages/logistics/service.dart' as servicelog;
 import 'package:wgwwebapp/pages/logistics/contactus.dart' as contactus;
 import 'package:wgwwebapp/pages/logistics/officeaddress.dart' as officeaddress;
 import 'package:wgwwebapp/pages/logistics/quoterequest.dart' as quoterequest;
-
+import 'package:wgwwebapp/pages/careers.dart' as careers;
+import 'package:wgwwebapp/utils/pageTheme.dart';
 
 void main() {
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
@@ -58,7 +62,6 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/',
         builder: (context, state) => home.HomePage(),
-
       ),
       GoRoute(
         path: '/aboutconstruction',
@@ -86,56 +89,53 @@ class MyApp extends StatelessWidget {
       ),
       GoRoute(
         path: '/services',
-        builder: (context, state) => service.ServicePageScreen(), // not ServicePageApp
+        builder: (context, state) =>
+            service.ServicePageScreen(), // not ServicePageApp
       ),
       GoRoute(
-        path: '/officeaddress',
-        builder: (context, state) => office.OurOfficesPage(theme: PageTheme.construction)
-      ),
+          path: '/officeaddress',
+          builder: (context, state) =>
+              office.OurOfficesPage(theme: PageTheme.construction)),
       GoRoute(
-        path: '/officeaddress-manpower',
-        builder: (context, state) => office.OurOfficesPage(theme: PageTheme.manpower)
-      ),
-
+          path: '/officeaddress-manpower',
+          builder: (context, state) =>
+              office.OurOfficesPage(theme: PageTheme.manpower)),
       GoRoute(
-        path: "/contactus",
-        builder: (context, state) => contact.ContactUsPage(theme: PageTheme.construction)
-      ),
-
-      GoRoute(
-        path: "/contactus-manpower",
-        builder: (context, state) => contact.ContactUsPage(theme: PageTheme.manpower)
-      ),
-
+          path: "/contactus",
+          builder: (context, state) =>
+              contact.ContactUsPage(theme: PageTheme.construction)),
       GoRoute(
         path: '/careers',
-        builder:(context, state) => careers.CareersPage(theme: PageTheme.construction),
+        builder: (context, state) =>
+            careers.CareersPage(theme: PageTheme.construction),
       ),
-
-       GoRoute(
-        path: '/careers-manpower',
-        builder:(context, state) => careers.CareersPage(theme: PageTheme.manpower),
+      GoRoute(
+        path: '/careers',
+        builder: (context, state) =>
+            careers.CareersPage(theme: PageTheme.manpower),
       ),
-
-       GoRoute(
+      GoRoute(
+        path: "/contactus-manpower",
+        builder: (context, state) =>
+            contact.ContactUsPage(theme: PageTheme.manpower),
+      ),
+      GoRoute(
         path: '/quoterequest',
-        builder:(context, state) => quote.QuoteRequestPage(),
+        builder: (context, state) => quote.QuoteRequestPage(),
       ),
-
-       GoRoute(
+      GoRoute(
         path: '/businessservices',
-        builder:(context, state) => BuisnessServicePage(),
+        builder: (context, state) => BuisnessServicePage(),
       ),
-
-       GoRoute(
+      GoRoute(
         path: '/businessindustries',
-        builder:(context, state) => Businessindustries(),
+        builder: (context, state) => Businessindustries(),
       ),
       GoRoute(
         path: '/logistics/home',
         builder: (context, state) => homelog.HomePage(),
       ),
-          GoRoute(
+      GoRoute(
         path: '/logistics/AboutUsPage',
         builder: (context, state) => aboutlog.AboutUsPage(),
       ),
@@ -195,7 +195,6 @@ class MyApp extends StatelessWidget {
         path: '/EventContactus',
         builder: (context, state) => EventContactus(),
       ),
-
     ],
   );
   @override
@@ -203,7 +202,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'WGW Web App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),     
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       debugShowCheckedModeBanner: false,
       routerConfig: _router,

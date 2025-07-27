@@ -69,7 +69,6 @@ class _MainPageAppBarState extends State<MainPageAppBar>
     );
 
     if (_isHome) {
-      // Only animate on home
       _controller ??= AnimationController(
         duration: const Duration(seconds: 2),
         vsync: this,
@@ -94,7 +93,6 @@ class _MainPageAppBarState extends State<MainPageAppBar>
         ),
       );
     } else {
-      // Static for other routes
       return Padding(
         padding: const EdgeInsets.only(left: 10),
         child: GestureDetector(
@@ -159,11 +157,6 @@ class _MainPageAppBarState extends State<MainPageAppBar>
                 child: const Text('Our Services',
                     style: TextStyle(color: Colors.white)),
               ),
-              // TextButton(
-              //   onPressed: () => context.go('/quoterequest'),
-              //   child: const Text('Quote Request',
-              //       style: TextStyle(color: Colors.white)),
-              // ),
               TextButton(
                 onPressed: () => context.go('/officeaddress'),
                 child: const Text('Our Offices',
@@ -241,12 +234,11 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFF022025),
+      backgroundColor: const Color(0xFF022025),
       automaticallyImplyLeading: false,
       toolbarHeight: 85,
       titleSpacing: 0,
       title: Align(
-        // THIS IS THE KEY: Align the entire content to the bottom
         alignment: Alignment.bottomLeft,
         child: Padding(
           padding: const EdgeInsets.only(left: 16.0),
@@ -304,14 +296,9 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
                     const Text('Home', style: TextStyle(color: Colors.white)),
               ),
               TextButton(
-<<<<<<< HEAD
                 onPressed: () => context.go('/businessabout'),
                 child: const Text('About Us',
                     style: TextStyle(color: Colors.white)),
-=======
-                onPressed: () => context.go('/BusinessAbout'),
-                child: const Text('About Us', style: TextStyle(color: Colors.white)),
->>>>>>> 01590f82b3985eddf311f1cd58801e645099db70
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2.0),
@@ -347,21 +334,11 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
                 child: const Text('Industries',
                     style: TextStyle(color: Colors.white)),
               ),
-              // TextButton(
-              //   onPressed: () {
-              //     context.go('/contactus');
-              //   },
-              //   child: const Text('Job Seekers', style: TextStyle(color: Colors.white)),
-              // ),
               TextButton(
                 onPressed: () => context.go('/officeaddress-manpower'),
                 child: const Text('Our Offices',
                     style: TextStyle(color: Colors.white)),
               ),
-              // TextButton(
-              //   onPressed: () => context.go('/quoterequest'),
-              //   child: const Text('Quote Request', style: TextStyle(color: Colors.white)),
-              // ),
               TextButton(
                 onPressed: () => context.go('/careers-manpower'),
                 child: const Text('Careers',

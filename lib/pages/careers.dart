@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'dart:io';
-import 'package:wgwwebapp/components/AppBarComponents.dart';
-import 'package:wgwwebapp/utils/pageTheme.dart';
 import 'dart:typed_data';
+import 'package:wgwwebapp/utils/pageTheme.dart';
 
 class CareersPage extends StatefulWidget {
   final PageTheme theme;
-  CareersPage({Key? key, required this.theme}) : super(key: key);
+  const CareersPage({Key? key, required this.theme}) : super(key: key);
 
   @override
   _CareersPageState createState() => _CareersPageState();
@@ -50,12 +48,14 @@ class _CareersPageState extends State<CareersPage> {
   }
 
   PreferredSizeWidget getAppBar() {
-    switch (widget.theme) {
-      case PageTheme.construction:
-        return AppBar(title: Text("Construction Careers"));
-      case PageTheme.manpower:
-        return AppBar(title: Text("Manpower Careers"));
-    }
+    return AppBar(
+      backgroundColor: widget.theme.primaryColor,
+      title: Text(
+        widget.theme == PageTheme.construction
+            ? "Construction Careers"
+            : "Manpower Careers",
+      ),
+    );
   }
 
   @override
@@ -64,7 +64,7 @@ class _CareersPageState extends State<CareersPage> {
       appBar: getAppBar(),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
             image: AssetImage('assets/images/bg-career.jpg'),
             fit: BoxFit.cover,
           ),
@@ -83,10 +83,11 @@ class _CareersPageState extends State<CareersPage> {
               children: [
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 40),
                     child: Center(
                       child: ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 600),
+                        constraints: const BoxConstraints(maxWidth: 600),
                         child: Card(
                           color: Colors.white.withOpacity(0.95),
                           elevation: 12,
@@ -108,13 +109,13 @@ class _CareersPageState extends State<CareersPage> {
                                           .headlineSmall
                                           ?.copyWith(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.deepOrange,
+                                            color: widget.theme.buttonColor,
                                           ),
                                     ),
                                   ),
-                                  SizedBox(height: 30),
+                                  const SizedBox(height: 30),
                                   _buildInfoCard(),
-                                  SizedBox(height: 30),
+                                  const SizedBox(height: 30),
                                   _buildTextField(
                                     controller: _usernameController,
                                     label: 'Full Name',
@@ -124,7 +125,7 @@ class _CareersPageState extends State<CareersPage> {
                                             ? 'Please enter your name'
                                             : null,
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   _buildTextField(
                                     controller: _phoneController,
                                     label: 'Phone Number',
@@ -135,7 +136,7 @@ class _CareersPageState extends State<CareersPage> {
                                             ? 'Enter a valid phone number'
                                             : null,
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   _buildTextField(
                                     controller: _emailController,
                                     label: 'Email (Gmail only)',
@@ -150,13 +151,13 @@ class _CareersPageState extends State<CareersPage> {
                                       return null;
                                     },
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   TextFormField(
                                     controller: _messageController,
                                     maxLines: 5,
                                     decoration: InputDecoration(
                                       labelText: 'Message',
-                                      prefixIcon: Icon(Icons.message),
+                                      prefixIcon: const Icon(Icons.message),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
@@ -168,20 +169,21 @@ class _CareersPageState extends State<CareersPage> {
                                             ? 'Please enter a message'
                                             : null,
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   _buildFilePicker(),
-                                  SizedBox(height: 30),
+                                  const SizedBox(height: 30),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       ElevatedButton.icon(
-                                        icon: Icon(Icons.send),
-                                        label: Text("Submit Application"),
+                                        icon: const Icon(Icons.send),
+                                        label: const Text("Submit Application"),
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.deepOrange,
+                                          backgroundColor:
+                                              widget.theme.buttonColor,
                                           foregroundColor: Colors.white,
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 24, vertical: 14),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -194,7 +196,7 @@ class _CareersPageState extends State<CareersPage> {
                                             if (_fileBytes == null) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
-                                                SnackBar(
+                                                const SnackBar(
                                                   content: Text(
                                                       "Please upload your resume/CV."),
                                                   backgroundColor:
@@ -206,7 +208,7 @@ class _CareersPageState extends State<CareersPage> {
                                             showDialog(
                                               context: context,
                                               builder: (_) => AlertDialog(
-                                                title: Text(
+                                                title: const Text(
                                                     "Application Submitted"),
                                                 content: Text(
                                                     "Thank you, ${_usernameController.text}!"),
@@ -214,7 +216,7 @@ class _CareersPageState extends State<CareersPage> {
                                                   TextButton(
                                                     onPressed: () =>
                                                         Navigator.pop(context),
-                                                    child: Text("Close"),
+                                                    child: const Text("Close"),
                                                   ),
                                                 ],
                                               ),
@@ -223,13 +225,14 @@ class _CareersPageState extends State<CareersPage> {
                                         },
                                       ),
                                       OutlinedButton.icon(
-                                        icon: Icon(Icons.refresh),
-                                        label: Text("Reset"),
+                                        icon: const Icon(Icons.refresh),
+                                        label: const Text("Reset"),
                                         style: OutlinedButton.styleFrom(
-                                          foregroundColor: Colors.deepOrange,
+                                          foregroundColor:
+                                              widget.theme.buttonColor,
                                           side: BorderSide(
-                                              color: Colors.deepOrange),
-                                          padding: EdgeInsets.symmetric(
+                                              color: widget.theme.buttonColor),
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 14),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -285,26 +288,11 @@ class _CareersPageState extends State<CareersPage> {
         borderRadius: BorderRadius.circular(16),
       ),
       color: Colors.orange.shade50,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Why Join Us?",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.deepOrange,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              "We’re a growing company looking for passionate individuals. "
-              "Submit your application to become a part of something meaningful.",
-              style: TextStyle(fontSize: 14),
-            ),
-          ],
+      child: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text(
+          "We’re a growing company looking for passionate individuals. Submit your application to become a part of something meaningful.",
+          style: TextStyle(fontSize: 14),
         ),
       ),
     );
@@ -314,23 +302,23 @@ class _CareersPageState extends State<CareersPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Attach Resume / CV',
+        const Text('Attach Resume / CV',
             style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         ElevatedButton(
           onPressed: _pickResume,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.grey[300],
-            padding: EdgeInsets.symmetric(vertical: 12),
+            padding: const EdgeInsets.symmetric(vertical: 12),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Choose File', style: TextStyle(color: Colors.black)),
-              SizedBox(width: 10),
+              const Text('Choose File', style: TextStyle(color: Colors.black)),
+              const SizedBox(width: 10),
               Text(
-                _filePath != null ? _filePath! : 'No file chosen',
-                style: TextStyle(color: Colors.grey),
+                _filePath ?? 'No file chosen',
+                style: const TextStyle(color: Colors.grey),
               ),
             ],
           ),
