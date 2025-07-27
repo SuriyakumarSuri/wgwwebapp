@@ -1,14 +1,17 @@
-// Import necessary packages
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
 import 'package:wgwwebapp/pages/ConstructionPage.dart';
 import 'package:wgwwebapp/pages/EventManagementPage.dart';
 import 'package:wgwwebapp/pages/ManpowerPage.dart';
+
 void main() {
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,42 +25,43 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
+
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
+
   @override
   void initState() {
     super.initState();
-    // Initialize the animation controller
     _controller = AnimationController(
-      duration: Duration(seconds: 2), // Animation duration
+      duration: Duration(seconds: 2),
       vsync: this,
     );
-
-    // Define the animation movement
     _animation = Tween<Offset>(
-      begin: Offset(-1.0, 0.0), // Starts off-screen to the left
-      end: Offset.zero, // Ends at its normal position
+      begin: Offset(-1.0, 0.0),
+      end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeInOut, // Smooth transition
+      curve: Curves.easeInOut,
     ));
-    // Start the animation
     _controller.forward();
   }
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: MainPageAppBar(),
+      appBar: MainPageAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,22 +76,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       ),
     );
   }
-  /// Helper Method for PopupMenuItem with Compact Design
+
   PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
     return PopupMenuItem<String>(
       value: value,
-      height: 36, // Reduce the default height
+      height: 36,
       child: HoverableMenuItem(title: title),
     );
   }
 }
-/// Hoverable Menu Item Widget with Compact Styling
+
 class HoverableMenuItem extends StatefulWidget {
   final String title;
   HoverableMenuItem({required this.title});
   @override
   _HoverableMenuItemState createState() => _HoverableMenuItemState();
 }
+
 class _HoverableMenuItemState extends State<HoverableMenuItem> {
   bool _isHovered = false;
   @override
@@ -96,7 +101,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -104,7 +109,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
         child: Text(
           widget.title,
           style: TextStyle(
-            fontSize: 14, // Compact font size
+            fontSize: 14,
             color: _isHovered ? Colors.black : Colors.grey[800],
           ),
         ),
@@ -112,10 +117,12 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
     );
   }
 }
+
 class HeroSection extends StatefulWidget {
   @override
   _HeroSectionState createState() => _HeroSectionState();
 }
+
 class _HeroSectionState extends State<HeroSection> {
   final PageController _pageController = PageController();
   final List<Map<String, String>> _slides = [
@@ -142,7 +149,7 @@ class _HeroSectionState extends State<HeroSection> {
   void initState() {
     super.initState();
     _startAutoSwipe();
-    _pageController.addListener(_onPageChanged); // Listen for page change
+    _pageController.addListener(_onPageChanged);
   }
 
   void _startAutoSwipe() {
@@ -160,7 +167,6 @@ class _HeroSectionState extends State<HeroSection> {
     });
   }
 
-  // This function will update the current page index when the page is swiped
   void _onPageChanged() {
     if (_pageController.page?.toInt() != _currentPage) {
       setState(() {
@@ -172,7 +178,7 @@ class _HeroSectionState extends State<HeroSection> {
   @override
   void dispose() {
     _timer?.cancel();
-    _pageController.removeListener(_onPageChanged); // Remove listener when disposed
+    _pageController.removeListener(_onPageChanged);
     _pageController.dispose();
     super.dispose();
   }
@@ -197,9 +203,8 @@ class _HeroSectionState extends State<HeroSection> {
                     width: double.infinity,
                   ),
                   Container(
-                    color: Colors.black.withOpacity(0.3), // Overlay for readability
+                    color: Colors.black.withOpacity(0.3),
                   ),
-                  // Title and Subtitle at the Top
                   Positioned(
                     top: 40,
                     left: 16,
@@ -209,7 +214,7 @@ class _HeroSectionState extends State<HeroSection> {
                         Text(
                           _slides[index]['title']!,
                           style: TextStyle(
-                            color: Color(0xFFFFD700), // Gold Color
+                            color: Color(0xFFFFD700),
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
                             shadows: [
@@ -246,7 +251,6 @@ class _HeroSectionState extends State<HeroSection> {
               );
             },
           ),
-          // Dots Indicator
           Positioned(
             bottom: 16,
             left: 0,
@@ -257,7 +261,7 @@ class _HeroSectionState extends State<HeroSection> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      _currentPage = entry.key; // Update current page on tap
+                      _currentPage = entry.key;
                     });
                     _pageController.animateToPage(
                       entry.key,
@@ -287,34 +291,35 @@ class _HeroSectionState extends State<HeroSection> {
 }
 
 // Services Section
-// -------------------------
 class ServicesSection extends StatefulWidget {
   const ServicesSection({super.key});
   @override
   State<ServicesSection> createState() => _ServicesSectionState();
 }
+
 class _ServicesSectionState extends State<ServicesSection> {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
+
   @override
   void initState() {
     super.initState();
     _startAutoScroll();
   }
+
   @override
   void dispose() {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
-  /// Start Auto Scroll Timer
+
   void _startAutoScroll() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_scrollController.hasClients) {
         double maxScroll = _scrollController.position.maxScrollExtent;
         double currentScroll = _scrollController.offset;
-        // Scroll to the next card
-        double nextScroll = currentScroll + 300 + 12; // Card width + spacing
+        double nextScroll = currentScroll + 300 + 12;
         if (nextScroll >= maxScroll) {
           _scrollController.animateTo(
             0,
@@ -331,15 +336,15 @@ class _ServicesSectionState extends State<ServicesSection> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      color: Colors.black, // Background for the entire section
+      color: Colors.black,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Section Title and Description
           Text(
             'Our',
             style: TextStyle(
@@ -384,8 +389,6 @@ class _ServicesSectionState extends State<ServicesSection> {
             ),
           ),
           SizedBox(height: 16),
-
-          // Horizontal Scrollable Service Cards
           SizedBox(
             height: 320,
             child: ListView(
@@ -400,9 +403,7 @@ class _ServicesSectionState extends State<ServicesSection> {
               }).toList(),
             ),
           ),
-
           SizedBox(height: 16),
-          // Indicator Dots
           Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -419,14 +420,14 @@ class _ServicesSectionState extends State<ServicesSection> {
       ),
     );
   }
-  /// Service Card Widget
+
   Widget _buildServiceCard({
     required String imagePath,
     required String title,
     required String description,
   }) {
     return Container(
-      width: 300, // Fixed width for each card
+      width: 300,
       margin: EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -478,13 +479,12 @@ class _ServicesSectionState extends State<ServicesSection> {
             ),
           ),
           Spacer(),
-
         ],
       ),
     );
   }
 }
-/// Service Data
+
 final List<Map<String, String>> _serviceData = [
   {
     'imagePath': 'assets/images/Cont1.jpg',
@@ -527,35 +527,36 @@ final List<Map<String, String>> _serviceData = [
     'description': 'We provide customized fit-out and interior design services, creating functional and stylish spaces that reflect your vision, with high-quality finishes and attention to detail for both commercial and residential projects.',
   },
 ];
-//Business Section
+
 class BusinessSection extends StatefulWidget {
   const BusinessSection({super.key});
-
   @override
   State<BusinessSection> createState() => _BusinessSectionState();
 }
+
 class _BusinessSectionState extends State<BusinessSection> {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
+
   @override
   void initState() {
     super.initState();
     _startAutoScroll();
   }
+
   @override
   void dispose() {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
-  /// Start Auto Scroll Timer
+
   void _startAutoScroll() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_scrollController.hasClients) {
         double maxScroll = _scrollController.position.maxScrollExtent;
         double currentScroll = _scrollController.offset;
-        // Scroll to the next card
-        double nextScroll = currentScroll + 300 + 12; // Card width + spacing
+        double nextScroll = currentScroll + 300 + 12;
         if (nextScroll >= maxScroll) {
           _scrollController.animateTo(
             0,
@@ -572,15 +573,15 @@ class _BusinessSectionState extends State<BusinessSection> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      color: Colors.white, // Background for the entire section
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Section Title and Description
           Text(
             'Our',
             style: TextStyle(
@@ -598,14 +599,13 @@ class _BusinessSectionState extends State<BusinessSection> {
             ),
           ),
           SizedBox(height: 16),
-          // Horizontal Scrollable Service Cards
           SizedBox(
-            height: 350, // Increased height
+            height: 350,
             child: ListView.separated(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: _businessData.length,
-              separatorBuilder: (context, index) => SizedBox(width: 16), // Consistent spacing
+              separatorBuilder: (context, index) => SizedBox(width: 16),
               itemBuilder: (context, index) {
                 final service = _businessData[index];
                 return _buildbusinessCard(
@@ -616,7 +616,6 @@ class _BusinessSectionState extends State<BusinessSection> {
             ),
           ),
           SizedBox(height: 16),
-          // Indicator Dots
           Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -633,7 +632,7 @@ class _BusinessSectionState extends State<BusinessSection> {
       ),
     );
   }
-  /// Service Card Widget
+
   Widget _buildbusinessCard({
     required String imagePath,
     required String title,
@@ -641,11 +640,11 @@ class _BusinessSectionState extends State<BusinessSection> {
     return GestureDetector(
       onTap: () {
         if (title == 'Construction') {
-          context.go('/aboutconstruction'); // GoRouter Navigation
+          context.go('/aboutconstruction');
         } else if (title == 'Manpower') {
-          context.go('/manpower'); // You'll add this route later
+          context.go('/manpower');
         } else if (title == 'Event Management') {
-          context.go('/eventmanagement'); // You'll add this route later
+          context.go('/eventmanagement');
         }
       },
       child: Container(
@@ -694,7 +693,7 @@ class _BusinessSectionState extends State<BusinessSection> {
     );
   }
 }
-/// Service Data
+
 final List<Map<String, String>> _businessData = [
   {
     'imagePath': 'assets/images/Cont1.jpg',
@@ -709,12 +708,12 @@ final List<Map<String, String>> _businessData = [
     'title': 'Event Management',
   },
 ];
-//About us//
+
 class AboutUsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFF5F5F5), // Light gray background
+      color: Color(0xFFF5F5F5),
       padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -738,7 +737,7 @@ class AboutUsSection extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFD32F2F), // Red color
+                        color: Color(0xFFD32F2F),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -759,11 +758,10 @@ class AboutUsSection extends StatelessWidget {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        print('Navigating to AboutUsPage');
-                        // Ensure the path matches the defined route in GoRouter
-                        context.go('/AboutUsPage');},
+                        context.go('/AboutUsPage');
+                      },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFD32F2F), // Red color
+                        backgroundColor: Color(0xFFD32F2F),
                         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
                       child: Text(
@@ -777,7 +775,7 @@ class AboutUsSection extends StatelessWidget {
               SizedBox(width: 20),
               Expanded(
                 child: Image.asset(
-                  'assets/images/build5.jpg', // Replace with your image asset path
+                  'assets/images/build5.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -788,21 +786,112 @@ class AboutUsSection extends StatelessWidget {
     );
   }
 }
-// Footer Section//
+
+// Footer Section with Links, Social Media, and Map Locations
 class FooterSection extends StatelessWidget {
+  const FooterSection({super.key});
+
+  void _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xFF49020C),
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(24.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 16.0),
+          // Links Row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _FooterLink(
+                label: 'About Us',
+                onTap: () => context.go('/AboutUsPage'),
+              ),
+              _footerDivider(),
+              _FooterLink(
+                label: 'Our Services',
+                onTap: () => context.go('/services'),
+              ),
+              _footerDivider(),
+              _FooterLink(
+                label: 'Career',
+                onTap: () => context.go('/career'),
+              ),
+              _footerDivider(),
+              _FooterLink(
+                label: 'Contact Us',
+                onTap: () => context.go('/contact'),
+              ),
+              _footerDivider(),
+              _FooterLink(
+                label: 'Our Offices',
+                onTap: () => context.go('/offices'),
+              ),
+            ],
+          ),
+          SizedBox(height: 24.0),
+          // Social Media Row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _FooterIconButton(
+                icon: FontAwesomeIcons.facebookF,
+                color: Colors.white,
+                onTap: () => _launchUrl('https://facebook.com/yourcompany'),
+              ),
+              SizedBox(width: 16),
+              _FooterIconButton(
+                icon: FontAwesomeIcons.instagram,
+                color: Colors.white,
+                onTap: () => _launchUrl('https://instagram.com/yourcompany'),
+              ),
+              SizedBox(width: 16),
+              _FooterIconButton(
+                icon: FontAwesomeIcons.linkedinIn,
+                color: Colors.white,
+                onTap: () => _launchUrl('https://linkedin.com/company/yourcompany'),
+              ),
+            ],
+          ),
+          SizedBox(height: 24.0),
+          // Map Locations
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _FooterMapLocation(
+                title: 'Head Office',
+                address: 'Al Azhar Building Tower, Al Safa Dist, Jeddah 23535, Saudi Arabia',
+                url: 'https://goo.gl/maps/yourmap1',
+                onTap: _launchUrl,
+              ),
+              SizedBox(width: 32),
+              _FooterMapLocation(
+                title: 'Branch Office',
+                address: 'King Fahd Rd, Riyadh 12212, Saudi Arabia',
+                url: 'https://goo.gl/maps/yourmap2',
+                onTap: _launchUrl,
+              ),
+              SizedBox(width: 32),
+              _FooterMapLocation(
+                title: 'International Office',
+                address: 'Dubai Media City, Dubai, UAE',
+                url: 'https://goo.gl/maps/yourmap3',
+                onTap: _launchUrl,
+              ),
+            ],
+          ),
+          SizedBox(height: 24.0),
+          // Contact Info and Address
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Contact Info Column (Left)
+              // Contact Info
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -815,21 +904,16 @@ class FooterSection extends StatelessWidget {
                     'Phone: +966567273714',
                     style: TextStyle(color: Colors.white),
                   ),
-                  // Text(
-                  //   'Phone: +966593619999',
-                  //   style: TextStyle(color: Colors.orange),
-                  // ),
                   SizedBox(height: 8.0),
                   Text(
                     'Email: info@wgwcltd.com',
                     style: TextStyle(color: Colors.white),
                   ),
-
                 ],
               ),
-              // Address Column (Right)
+              // Address
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Address:',
@@ -853,7 +937,7 @@ class FooterSection extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.0),
-          // Footer Text
+          // Copyright
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -867,15 +951,118 @@ class FooterSection extends StatelessWidget {
       ),
     );
   }
+
+  Widget _footerDivider() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Text('|', style: TextStyle(color: Colors.white70)),
+      );
 }
-/// Helper method to build dropdown items with custom spacing
+
+class _FooterLink extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+  const _FooterLink({required this.label, required this.onTap});
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: Colors.orangeAccent,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FooterIconButton extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+  const _FooterIconButton({
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(24),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Color(0xFFD32F2F),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: color, size: 20),
+      ),
+    );
+  }
+}
+
+class _FooterMapLocation extends StatelessWidget {
+  final String title;
+  final String address;
+  final String url;
+  final void Function(String) onTap;
+  const _FooterMapLocation({
+    required this.title,
+    required this.address,
+    required this.url,
+    required this.onTap,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onTap(url),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.location_on, color: Colors.orangeAccent, size: 18),
+              SizedBox(width: 4),
+              Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 2),
+          SizedBox(
+            width: 180,
+            child: Text(
+              address,
+              style: TextStyle(color: Colors.white70, fontSize: 13),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     {bool isHeader = false, bool isBold = false, Color? color}) {
   return DropdownMenuItem<String>(
     value: value,
-    enabled: !isHeader, // Disable header row selection
+    enabled: !isHeader,
     child: Container(
-      padding: EdgeInsets.symmetric(vertical: 2.0), // Controls vertical spacing
+      padding: EdgeInsets.symmetric(vertical: 2.0),
       child: Text(
         text,
         style: TextStyle(
