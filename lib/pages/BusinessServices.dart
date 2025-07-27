@@ -40,10 +40,10 @@ class _HomePageState extends State<BuisnessServicePage> with SingleTickerProvide
 
  final List<Map<String, String>> services = [
   {
-    'title': 'Site Preparation',
+    'title': 'MEP Services',
     'description':
-        'We handle all aspects of site clearing, grading, and excavation to ensure a solid foundation for your construction project.',
-    'image': 'assets/images/civil.jpg',
+        'We provide comprehensive Mechanical, Electrical, and Plumbing (MEP) solutions, ensuring seamless integration of critical systems for safe and efficient building operations.',
+    'image': 'assets/images/MEP_Services.jpg',
   },
   {
     'title': 'Structural Engineering',
@@ -82,10 +82,10 @@ class _HomePageState extends State<BuisnessServicePage> with SingleTickerProvide
     'image': 'assets/images/mep.jpg',
   },
   {
-    'title': 'Environmental Management',
+    'title': 'Site Preparation',
     'description':
-        'We implement eco-friendly practices and waste management solutions to minimize the environmental impact of construction.',
-    'image': 'assets/images/res.jpg',
+        'We handle all aspects of site clearing, grading, and excavation to ensure a solid foundation for your construction project.',
+    'image': 'assets/images/civil.jpg',
   },
 ];
 
@@ -105,7 +105,7 @@ class _HomePageState extends State<BuisnessServicePage> with SingleTickerProvide
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
-                          'assets/images/construction/construction4.jpg'),
+                          'assets/images/b_mep.jpg'),
                       fit: BoxFit.cover,
                     ),
                   ),

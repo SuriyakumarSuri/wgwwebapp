@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wgwwebapp/pages/BusinessIndustries.dart';
 import 'package:wgwwebapp/pages/BusinessServices.dart';
 import 'package:wgwwebapp/pages/Businessabout.dart';
+import 'package:wgwwebapp/pages/EventContactus.dart';
 import 'package:wgwwebapp/pages/OurBuisnessPage.dart';
 import 'package:wgwwebapp/pages/eventaboutus.dart';
 import 'package:wgwwebapp/pages/home.dart' as home;
@@ -70,6 +71,10 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/manpower',
         builder: (context, state) => ManpowerPage(),
+      ),
+      GoRoute(
+        path: '/BusinessAbout',
+        builder: (context, state) => BusinessAbout(),
       ),
       GoRoute(
         path: '/event',
@@ -185,6 +190,10 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/eventaboutus',
         builder: (context, state) => EventAboutUs(),
+      ),
+      GoRoute(
+        path: '/EventContactus',
+        builder: (context, state) => EventContactus(),
       ),
 
     ],

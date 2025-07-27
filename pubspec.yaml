@@ -11,7 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
   webview_flutter: ^4.2.1
+<<<<<<< HEAD
   go_router: ^6.5.0
+=======
+  animated_text_kit: ^4.2.2
+  go_router: ^9.0.2
+>>>>>>> 01590f82b3985eddf311f1cd58801e645099db70
   mailer: ^6.0.1
   flutter_dotenv: ^5.1.0
   http: ^1.2.2
@@ -48,6 +53,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/images/b_mep.jpg
     - assets/images/wgw.jpg
     - assets/images/build1.jpg
     - assets/images/build2.jpg
@@ -70,6 +76,9 @@ flutter:
     - assets/animations/workforce.json
     - assets/images/housekeeping.jpg
     - assets/images/saudi.jpg
+    - assets/images/jeddah.webp
+    - assets/images/uae.jpg
+    - assets/images/MEP_Services.jpg
     - assets/images/local.jpg
     - assets/images/global.jpg
     - assets/images/executive.jpg
@@ -77,12 +86,14 @@ flutter:
     - assets/images/exe.jpg
     - assets/images/wgw.png
     - assets/images/job.jpg
+    - assets/images/Muscat.jpg
     - assets/icon/construction.png
     - assets/icon/tech.png
     - assets/icon/health.png
     - assets/icon/hosp.png
     - assets/icon/power.jpg
     - assets/icon/manufacturing.png
+    - assets/images/futureofmepdesing.jpg
     - assets/images/industry/cons.png
     - assets/images/industry/bpo.jpg
     - assets/images/industry/oil.jpg
@@ -151,6 +162,12 @@ flutter:
     - assets/images/images/MWT1.png
     - assets/images/Event/EM.jpg
     - assets/icon/favicon.ico
+    - assets/images/b1.jpg
+    - assets/images/b2.jpg
+    - assets/images/b3.jpeg
+    - assets/images/b4.webp
+    - assets/images/b5.jpeg
+    - assets/images/b6.webp
 
 
 
