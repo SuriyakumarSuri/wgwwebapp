@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
             careers.CareersPage(theme: PageTheme.construction),
       ),
       GoRoute(
-        path: '/careers-manpower',
+        path: '/careers',
         builder: (context, state) =>
             careers.CareersPage(theme: PageTheme.manpower),
       ),
@@ -195,6 +195,10 @@ class MyApp extends StatelessWidget {
         path: '/EventContactus',
         builder: (context, state) => EventContactus(),
       ),
+       GoRoute(
+        path: '/careers-manpower',
+        builder: (context, state) => careers.CareersPage(theme: PageTheme.manpower)
+      )
     ],
   );
   @override

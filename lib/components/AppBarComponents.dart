@@ -245,7 +245,7 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
           child: SlideTransition(
             position: _animation,
             child: GestureDetector(
-              onTap: () => context.go('/home'),
+              onTap: () => context.go('/'),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,

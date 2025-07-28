@@ -47,22 +47,9 @@ class _CareersPageState extends State<CareersPage> {
       _fileBytes = null;
     });
   }
-
  
-  // Remove this commented its no longer useful
-  
-  // PreferredSizeWidget getAppBar() {
-  //   return AppBar(
-  //     backgroundColor: widget.theme.primaryColor,
-  //     title: Text(
-  //       widget.theme == PageTheme.construction
-  //           ? "Construction Careers"
-  //           : "Manpower Careers",
-  //     ),
-  //   );
-  // }
-    PreferredSizeWidget getAppBar() {
-      
+
+   PreferredSizeWidget getAppBar() {
     switch (widget.theme) {
       case PageTheme.construction:
         return const MainPageAppBar();
@@ -70,14 +57,11 @@ class _CareersPageState extends State<CareersPage> {
         return const SubMainPageAppBar();
     }
   }
-
-  
-
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainPageAppBar(), // I replaced getAppBar() with MainPageAppBar()
+      appBar: getAppBar(),
       body: Container(
         decoration: BoxDecoration(
           image: const DecorationImage(
@@ -268,11 +252,14 @@ class _CareersPageState extends State<CareersPage> {
                     ),
                   ),
                 ),
+                  FooterSection(theme: widget.theme),
               ],
             );
           },
         ),
+        
       ),
+    
     );
   }
 
