@@ -1,9 +1,11 @@
 // Import necessary packages
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 void main() {
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,8 @@ class MyApp extends StatelessWidget {
       title: 'MWT Logistics',
       debugShowCheckedModeBanner: false,
       routerConfig: GoRouter(
-        initialLocation: '/logistics/home', // It’s common to start from home screen
+        initialLocation:
+            '/logistics/home', // It’s common to start from home screen
         routes: [
           GoRoute(
             path: '/logistics/home',
@@ -21,12 +24,12 @@ class MyApp extends StatelessWidget {
             path: '/land',
             builder: (context, state) => LandFreightPage(),
           ),
-
         ],
       ),
     );
   }
 }
+
 class LandFreightPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class LandFreightPage extends StatelessWidget {
           _buildColoredSection(
             title: 'About Land Freight Services',
             content:
-            'MWT provides reliable land freight services, connecting cities, industries, and remote locations with seamless logistics. We offer Full Truckload (FTL), Less-than-Truckload (LTL), and other tailored freight options, ensuring flexibility and efficiency at every mile.',
+                'MWT provides reliable land freight services, connecting cities, industries, and remote locations with seamless logistics. We offer Full Truckload (FTL), Less-than-Truckload (LTL), and other tailored freight options, ensuring flexibility and efficiency at every mile.',
             backgroundColor: Colors.teal[50],
             titleColor: Colors.teal[900],
             textColor: Colors.teal[700],
@@ -49,14 +52,14 @@ class LandFreightPage extends StatelessWidget {
             imagePath: 'assets/images/images/land.jpeg', // Your image path
             title: 'Reliable Land Freight Solutions with MWT',
             content:
-            'Connecting destinations with excellence, MWT ensures smooth and efficient transportation with real-time tracking, secure handling, and sustainable operations.',
+                'Connecting destinations with excellence, MWT ensures smooth and efficient transportation with real-time tracking, secure handling, and sustainable operations.',
           ),
 
           // Why Choose Us Section in Small Colored Container
           _buildSmallColoredSection(
             title: 'Why Choose MWT Land Freight Services?',
             content:
-            'Our land freight services offer comprehensive coverage, flexible solutions, and advanced GPS tracking. We prioritize safety and sustainability, ensuring that your goods are transported efficiently and securely.',
+                'Our land freight services offer comprehensive coverage, flexible solutions, and advanced GPS tracking. We prioritize safety and sustainability, ensuring that your goods are transported efficiently and securely.',
             backgroundColor: Colors.teal[50],
             titleColor: Colors.teal[900],
             textColor: Colors.teal[700],
@@ -66,7 +69,7 @@ class LandFreightPage extends StatelessWidget {
           _buildSmallColoredSection(
             title: 'Empowering Businesses with Every Mile',
             content:
-            'From cross-border deliveries to domestic logistics, MWT ensures smooth, hassle-free transportation backed by our logistics experts and cutting-edge infrastructure.',
+                'From cross-border deliveries to domestic logistics, MWT ensures smooth, hassle-free transportation backed by our logistics experts and cutting-edge infrastructure.',
             backgroundColor: Colors.teal[50],
             titleColor: Colors.teal[900],
             textColor: Colors.teal[700],
@@ -191,6 +194,7 @@ class LandFreightPage extends StatelessWidget {
     );
   }
 }
+
 class BulletPoint extends StatelessWidget {
   final String text;
 
@@ -203,7 +207,7 @@ class BulletPoint extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.check_circle, size: 20, color: Colors.blueAccent ),
+          Icon(Icons.check_circle, size: 20, color: Colors.blueAccent),
           SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -216,6 +220,7 @@ class BulletPoint extends StatelessWidget {
     );
   }
 }
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? currentRoute;
 
@@ -248,7 +253,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Text(
             'Home',
             style: TextStyle(
-              color: currentRoute == '/logistics/home' ? Colors.yellow : Colors.white,
+              color: currentRoute == '/logistics/home'
+                  ? Colors.yellow
+                  : Colors.white,
             ),
           ),
         ),
@@ -259,7 +266,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Text(
             'About Us',
             style: TextStyle(
-              color: currentRoute == '/logistics/AboutUsPage' ? Colors.yellow : Colors.white,
+              color: currentRoute == '/logistics/AboutUsPage'
+                  ? Colors.yellow
+                  : Colors.white,
             ),
           ),
         ),
@@ -290,11 +299,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               context.go(value); // Navigate to selected route
             },
             itemBuilder: (BuildContext context) => [
-              buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-              buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
+              buildPopupMenuItem(
+                  'Project Handling Services', '/logistics/projecthandling'),
+              buildPopupMenuItem(
+                  'DG Cargo Handling', '/logistics/cargohandling'),
               buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-              buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-              buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+              buildPopupMenuItem(
+                  'Custom Clearance Services', '/logistics/custom'),
+              buildPopupMenuItem(
+                  'Warehouse Freight Service', '/logistics/warehouse'),
               buildPopupMenuItem('Land Freight Service', '/logistics/land'),
               buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
               buildPopupMenuItem('Air Freight Service', '/logistics/air'),
@@ -302,15 +315,37 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 60),
+            color: Colors.white,
+            child: const Row(
+              children: [
+                Text('Business Groups', style: TextStyle(color: Colors.white)),
+                Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+              ],
+            ),
+            onSelected: (value) => context.go(value),
+            itemBuilder: (_) => [
+              buildPopupMenuItem('Construction', '/'),
+              buildPopupMenuItem('Manpower', '/manpower'),
+              buildPopupMenuItem('Event Management', '/event'),
+              buildPopupMenuItem('Browse all', '/ourbusiness'),
+            ],
+          ),
+        ),
         TextButton(
           onPressed: () {
-            context.go('/logistics/officeaddress'); // Navigates to Contact Us page
+            context
+                .go('/logistics/officeaddress'); // Navigates to Contact Us page
           },
           child: Text('Our Offices', style: TextStyle(color: Colors.white)),
         ),
         TextButton(
           onPressed: () {
-            context.go('/logistics/quoterequest'); // Navigates to Contact Us page
+            context
+                .go('/logistics/quoterequest'); // Navigates to Contact Us page
           },
           child: Text('Quote Request', style: TextStyle(color: Colors.white)),
         ),
@@ -336,6 +371,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
+
 // Section Widget --------------------------
 class Section extends StatelessWidget {
   final Color? backgroundColor;
@@ -374,6 +410,7 @@ class Section extends StatelessWidget {
     );
   }
 }
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -432,13 +469,19 @@ class HomePage extends StatelessWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem(
+                      'DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem(
+                      'Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem(
+                      'Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem(
+                      'Warehouse Freight Service', '/logistics/warehouse'),
                   buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem(
+                      'Ocean Freight Service', '/logistics/ocean'),
                   buildPopupMenuItem('Air Freight Service', '/logistics/air'),
                   buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
@@ -448,7 +491,8 @@ class HomePage extends StatelessWidget {
 
           TextButton(
             onPressed: () {
-              context.go('/logistics/contactus'); // Navigates to Contact Us page
+              context
+                  .go('/logistics/contactus'); // Navigates to Contact Us page
             },
             child: Text('Contact Us', style: TextStyle(color: Colors.white)),
           ),
@@ -460,7 +504,7 @@ class HomePage extends StatelessWidget {
           children: [
             //HeroSection(),
             AboutUsSection(),
-           // ServicesSection(),
+            // ServicesSection(),
             FooterSection(),
           ],
         ),
@@ -497,7 +541,8 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(
+            vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -513,49 +558,59 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
     );
   }
 }
+
 /// Service Data
 final List<Map<String, String>> _serviceData = [
   {
     'imagePath': 'assets/images/images/freight.jpg',
     'title': 'Freight Forwarding',
-    'description': 'Seamless Global Cargo Solutions: Navigating complex logistics with precision, efficiency, and reliability. Our freight forwarding services ensure your goods move swiftly across borders, connecting continents and powering businesses with end-to-end transparency and care.',
+    'description':
+        'Seamless Global Cargo Solutions: Navigating complex logistics with precision, efficiency, and reliability. Our freight forwarding services ensure your goods move swiftly across borders, connecting continents and powering businesses with end-to-end transparency and care.',
   },
   {
     'imagePath': 'assets/images/images/supplychain.jpg',
     'title': 'Supply Chain Management',
-    'description': 'Optimize, Streamline, and Succeed: Our Supply Chain Management solutions ensure seamless coordination across procurement, production, and logistics. With advanced analytics, real-time tracking, and strategic planning, we empower your business to reduce costs, enhance efficiency, and deliver excellence at every step.',
+    'description':
+        'Optimize, Streamline, and Succeed: Our Supply Chain Management solutions ensure seamless coordination across procurement, production, and logistics. With advanced analytics, real-time tracking, and strategic planning, we empower your business to reduce costs, enhance efficiency, and deliver excellence at every step.',
   },
   {
     'imagePath': 'assets/images/images/inventory.jpg',
     'title': 'Inventory Management',
-    'description': 'Our inventory management system makes logistics easier and more efficient. With real-time tracking and automatic updates, you’ll always know your stock levels and be able to fulfill orders on time. Say goodbye to stockouts and delays, and keep your supply chain running smoothly. Let us help you manage your inventory more effectively and improve your logistics operations.',
+    'description':
+        'Our inventory management system makes logistics easier and more efficient. With real-time tracking and automatic updates, you’ll always know your stock levels and be able to fulfill orders on time. Say goodbye to stockouts and delays, and keep your supply chain running smoothly. Let us help you manage your inventory more effectively and improve your logistics operations.',
   },
   {
     'imagePath': 'assets/images/images/custom.jpg',
     'title': 'Customs Clearance',
-    'description': 'Effortless Border Solutions: Our Customs Clearance service ensures your shipments cross borders smoothly. We handle all the paperwork, regulations, and compliance so you can focus on your business. No delays, no hassles—just seamless, stress-free shipping.',
+    'description':
+        'Effortless Border Solutions: Our Customs Clearance service ensures your shipments cross borders smoothly. We handle all the paperwork, regulations, and compliance so you can focus on your business. No delays, no hassles—just seamless, stress-free shipping.',
   },
   {
     'imagePath': 'assets/images/images/warehouse.jpg',
     'title': 'Warehousing',
-    'description': 'Secure and Efficient Storage: Our warehousing service keeps your products safe, organized, and ready for quick access. With real-time tracking and efficient handling, we ensure your goods are always prepared for timely delivery. Your storage needs, simplified.',
+    'description':
+        'Secure and Efficient Storage: Our warehousing service keeps your products safe, organized, and ready for quick access. With real-time tracking and efficient handling, we ensure your goods are always prepared for timely delivery. Your storage needs, simplified.',
   },
   {
     'imagePath': 'assets/images/images/distribution.jpg',
     'title': 'Distribution Services',
-    'description': 'Distribution Services ensure your products are delivered on time and in perfect condition. We handle everything from storage to final delivery, using smart routes and real-time tracking to keep things smooth and efficient. Your goods, delivered reliably every time..',
+    'description':
+        'Distribution Services ensure your products are delivered on time and in perfect condition. We handle everything from storage to final delivery, using smart routes and real-time tracking to keep things smooth and efficient. Your goods, delivered reliably every time..',
   },
   {
     'imagePath': 'assets/images/images/consult.jpg',
     'title': 'Consultation Services',
-    'description': 'Consultation Services provide expert guidance to optimize your logistics operations. We analyze your challenges, offer tailored solutions, and help you streamline processes for better efficiency and cost savings. Your success is our priority, every step of the way..',
+    'description':
+        'Consultation Services provide expert guidance to optimize your logistics operations. We analyze your challenges, offer tailored solutions, and help you streamline processes for better efficiency and cost savings. Your success is our priority, every step of the way..',
   },
   {
     'imagePath': 'assets/images/images/ecomerce.jpg',
     'title': 'E-Commerce Logistics',
-    'description': 'Efficient and reliable logistics for your eCommerce business. We handle shipping, storage, and delivery so you can focus on growing your store. Fast, safe, and affordable solutions to get your products to customers on time, every time.',
+    'description':
+        'Efficient and reliable logistics for your eCommerce business. We handle shipping, storage, and delivery so you can focus on growing your store. Fast, safe, and affordable solutions to get your products to customers on time, every time.',
   },
 ];
+
 //About us//
 class AboutUsSection extends StatelessWidget {
   @override
@@ -608,7 +663,8 @@ class AboutUsSection extends StatelessWidget {
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F), // Red color
-                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
                       child: Text(
                         'READ MORE',
@@ -632,6 +688,7 @@ class AboutUsSection extends StatelessWidget {
     );
   }
 }
+
 // --------------------------
 // Footer Section
 // --------------------------
@@ -734,7 +791,3 @@ DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     ),
   );
 }
-
-
-
-

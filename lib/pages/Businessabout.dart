@@ -58,7 +58,7 @@ class _BusinessAboutState extends State<BusinessAbout> with SingleTickerProvider
                   width: double.infinity,
                   height: 260,
                   child: Image.asset(
-                    'assets/images/construction/construction4.jpg', // <-- Add your image here
+                    'assets/images/futureofmepdesing.jpg', // <-- Add your image here
                     fit: BoxFit.cover,
                   ),
                 ),

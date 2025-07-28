@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 void main() {
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,14 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
   @override
@@ -46,41 +50,44 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     // Start the animation
     _controller.forward();
   }
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(85), // Increased height for AppBar
         child: AppBar(
-            backgroundColor: Color(0xFF003366), // Deep blue background color
-            flexibleSpace: Row(
-              children: [
-                SlideTransition(
-                  position: _animation,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10), // Adjust padding as needed
-                    child: GestureDetector(
-                      onTap: () {
-                        // Navigate to home page on image tap
-                        Navigator.pushNamed(context, '/logistics/home');
-                      },
-                      child: Image.asset(
-                        'assets/images/images/MWT.png',
-                        height: 80, // Adjust logo height
-                        width: 70, // Increased width for enhanced appearance
-                        fit: BoxFit.fill, // Ensure the image doesn't crop
-                      ),
+          backgroundColor: Color(0xFF003366), // Deep blue background color
+          flexibleSpace: Row(
+            children: [
+              SlideTransition(
+                position: _animation,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 10), // Adjust padding as needed
+                  child: GestureDetector(
+                    onTap: () {
+                      // Navigate to home page on image tap
+                      Navigator.pushNamed(context, '/logistics/home');
+                    },
+                    child: Image.asset(
+                      'assets/images/images/MWT.png',
+                      height: 80, // Adjust logo height
+                      width: 70, // Increased width for enhanced appearance
+                      fit: BoxFit.fill, // Ensure the image doesn't crop
                     ),
                   ),
                 ),
-              ],
-            ),
-            actions: [
+              ),
+            ],
+          ),
+          actions: [
             TextButton(
               onPressed: () {},
               child: Text('Home', style: TextStyle(color: Colors.white)),
@@ -117,34 +124,66 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 },
                 itemBuilder: (BuildContext context) {
                   return [
-                    buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                    buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                    buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                    buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                    buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
-                    buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                    buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                    buildPopupMenuItem('Project Handling Services',
+                        '/logistics/projecthandling'),
+                    buildPopupMenuItem(
+                        'DG Cargo Handling', '/logistics/cargohandling'),
+                    buildPopupMenuItem(
+                        'Packaging Services', '/logistics/packaging'),
+                    buildPopupMenuItem(
+                        'Custom Clearance Services', '/logistics/custom'),
+                    buildPopupMenuItem(
+                        'Warehouse Freight Service', '/logistics/warehouse'),
+                    buildPopupMenuItem(
+                        'Land Freight Service', '/logistics/land'),
+                    buildPopupMenuItem(
+                        'Ocean Freight Service', '/logistics/ocean'),
                     buildPopupMenuItem('Air Freight Service', '/logistics/air'),
                     buildPopupMenuItem('Browse all', '/logistics/service'),
                   ];
                 },
               ),
             ),
-              TextButton(
-                onPressed: () {
-                  context.go('/logistics/officeaddress'); // Navigates to Contact Us page
-                },
-                child: Text('Our Offices', style: TextStyle(color: Colors.white)),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: PopupMenuButton<String>(
+                offset: const Offset(0, 60),
+                color: Colors.white,
+                child: const Row(
+                  children: [
+                    Text('Business Groups',
+                        style: TextStyle(color: Colors.white)),
+                    Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+                  ],
+                ),
+                onSelected: (value) => context.go(value),
+                itemBuilder: (_) => [
+                  buildPopupMenuItem('Construction', '/'),
+                  buildPopupMenuItem('Manpower', '/manpower'),
+                  buildPopupMenuItem('Event Management', '/event'),
+                  buildPopupMenuItem('Browse all', '/ourbusiness'),
+                ],
               ),
-              TextButton(
-                onPressed: () {
-                  context.go('/logistics/quoterequest'); // Navigates to Contact Us page
-                },
-                child: Text('Quote Request', style: TextStyle(color: Colors.white)),
-              ),
+            ),
             TextButton(
               onPressed: () {
-                context.go('/logistics/contactus'); // Navigates to Contact Us page
+                context.go(
+                    '/logistics/officeaddress'); // Navigates to Contact Us page
+              },
+              child: Text('Our Offices', style: TextStyle(color: Colors.white)),
+            ),
+            TextButton(
+              onPressed: () {
+                context.go(
+                    '/logistics/quoterequest'); // Navigates to Contact Us page
+              },
+              child:
+                  Text('Quote Request', style: TextStyle(color: Colors.white)),
+            ),
+            TextButton(
+              onPressed: () {
+                context
+                    .go('/logistics/contactus'); // Navigates to Contact Us page
               },
               child: Text('Contact Us', style: TextStyle(color: Colors.white)),
             ),
@@ -164,6 +203,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       ),
     );
   }
+
   /// Helper Method for PopupMenuItem with Compact Design
   PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
     return PopupMenuItem<String>(
@@ -173,6 +213,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 }
+
 /// Hoverable Menu Item Widget with Compact Styling
 class HoverableMenuItem extends StatefulWidget {
   final String title;
@@ -182,6 +223,7 @@ class HoverableMenuItem extends StatefulWidget {
   @override
   _HoverableMenuItemState createState() => _HoverableMenuItemState();
 }
+
 class _HoverableMenuItemState extends State<HoverableMenuItem> {
   bool _isHovered = false;
 
@@ -191,7 +233,8 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(
+            vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -207,6 +250,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
     );
   }
 }
+
 // --------------------------
 // Hero Section with Auto-Swiping Slider
 // --------------------------
@@ -214,6 +258,7 @@ class HeroSection extends StatefulWidget {
   @override
   _HeroSectionState createState() => _HeroSectionState();
 }
+
 class _HeroSectionState extends State<HeroSection> {
   final PageController _pageController = PageController();
   final List<Map<String, String>> _slides = [
@@ -270,7 +315,8 @@ class _HeroSectionState extends State<HeroSection> {
   @override
   void dispose() {
     _timer?.cancel();
-    _pageController.removeListener(_onPageChanged); // Remove listener when disposed
+    _pageController
+        .removeListener(_onPageChanged); // Remove listener when disposed
     _pageController.dispose();
     super.dispose();
   }
@@ -295,7 +341,8 @@ class _HeroSectionState extends State<HeroSection> {
                     width: double.infinity,
                   ),
                   Container(
-                    color: Colors.black.withOpacity(0.3), // Overlay for readability
+                    color: Colors.black
+                        .withOpacity(0.3), // Overlay for readability
                   ),
                   // Title and Subtitle at the Top
                   Positioned(
@@ -383,6 +430,7 @@ class _HeroSectionState extends State<HeroSection> {
     );
   }
 }
+
 // --------------------------
 // Services Section
 // -------------------------
@@ -392,6 +440,7 @@ class ServicesSection extends StatefulWidget {
   @override
   State<ServicesSection> createState() => _ServicesSectionState();
 }
+
 class _ServicesSectionState extends State<ServicesSection> {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
@@ -400,12 +449,14 @@ class _ServicesSectionState extends State<ServicesSection> {
     super.initState();
     _startAutoScroll();
   }
+
   @override
   void dispose() {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
+
   /// Start Auto Scroll Timer
   void _startAutoScroll() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
@@ -430,6 +481,7 @@ class _ServicesSectionState extends State<ServicesSection> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -518,6 +570,7 @@ class _ServicesSectionState extends State<ServicesSection> {
       ),
     );
   }
+
   /// Service Card Widget
   Widget _buildServiceCard({
     required String imagePath,
@@ -598,49 +651,59 @@ class _ServicesSectionState extends State<ServicesSection> {
     );
   }
 }
+
 /// Service Data
 final List<Map<String, String>> _serviceData = [
   {
     'imagePath': 'assets/images/images/freight.jpg',
     'title': 'Freight Forwarding',
-    'description': 'Seamless Global Cargo Solutions: Navigating complex logistics with precision, efficiency, and reliability. Our freight forwarding services ensure your goods move swiftly across borders, connecting continents and powering businesses with end-to-end transparency and care.',
+    'description':
+        'Seamless Global Cargo Solutions: Navigating complex logistics with precision, efficiency, and reliability. Our freight forwarding services ensure your goods move swiftly across borders, connecting continents and powering businesses with end-to-end transparency and care.',
   },
   {
     'imagePath': 'assets/images/images/supplychain.jpg',
     'title': 'Supply Chain Management',
-    'description': 'Optimize, Streamline, and Succeed: Our Supply Chain Management solutions ensure seamless coordination across procurement, production, and logistics. With advanced analytics, real-time tracking, and strategic planning, we empower your business to reduce costs, enhance efficiency, and deliver excellence at every step.',
+    'description':
+        'Optimize, Streamline, and Succeed: Our Supply Chain Management solutions ensure seamless coordination across procurement, production, and logistics. With advanced analytics, real-time tracking, and strategic planning, we empower your business to reduce costs, enhance efficiency, and deliver excellence at every step.',
   },
   {
     'imagePath': 'assets/images/images/inventory.jpg',
     'title': 'Inventory Management',
-    'description': 'Our inventory management system makes logistics easier and more efficient. With real-time tracking and automatic updates, you’ll always know your stock levels and be able to fulfill orders on time. Say goodbye to stockouts and delays, and keep your supply chain running smoothly. Let us help you manage your inventory more effectively and improve your logistics operations.',
+    'description':
+        'Our inventory management system makes logistics easier and more efficient. With real-time tracking and automatic updates, you’ll always know your stock levels and be able to fulfill orders on time. Say goodbye to stockouts and delays, and keep your supply chain running smoothly. Let us help you manage your inventory more effectively and improve your logistics operations.',
   },
   {
     'imagePath': 'assets/images/images/custom.jpg',
     'title': 'Customs Clearance',
-    'description': 'Effortless Border Solutions: Our Customs Clearance service ensures your shipments cross borders smoothly. We handle all the paperwork, regulations, and compliance so you can focus on your business. No delays, no hassles—just seamless, stress-free shipping.',
+    'description':
+        'Effortless Border Solutions: Our Customs Clearance service ensures your shipments cross borders smoothly. We handle all the paperwork, regulations, and compliance so you can focus on your business. No delays, no hassles—just seamless, stress-free shipping.',
   },
   {
     'imagePath': 'assets/images/images/warehouse.jpg',
     'title': 'Warehousing',
-    'description': 'Secure and Efficient Storage: Our warehousing service keeps your products safe, organized, and ready for quick access. With real-time tracking and efficient handling, we ensure your goods are always prepared for timely delivery. Your storage needs, simplified.',
+    'description':
+        'Secure and Efficient Storage: Our warehousing service keeps your products safe, organized, and ready for quick access. With real-time tracking and efficient handling, we ensure your goods are always prepared for timely delivery. Your storage needs, simplified.',
   },
   {
     'imagePath': 'assets/images/images/distribution.jpg',
     'title': 'Distribution Services',
-    'description': 'Distribution Services ensure your products are delivered on time and in perfect condition. We handle everything from storage to final delivery, using smart routes and real-time tracking to keep things smooth and efficient. Your goods, delivered reliably every time..',
+    'description':
+        'Distribution Services ensure your products are delivered on time and in perfect condition. We handle everything from storage to final delivery, using smart routes and real-time tracking to keep things smooth and efficient. Your goods, delivered reliably every time..',
   },
   {
     'imagePath': 'assets/images/images/consult.jpg',
     'title': 'Consultation Services',
-    'description': 'Consultation Services provide expert guidance to optimize your logistics operations. We analyze your challenges, offer tailored solutions, and help you streamline processes for better efficiency and cost savings. Your success is our priority, every step of the way..',
+    'description':
+        'Consultation Services provide expert guidance to optimize your logistics operations. We analyze your challenges, offer tailored solutions, and help you streamline processes for better efficiency and cost savings. Your success is our priority, every step of the way..',
   },
   {
     'imagePath': 'assets/images/images/ecomerce.jpg',
     'title': 'E-Commerce Logistics',
-    'description': 'Efficient and reliable logistics for your eCommerce business. We handle shipping, storage, and delivery so you can focus on growing your store. Fast, safe, and affordable solutions to get your products to customers on time, every time.',
+    'description':
+        'Efficient and reliable logistics for your eCommerce business. We handle shipping, storage, and delivery so you can focus on growing your store. Fast, safe, and affordable solutions to get your products to customers on time, every time.',
   },
 ];
+
 //About us//
 class AboutUsSection extends StatelessWidget {
   @override
@@ -692,11 +755,13 @@ class AboutUsSection extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         print('Navigating to AboutUsPage');
-                      // Ensure the path matches the defined route in GoRouter
-                      context.go('/logistics/AboutUsPage');},
+                        // Ensure the path matches the defined route in GoRouter
+                        context.go('/logistics/AboutUsPage');
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F), // Red color
-                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
                       child: Text(
                         'READ MORE',
@@ -720,6 +785,7 @@ class AboutUsSection extends StatelessWidget {
     );
   }
 }
+
 // --------------------------
 // Footer Section
 // --------------------------
@@ -742,7 +808,8 @@ class FooterSection extends StatelessWidget {
                 children: [
                   Text(
                     'Get In Touch:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.0),
                   Text(
@@ -758,16 +825,17 @@ class FooterSection extends StatelessWidget {
                     'Email: sales@mwtworld.com',
                     style: TextStyle(color: Colors.white),
                   ),
-
                 ],
               ),
               // Address Column (Right)
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // Align text to the left
                 children: [
                   Text(
                     'Address:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.0),
                   Text(
@@ -802,6 +870,7 @@ class FooterSection extends StatelessWidget {
     );
   }
 }
+
 /// Helper method to build dropdown items with custom spacing
 DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     {bool isHeader = false, bool isBold = false, Color? color}) {
@@ -821,7 +890,3 @@ DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     ),
   );
 }
-
-
-
-

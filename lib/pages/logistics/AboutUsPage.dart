@@ -44,7 +44,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         flexibleSpace: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10), // Adjust padding as needed
+              padding:
+                  const EdgeInsets.only(left: 10), // Adjust padding as needed
               child: GestureDetector(
                 onTap: () {
                   context.go('/'); // Navigate to home page on image tap
@@ -53,7 +54,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   'assets/images/images/MWT.png', // Image for the logo
                   height: 80, // Height of the image (same as home page)
                   width: 80, // Width of the image (same as home page)
-                  fit: BoxFit.fill, // Ensures the image fills the space without distortion
+                  fit: BoxFit
+                      .fill, // Ensures the image fills the space without distortion
                 ),
               ),
             ),
@@ -67,7 +69,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               'Home',
               style: TextStyle(
-                color: currentRoute == '/logistics/home' ? Colors.yellow : Colors.white,
+                color: currentRoute == '/logistics/home'
+                    ? Colors.yellow
+                    : Colors.white,
               ),
             ),
           ),
@@ -78,7 +82,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               'About Us',
               style: TextStyle(
-                color: currentRoute == 'logistics/AboutUsPage' ? Colors.yellow : Colors.white,
+                color: currentRoute == 'logistics/AboutUsPage'
+                    ? Colors.yellow
+                    : Colors.white,
               ),
             ),
           ),
@@ -108,28 +114,58 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem(
+                      'DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem(
+                      'Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem(
+                      'Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem(
+                      'Warehouse Freight Service', '/logistics/warehouse'),
                   buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
-                  buildPopupMenuItem('Air Freight Service', '/logistics/logistics/air'),
+                  buildPopupMenuItem(
+                      'Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem(
+                      'Air Freight Service', '/logistics/logistics/air'),
                   buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: PopupMenuButton<String>(
+              offset: const Offset(0, 60),
+              color: Colors.white,
+              child: const Row(
+                children: [
+                  Text('Business Groups',
+                      style: TextStyle(color: Colors.white)),
+                  Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+                ],
+              ),
+              onSelected: (value) => context.go(value),
+              itemBuilder: (_) => [
+                buildPopupMenuItem('Construction', '/'),
+                buildPopupMenuItem('Manpower', '/manpower'),
+                buildPopupMenuItem('Event Management', '/event'),
+                buildPopupMenuItem('Browse all', '/ourbusiness'),
+              ],
+            ),
+          ),
           TextButton(
             onPressed: () {
-              context.go('/logistics/officeaddress'); // Navigates to Contact Us page
+              context.go(
+                  '/logistics/officeaddress'); // Navigates to Contact Us page
             },
             child: Text('Our Offices', style: TextStyle(color: Colors.white)),
           ),
           TextButton(
             onPressed: () {
-              context.go('/logistics/quoterequest'); // Navigates to Contact Us page
+              context.go(
+                  '/logistics/quoterequest'); // Navigates to Contact Us page
             },
             child: Text('Quote Request', style: TextStyle(color: Colors.white)),
           ),
@@ -157,8 +193,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-
-
 // -------------------------- AboutUsPage --------------------------
 class AboutUsPage extends StatelessWidget {
   @override
@@ -170,7 +204,8 @@ class AboutUsPage extends StatelessWidget {
           Section(
             backgroundColor: Colors.blue[50],
             title: 'About MWT Logistics',
-            content: 'About MWT Logistics Welcome to MWT Logistics, a leader in the logistics and supply chain industry. We are dedicated to providing comprehensive and efficient solutions for businesses of all sizes. With a focus on reliability, innovation, and customer satisfaction, MWT Logistics ensures the seamless movement of goods across the globe, empowering businesses to grow and thrive in an increasingly connected world.',
+            content:
+                'About MWT Logistics Welcome to MWT Logistics, a leader in the logistics and supply chain industry. We are dedicated to providing comprehensive and efficient solutions for businesses of all sizes. With a focus on reliability, innovation, and customer satisfaction, MWT Logistics ensures the seamless movement of goods across the globe, empowering businesses to grow and thrive in an increasingly connected world.',
           ),
 
           // Image with Text on Top
@@ -183,18 +218,17 @@ class AboutUsPage extends StatelessWidget {
                 height: 350,
                 fit: BoxFit.cover,
               ),
-
               Text(
                 'With a focus on reliability, we guarantee that your cargo is delivered safely and securely,\n                                                              '
-                                                       'no matter the distance.',
+                'no matter the distance.',
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  backgroundColor: Colors.black.withOpacity(0.5), // Optional for better visibility
+                  backgroundColor: Colors.black
+                      .withOpacity(0.5), // Optional for better visibility
                 ),
               )
-
             ],
           ),
           // Add Advantages Section
@@ -221,19 +255,19 @@ class AboutUsPage extends StatelessWidget {
                       icon: Icons.rocket,
                       title: 'Fast Delivery',
                       description:
-                      'With our Express Delivery network, we provide swift and seamless transportation of your cargo to destinations within the Kingdom and nearby countries, meeting your tight schedules.',
+                          'With our Express Delivery network, we provide swift and seamless transportation of your cargo to destinations within the Kingdom and nearby countries, meeting your tight schedules.',
                     ),
                     AdvantageCard(
                       icon: Icons.headset_mic,
                       title: 'Client Support',
                       description:
-                      'A 24/7 customer dedicated service enabling us to strengthen our support with tailor-made solutions beyond your expectations.',
+                          'A 24/7 customer dedicated service enabling us to strengthen our support with tailor-made solutions beyond your expectations.',
                     ),
                     AdvantageCard(
                       icon: Icons.security,
                       title: 'Secure Services',
                       description:
-                      'MWYT deployed technologies will provide you with a multitude of services to secure your interest at the highest international standard.',
+                          'MWYT deployed technologies will provide you with a multitude of services to secure your interest at the highest international standard.',
                     ),
                   ],
                 ),
@@ -244,17 +278,16 @@ class AboutUsPage extends StatelessWidget {
           CustomCard(
             backgroundColor: Colors.white,
             title: 'Our Vision',
-            content:'To be the most trusted and innovative logistics partner, '
+            content: 'To be the most trusted and innovative logistics partner, '
                 'providing exceptional services that help businesses thrive '
                 'in a dynamic global economy.',
-
           ),
           const SizedBox(height: 16.0),
           CustomCard(
             backgroundColor: Colors.white,
             title: 'Our Mission',
             content:
-            'Our mission is to provide efficient, reliable, and cost-effective '
+                'Our mission is to provide efficient, reliable, and cost-effective '
                 'logistics solutions that empower businesses, enhance supply chain '
                 'management, and create lasting relationships with our clients.',
           ),
@@ -280,9 +313,11 @@ class AboutUsPage extends StatelessWidget {
 
               // Center the text and button in the middle of the image
               Align(
-                alignment: Alignment.center, // Center the content inside the Stack
+                alignment:
+                    Alignment.center, // Center the content inside the Stack
                 child: Column(
-                  mainAxisSize: MainAxisSize.min, // Ensure the Column takes up minimum space
+                  mainAxisSize: MainAxisSize
+                      .min, // Ensure the Column takes up minimum space
                   children: [
                     Text(
                       'Would you like to know more?',
@@ -291,16 +326,19 @@ class AboutUsPage extends StatelessWidget {
                         fontSize: 24,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        backgroundColor: Colors.black.withOpacity(0.5), // Optional for better visibility
+                        backgroundColor: Colors.black
+                            .withOpacity(0.5), // Optional for better visibility
                       ),
                     ),
-                    SizedBox(height: 20), // Optional space between text and button
+                    SizedBox(
+                        height: 20), // Optional space between text and button
                     ElevatedButton(
                       onPressed: () {
                         context.go('/logistics/contactus');
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.black.withOpacity(0.5)),
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.black.withOpacity(0.5)),
                       ),
                       child: Text(
                         'Contact Us',
@@ -317,19 +355,13 @@ class AboutUsPage extends StatelessWidget {
             ],
           ),
 
-
-
-
-
-
-
-
           FooterSection(), // Footer will appear at the bottom after scrolling
         ],
       ),
     );
   }
 }
+
 class LogisticsDistributionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -396,11 +428,10 @@ class LogisticsDistributionContainer extends StatelessWidget {
           Expanded(
             flex: 1, // Adjust flex to control space allocation
             child: Image.asset(
-
-              'assets/images/images/newhero1.jpg', // Replace with your image path
-              fit: BoxFit.fill,
-              height: 300// Adjust to fit within the available space
-            ),
+                'assets/images/images/newhero1.jpg', // Replace with your image path
+                fit: BoxFit.fill,
+                height: 300 // Adjust to fit within the available space
+                ),
           ),
         ],
       ),
@@ -541,13 +572,19 @@ class HomePage extends StatelessWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem(
+                      'DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem(
+                      'Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem(
+                      'Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem(
+                      'Warehouse Freight Service', '/logistics/warehouse'),
                   buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem(
+                      'Ocean Freight Service', '/logistics/ocean'),
                   buildPopupMenuItem('Air Freight Service', '/logistics/air'),
                   buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
@@ -557,7 +594,8 @@ class HomePage extends StatelessWidget {
 
           TextButton(
             onPressed: () {
-              context.go('/logistics/contactus'); // Navigates to Contact Us page
+              context
+                  .go('/logistics/contactus'); // Navigates to Contact Us page
             },
             child: Text('Contact Us', style: TextStyle(color: Colors.white)),
           ),
@@ -606,7 +644,8 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(
+            vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -733,10 +772,12 @@ class ServicesSection extends StatelessWidget {
     return Section(
       backgroundColor: Colors.blue[50],
       title: 'Our Services',
-      content: 'Reliable and efficient logistics services tailored for your needs.',
+      content:
+          'Reliable and efficient logistics services tailored for your needs.',
     );
   }
 }
+
 // Define AdvantageCard Widget
 class AdvantageCard extends StatelessWidget {
   final IconData icon;
@@ -784,10 +825,6 @@ class AdvantageCard extends StatelessWidget {
 }
 
 // Vision, Mission, and Values Section
-
-
-
-
 
 class CustomCard extends StatelessWidget {
   final Color backgroundColor;

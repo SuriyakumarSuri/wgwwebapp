@@ -707,6 +707,10 @@ final List<Map<String, String>> _businessData = [
     'imagePath': 'assets/images/event.jpg',
     'title': 'Event Management',
   },
+  {
+    'imagePath': 'assets/images/images/logistics.jpg',
+    'title': 'Logistics',
+  },
 ];
 
 class AboutUsSection extends StatelessWidget {
@@ -811,7 +815,7 @@ class FooterSection extends StatelessWidget {
             children: [
               _FooterLink(
                 label: 'About Us',
-                onTap: () => context.go('/AboutUsPage'),
+                onTap: () => context.go('/aboutconstruction'),
               ),
               _footerDivider(),
               _FooterLink(
@@ -826,12 +830,12 @@ class FooterSection extends StatelessWidget {
               _footerDivider(),
               _FooterLink(
                 label: 'Contact Us',
-                onTap: () => context.go('/contact'),
+                onTap: () => context.go('/contactus'),
               ),
               _footerDivider(),
               _FooterLink(
                 label: 'Our Offices',
-                onTap: () => context.go('/offices'),
+                onTap: () => context.go('/officeaddress'),
               ),
             ],
           ),
@@ -861,31 +865,31 @@ class FooterSection extends StatelessWidget {
           ),
           SizedBox(height: 24.0),
           // Map Locations
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _FooterMapLocation(
-                title: 'Head Office',
-                address: 'Al Azhar Building Tower, Al Safa Dist, Jeddah 23535, Saudi Arabia',
-                url: 'https://goo.gl/maps/yourmap1',
-                onTap: _launchUrl,
-              ),
-              SizedBox(width: 32),
-              _FooterMapLocation(
-                title: 'Branch Office',
-                address: 'King Fahd Rd, Riyadh 12212, Saudi Arabia',
-                url: 'https://goo.gl/maps/yourmap2',
-                onTap: _launchUrl,
-              ),
-              SizedBox(width: 32),
-              _FooterMapLocation(
-                title: 'International Office',
-                address: 'Dubai Media City, Dubai, UAE',
-                url: 'https://goo.gl/maps/yourmap3',
-                onTap: _launchUrl,
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     _FooterMapLocation(
+          //       title: 'Head Office',
+          //       address: 'Al Azhar Building Tower, Al Safa Dist, Jeddah 23535, Saudi Arabia',
+          //       url: 'https://goo.gl/maps/yourmap1',
+          //       onTap: _launchUrl,
+          //     ),
+          //     SizedBox(width: 32),
+          //     _FooterMapLocation(
+          //       title: 'Branch Office',
+          //       address: 'King Fahd Rd, Riyadh 12212, Saudi Arabia',
+          //       url: 'https://goo.gl/maps/yourmap2',
+          //       onTap: _launchUrl,
+          //     ),
+          //     SizedBox(width: 32),
+          //     _FooterMapLocation(
+          //       title: 'International Office',
+          //       address: 'Dubai Media City, Dubai, UAE',
+          //       url: 'https://goo.gl/maps/yourmap3',
+          //       onTap: _launchUrl,
+          //     ),
+          //   ],
+          // ),
           SizedBox(height: 24.0),
           // Contact Info and Address
           Row(

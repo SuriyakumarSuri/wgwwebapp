@@ -9,7 +9,9 @@ class ManpowerPage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-class _HomePageState extends State<ManpowerPage> with SingleTickerProviderStateMixin {
+
+class _HomePageState extends State<ManpowerPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
   @override
@@ -32,11 +34,13 @@ class _HomePageState extends State<ManpowerPage> with SingleTickerProviderStateM
     // Start the animation
     _controller.forward();
   }
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +60,7 @@ class _HomePageState extends State<ManpowerPage> with SingleTickerProviderStateM
       ),
     );
   }
+
   /// Helper Method for PopupMenuItem with Compact Design
   PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
     return PopupMenuItem<String>(
@@ -65,6 +70,7 @@ class _HomePageState extends State<ManpowerPage> with SingleTickerProviderStateM
     );
   }
 }
+
 /// Hoverable Menu Item Widget with Compact Styling
 class HoverableMenuItem extends StatefulWidget {
   final String title;
@@ -72,6 +78,7 @@ class HoverableMenuItem extends StatefulWidget {
   @override
   _HoverableMenuItemState createState() => _HoverableMenuItemState();
 }
+
 class _HoverableMenuItemState extends State<HoverableMenuItem> {
   bool _isHovered = false;
 
@@ -81,7 +88,8 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(
+            vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -97,17 +105,20 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
     );
   }
 }
+
 class HeroSection extends StatefulWidget {
   @override
   _HeroSectionState createState() => _HeroSectionState();
 }
+
 class _HeroSectionState extends State<HeroSection> {
   final PageController _pageController = PageController();
   final List<Map<String, String>> _slides = [
     {
       'image': 'assets/images/manpower1.jpg',
       'title': 'Empowering Projects with Skilled Talent Worldwide',
-      'subtitle': 'Highlights the strength and global reach of your manpower services',
+      'subtitle':
+          'Highlights the strength and global reach of your manpower services',
     },
     {
       'image': 'assets/images/manpower2.jpg',
@@ -117,7 +128,8 @@ class _HeroSectionState extends State<HeroSection> {
     {
       'image': 'assets/images/manpower3.jpg',
       'title': 'Reliable Manpower for Every Industry, Anywhere',
-      'subtitle': 'Reflects the reliability and wide-ranging services for various industries',
+      'subtitle':
+          'Reflects the reliability and wide-ranging services for various industries',
     },
   ];
   int _currentPage = 0;
@@ -157,7 +169,8 @@ class _HeroSectionState extends State<HeroSection> {
   @override
   void dispose() {
     _timer?.cancel();
-    _pageController.removeListener(_onPageChanged); // Remove listener when disposed
+    _pageController
+        .removeListener(_onPageChanged); // Remove listener when disposed
     _pageController.dispose();
     super.dispose();
   }
@@ -182,7 +195,8 @@ class _HeroSectionState extends State<HeroSection> {
                     width: double.infinity,
                   ),
                   Container(
-                    color: Colors.black.withOpacity(0.3), // Overlay for readability
+                    color: Colors.black
+                        .withOpacity(0.3), // Overlay for readability
                   ),
                   // Title and Subtitle at the Top
                   Positioned(
@@ -270,6 +284,7 @@ class _HeroSectionState extends State<HeroSection> {
     );
   }
 }
+
 //Servicessection
 class ServicesSection extends StatefulWidget {
   const ServicesSection({super.key});
@@ -277,7 +292,9 @@ class ServicesSection extends StatefulWidget {
   @override
   State<ServicesSection> createState() => _ServicesSectionState();
 }
-class _ServicesSectionState extends State<ServicesSection> with TickerProviderStateMixin {
+
+class _ServicesSectionState extends State<ServicesSection>
+    with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
   late AnimationController _typewriterController;
@@ -290,6 +307,7 @@ class _ServicesSectionState extends State<ServicesSection> with TickerProviderSt
     _startAutoScroll();
     _startTypewriterAnimation();
   }
+
   void _startTypewriterAnimation() {
     _typewriterController = AnimationController(
       vsync: this,
@@ -298,13 +316,15 @@ class _ServicesSectionState extends State<ServicesSection> with TickerProviderSt
 
     _typewriterController.addListener(() {
       setState(() {
-        int currentLength = (_typewriterController.value * _fullText.length).round();
+        int currentLength =
+            (_typewriterController.value * _fullText.length).round();
         _displayText = _fullText.substring(0, currentLength);
       });
     });
 
     _typewriterController.repeat(reverse: true);
   }
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -312,6 +332,7 @@ class _ServicesSectionState extends State<ServicesSection> with TickerProviderSt
     _typewriterController.dispose();
     super.dispose();
   }
+
   void _startAutoScroll() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_scrollController.hasClients) {
@@ -331,6 +352,7 @@ class _ServicesSectionState extends State<ServicesSection> with TickerProviderSt
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -438,7 +460,13 @@ class _ServicesSectionState extends State<ServicesSection> with TickerProviderSt
       ),
     );
   }
+
   final _serviceData = [
+     {
+      'imagePath': 'assets/images/MEP_Services.jpg',
+      'title': 'MEP Services',
+      'description': 'Reliable local manpower solutions for MEP projects across Saudi Arabia',
+    },
     {
       'imagePath': 'assets/images/saudi.jpg',
       'title': 'Saudi Local Workforce Recruitment',
@@ -471,6 +499,7 @@ class _ServicesSectionState extends State<ServicesSection> with TickerProviderSt
     },
   ];
 }
+
 //Industrysection
 class IndustrySection extends StatefulWidget {
   const IndustrySection({Key? key}) : super(key: key);
@@ -478,7 +507,9 @@ class IndustrySection extends StatefulWidget {
   @override
   State<IndustrySection> createState() => _IndustrySectionState();
 }
-class _IndustrySectionState extends State<IndustrySection> with TickerProviderStateMixin {
+
+class _IndustrySectionState extends State<IndustrySection>
+    with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
   late AnimationController _typewriterController;
@@ -490,6 +521,7 @@ class _IndustrySectionState extends State<IndustrySection> with TickerProviderSt
     _startAutoScroll();
     _startTypewriterAnimation();
   }
+
   void _startTypewriterAnimation() {
     _typewriterController = AnimationController(
       vsync: this,
@@ -498,7 +530,8 @@ class _IndustrySectionState extends State<IndustrySection> with TickerProviderSt
 
     _typewriterController.addListener(() {
       setState(() {
-        int currentLength = (_typewriterController.value * _fullText.length).round();
+        int currentLength =
+            (_typewriterController.value * _fullText.length).round();
         _displayText = _fullText.substring(0, currentLength);
       });
     });
@@ -568,7 +601,6 @@ class _IndustrySectionState extends State<IndustrySection> with TickerProviderSt
                 return _buildServiceCard(
                   imagePath: _serviceData[index]['imagePath']!,
                   title: _serviceData[index]['title']!,
-
                 );
               },
             ),
@@ -607,7 +639,8 @@ class _IndustrySectionState extends State<IndustrySection> with TickerProviderSt
             height: 220, // Increased image height
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20)),
               image: DecorationImage(
                 image: AssetImage(imagePath),
                 fit: BoxFit.cover, // Ensures the image fills the container
@@ -629,16 +662,15 @@ class _IndustrySectionState extends State<IndustrySection> with TickerProviderSt
       ),
     );
   }
+
   final List<Map<String, String>> _serviceData = [
     {
       'imagePath': 'assets/images/industry/cons.png',
       'title': 'Construction Industry',
-
     },
     {
       'imagePath': 'assets/images/industry/bpo.jpg',
       'title': 'Technology Sector',
-
     },
     {
       'imagePath': 'assets/images/industry/health.jpg',
@@ -647,51 +679,42 @@ class _IndustrySectionState extends State<IndustrySection> with TickerProviderSt
     {
       'imagePath': 'assets/images/industry/hosp.jpg',
       'title': 'Hospitality Sector',
-
     },
     {
       'imagePath': 'assets/images/industry/power.jpg',
       'title': 'Power Industry',
-
     },
     {
       'imagePath': 'assets/images/industry/oil.jpg',
       'title': 'OIL & GAS',
-
     },
     {
       'imagePath': 'assets/images/industry/manu.jpg',
       'title': 'Manufacturing Industry',
-
     },
     {
       'imagePath': 'assets/images/industry/tele.jpg',
       'title': 'Telecommunications',
-
     },
     {
       'imagePath': 'assets/images/industry/tech.jpg',
       'title': 'IT/BPO',
-
     },
     {
       'imagePath': 'assets/images/industry/ban2.jpg',
       'title': 'Banking',
-
     },
     {
       'imagePath': 'assets/images/industry/aviation.jpg',
       'title': 'Aviation',
-
     },
     {
       'imagePath': 'assets/images/industry/finance.jpg',
       'title': 'Financial',
-
     },
-
   ];
 }
+
 void main() {
   runApp(MaterialApp(
     home: Scaffold(
@@ -699,12 +722,14 @@ void main() {
     ),
   ));
 }
+
 //Business Section
 class BusinessSection extends StatefulWidget {
   const BusinessSection({super.key});
   @override
   State<BusinessSection> createState() => _BusinessSectionState();
 }
+
 class _BusinessSectionState extends State<BusinessSection> {
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
@@ -713,12 +738,14 @@ class _BusinessSectionState extends State<BusinessSection> {
     super.initState();
     _startAutoScroll();
   }
+
   @override
   void dispose() {
     _timer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
+
   void _startAutoScroll() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_scrollController.hasClients) {
@@ -741,6 +768,7 @@ class _BusinessSectionState extends State<BusinessSection> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -784,7 +812,14 @@ class _BusinessSectionState extends State<BusinessSection> {
           Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(3, (index) => Icon(Icons.circle, size: 8, color: index == 0 ? Colors.red : Colors.white)).expand((icon) => [icon, SizedBox(width: 4)]).toList()..removeLast(),
+              children: List.generate(
+                      3,
+                      (index) => Icon(Icons.circle,
+                          size: 8,
+                          color: index == 0 ? Colors.red : Colors.white))
+                  .expand((icon) => [icon, SizedBox(width: 4)])
+                  .toList()
+                ..removeLast(),
             ),
           ),
         ],
@@ -792,7 +827,8 @@ class _BusinessSectionState extends State<BusinessSection> {
     );
   }
 
-  Widget _buildbusinessCard({required String imagePath, required String title}) {
+  Widget _buildbusinessCard(
+      {required String imagePath, required String title}) {
     return GestureDetector(
       onTap: () {
         if (title == 'Construction') {
@@ -801,7 +837,7 @@ class _BusinessSectionState extends State<BusinessSection> {
           context.go('/manpower');
         } else if (title == 'Event Management') {
           context.go('/eventmanagement');
-        }else if (title == 'Logistics') {
+        } else if (title == 'Logistics') {
           context.go('/logistics/home');
         }
       },
@@ -852,6 +888,7 @@ class _BusinessSectionState extends State<BusinessSection> {
     );
   }
 }
+
 /// Service Data
 final List<Map<String, String>> _businessData = [
   {
@@ -867,12 +904,15 @@ final List<Map<String, String>> _businessData = [
     'title': 'Event Management',
   },
 ];
+
 //About us//
 class AboutUsSection extends StatefulWidget {
   @override
   _AboutUsSectionState createState() => _AboutUsSectionState();
 }
-class _AboutUsSectionState extends State<AboutUsSection> with TickerProviderStateMixin {
+
+class _AboutUsSectionState extends State<AboutUsSection>
+    with TickerProviderStateMixin {
   bool _animate = false;
 
   @override
@@ -934,7 +974,7 @@ class _AboutUsSectionState extends State<AboutUsSection> with TickerProviderStat
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => context.go('/BusinessAbout'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue.shade800,
                     shape: RoundedRectangleBorder(
@@ -942,7 +982,10 @@ class _AboutUsSectionState extends State<AboutUsSection> with TickerProviderStat
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   ),
-                  child: Text("Learn More", style: TextStyle(color: Colors.white)),
+                  child: Text(
+                    "Learn More",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -955,13 +998,13 @@ class _AboutUsSectionState extends State<AboutUsSection> with TickerProviderStat
             child: AnimatedContainer(
               duration: Duration(seconds: 1),
               height: _animate ? 180 : 120, // Adjusted size for better look
-              width: _animate ? 180 : 120,  // Adjusted size for better look
-              transform: Matrix4.translationValues(
-                  _animate ? 0.0 : 200.0, 0.0, 0.0), // Slide-in effect from the right
+              width: _animate ? 180 : 120, // Adjusted size for better look
+              transform: Matrix4.translationValues(_animate ? 0.0 : 200.0, 0.0,
+                  0.0), // Slide-in effect from the right
               curve: Curves.easeInOut,
               child: Image.asset(
                 'assets/images/manpower3.jpg', // Replace with your image path
-                fit: BoxFit.cover,  // Use BoxFit.cover for better image fit
+                fit: BoxFit.cover, // Use BoxFit.cover for better image fit
               ),
             ),
           ),
@@ -970,6 +1013,7 @@ class _AboutUsSectionState extends State<AboutUsSection> with TickerProviderStat
     );
   }
 }
+
 // Footer Section//
 class FooterSection extends StatelessWidget {
   @override
@@ -990,7 +1034,8 @@ class FooterSection extends StatelessWidget {
                 children: [
                   Text(
                     'Get In Touch:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.0),
                   Text(
@@ -1006,16 +1051,17 @@ class FooterSection extends StatelessWidget {
                     'Email: info@wgwcltd.com',
                     style: TextStyle(color: Colors.white),
                   ),
-
                 ],
               ),
               // Address Column (Right)
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // Align text to the left
                 children: [
                   Text(
                     'Address:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.0),
                   Text(
@@ -1050,6 +1096,7 @@ class FooterSection extends StatelessWidget {
     );
   }
 }
+
 /// Helper method to build dropdown items with custom spacing
 DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     {bool isHeader = false, bool isBold = false, Color? color}) {
@@ -1069,4 +1116,3 @@ DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     ),
   );
 }
-

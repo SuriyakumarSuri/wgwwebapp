@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'MWT Logistics',
       debugShowCheckedModeBanner: false,
       routerConfig: GoRouter(
-        initialLocation: '/logistics/home', // It’s common to start from home screen
+        initialLocation:
+            '/logistics/home', // It’s common to start from home screen
         routes: [
           GoRoute(
             path: '/logistics/home',
@@ -24,7 +25,6 @@ class MyApp extends StatelessWidget {
             path: '/quoterequest',
             builder: (context, state) => QuoteRequest(),
           ),
-
         ],
       ),
     );
@@ -37,7 +37,6 @@ class QuoteRequest extends StatefulWidget {
 }
 
 class _QuoteRequestState extends State<QuoteRequest> {
-
   String? _filePath;
   Uint8List? _fileBytes;
 
@@ -74,7 +73,8 @@ class _QuoteRequestState extends State<QuoteRequest> {
   String? _selectContainer = 'SELECT CONTAINER'; // Default value
 
   // API endpoint
-  final String _apiUrl = 'https://quote-request-backend-896ba0aaa29d.herokuapp.com/send-quote-request';
+  final String _apiUrl =
+      'https://quote-request-backend-896ba0aaa29d.herokuapp.com/send-quote-request';
 
   @override
   void initState() {
@@ -110,7 +110,7 @@ class _QuoteRequestState extends State<QuoteRequest> {
     _cargoSizeFocusNode.dispose();
     _otherDetailsFocusNode.dispose();
 
-    super.dispose(); 
+    super.dispose();
   }
 
   @override
@@ -145,39 +145,63 @@ class _QuoteRequestState extends State<QuoteRequest> {
                   children: [
                     Row(
                       children: [
-                        Expanded(child: _buildTextField('Name *', _nameController, _nameFocusNode)),
+                        Expanded(
+                            child: _buildTextField(
+                                'Name *', _nameController, _nameFocusNode)),
                         SizedBox(width: 16),
-                        Expanded(child: _buildTextField('Email *', _emailController, _emailFocusNode)),
+                        Expanded(
+                            child: _buildTextField(
+                                'Email *', _emailController, _emailFocusNode)),
                       ],
                     ),
                     SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(child: _buildTextField('Telephone *', _telephoneController, _telephoneFocusNode)),
+                        Expanded(
+                            child: _buildTextField('Telephone *',
+                                _telephoneController, _telephoneFocusNode)),
                         SizedBox(width: 16),
-                        Expanded(child: _buildTextField('Company Name', _companyController, _companyFocusNode)),
+                        Expanded(
+                            child: _buildTextField('Company Name',
+                                _companyController, _companyFocusNode)),
                       ],
                     ),
                     SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(child: _buildTextField('Departure Country *', _departureCountryController, _departureCountryFocusNode)),
+                        Expanded(
+                            child: _buildTextField(
+                                'Departure Country *',
+                                _departureCountryController,
+                                _departureCountryFocusNode)),
                         SizedBox(width: 16),
-                        Expanded(child: _buildTextField('Departure Town/City *', _departureTownController, _departureTownFocusNode)),
+                        Expanded(
+                            child: _buildTextField(
+                                'Departure Town/City *',
+                                _departureTownController,
+                                _departureTownFocusNode)),
                       ],
                     ),
                     SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(child: _buildTextField('Arrival Country *', _arrivalCountryController, _arrivalCountryFocusNode)),
+                        Expanded(
+                            child: _buildTextField(
+                                'Arrival Country *',
+                                _arrivalCountryController,
+                                _arrivalCountryFocusNode)),
                         SizedBox(width: 16),
-                        Expanded(child: _buildTextField('Arrival Town/City *', _arrivalTownController, _arrivalTownFocusNode)),
+                        Expanded(
+                            child: _buildTextField('Arrival Town/City *',
+                                _arrivalTownController, _arrivalTownFocusNode)),
                       ],
                     ),
                     SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(child: _buildDropdownField('Collect ASAP *', (value) {
+                        Expanded(
+                            child:
+                                _buildDropdownField('Collect ASAP *', (value) {
                           setState(() {
                             _collectAsap = value;
                           });
@@ -190,7 +214,9 @@ class _QuoteRequestState extends State<QuoteRequest> {
                           'COLLECT IN 4-6 MONTHS',
                         ])),
                         SizedBox(width: 16),
-                        Expanded(child: _buildDropdownField('Deliver ASAP *', (value) {
+                        Expanded(
+                            child:
+                                _buildDropdownField('Deliver ASAP *', (value) {
                           setState(() {
                             _deliverAsap = value;
                           });
@@ -207,15 +233,25 @@ class _QuoteRequestState extends State<QuoteRequest> {
                     SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(child: _buildTextField('Cargo Description *', _cargoDescriptionController, _cargoDescriptionFocusNode)),
+                        Expanded(
+                            child: _buildTextField(
+                                'Cargo Description *',
+                                _cargoDescriptionController,
+                                _cargoDescriptionFocusNode)),
                         SizedBox(width: 16),
-                        Expanded(child: _buildTextField('Cargo Weight, if known, in kilograms', _cargoWeightController, _cargoWeightFocusNode)),
+                        Expanded(
+                            child: _buildTextField(
+                                'Cargo Weight, if known, in kilograms',
+                                _cargoWeightController,
+                                _cargoWeightFocusNode)),
                       ],
                     ),
                     SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(child: _buildDropdownField('Select Container *', (value) {
+                        Expanded(
+                            child: _buildDropdownField('Select Container *',
+                                (value) {
                           setState(() {
                             _selectContainer = value;
                           });
@@ -230,11 +266,18 @@ class _QuoteRequestState extends State<QuoteRequest> {
                           'OTHER',
                         ])),
                         SizedBox(width: 16),
-                        Expanded(child: _buildTextField('Cargo Size, if known, in metres', _cargoSizeController, _cargoSizeFocusNode)),
+                        Expanded(
+                            child: _buildTextField(
+                                'Cargo Size, if known, in metres',
+                                _cargoSizeController,
+                                _cargoSizeFocusNode)),
                       ],
                     ),
                     SizedBox(height: 16),
-                    _buildTextField('Any other details that may be useful for us to know about your shipment', _otherDetailsController, _otherDetailsFocusNode),
+                    _buildTextField(
+                        'Any other details that may be useful for us to know about your shipment',
+                        _otherDetailsController,
+                        _otherDetailsFocusNode),
                     SizedBox(height: 20),
                     _buildFilePicker(),
                     SizedBox(height: 20),
@@ -270,7 +313,7 @@ class _QuoteRequestState extends State<QuoteRequest> {
                   ],
                 ),
               ),
-              FooterSection(),  // Footer section added here
+              FooterSection(), // Footer section added here
             ],
           ),
         ),
@@ -278,7 +321,8 @@ class _QuoteRequestState extends State<QuoteRequest> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, FocusNode focusNode) {
+  Widget _buildTextField(
+      String label, TextEditingController controller, FocusNode focusNode) {
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
@@ -289,7 +333,8 @@ class _QuoteRequestState extends State<QuoteRequest> {
     );
   }
 
-  Widget _buildDropdownField(String label, Function(String?) onChanged, String? selectedValue, List<String> options) {
+  Widget _buildDropdownField(String label, Function(String?) onChanged,
+      String? selectedValue, List<String> options) {
     return DropdownButtonFormField<String>(
       value: selectedValue,
       onChanged: onChanged,
@@ -297,7 +342,9 @@ class _QuoteRequestState extends State<QuoteRequest> {
         labelText: label,
         border: OutlineInputBorder(),
       ),
-      items: options.map((option) => DropdownMenuItem(value: option, child: Text(option))).toList(),
+      items: options
+          .map((option) => DropdownMenuItem(value: option, child: Text(option)))
+          .toList(),
     );
   }
 
@@ -319,7 +366,9 @@ class _QuoteRequestState extends State<QuoteRequest> {
               Text('Choose File', style: TextStyle(color: Colors.black)),
               SizedBox(width: 10),
               Text(
-                _filePath != null ? _filePath!.split('/').last : 'No file chosen',
+                _filePath != null
+                    ? _filePath!.split('/').last
+                    : 'No file chosen',
                 style: TextStyle(color: Colors.grey),
               ),
             ],
@@ -331,7 +380,11 @@ class _QuoteRequestState extends State<QuoteRequest> {
 
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['pdf', 'doc', 'docx'], // Allow only PDF, DOC, and DOCX
+      allowedExtensions: [
+        'pdf',
+        'doc',
+        'docx'
+      ], // Allow only PDF, DOC, and DOCX
       type: FileType.custom,
     );
     if (result != null) {
@@ -383,13 +436,17 @@ class _QuoteRequestState extends State<QuoteRequest> {
     try {
       var response = await request.send();
       if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Request submitted successfully! We will get back to you.")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+                "Request submitted successfully! We will get back to you.")));
       } else {
         final responseBody = await response.stream.bytesToString();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to submit the request.")));
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Failed to submit the request.")));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: $e")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error: $e")));
     }
   }
 
@@ -416,7 +473,6 @@ class _QuoteRequestState extends State<QuoteRequest> {
   }
 }
 
-
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -438,16 +494,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         flexibleSpace: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10), // Adjust padding as needed
+              padding:
+                  const EdgeInsets.only(left: 10), // Adjust padding as needed
               child: GestureDetector(
                 onTap: () {
-                  context.go('/logistics/home'); // Navigate to home page on image tap
+                  context.go(
+                      '/logistics/home'); // Navigate to home page on image tap
                 },
                 child: Image.asset(
                   'assets/images/images/MWT.png', // Image for the logo
                   height: 80, // Height of the image (same as home page)
                   width: 80, // Width of the image (same as home page)
-                  fit: BoxFit.fill, // Ensures the image fills the space without distortion
+                  fit: BoxFit
+                      .fill, // Ensures the image fills the space without distortion
                 ),
               ),
             ),
@@ -461,7 +520,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               'Home',
               style: TextStyle(
-                color: currentRoute == '/logistics/home' ? Colors.yellow : Colors.white,
+                color: currentRoute == '/logistics/home'
+                    ? Colors.yellow
+                    : Colors.white,
               ),
             ),
           ),
@@ -472,7 +533,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               'About Us',
               style: TextStyle(
-                color: currentRoute == '/logistics/AboutUsPage' ? Colors.yellow : Colors.white,
+                color: currentRoute == '/logistics/AboutUsPage'
+                    ? Colors.yellow
+                    : Colors.white,
               ),
             ),
           ),
@@ -502,29 +565,59 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem(
+                      'DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem(
+                      'Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem(
+                      'Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem(
+                      'Warehouse Freight Service', '/logistics/warehouse'),
                   buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem(
+                      'Ocean Freight Service', '/logistics/ocean'),
                   buildPopupMenuItem('Air Freight Service', '/logistics/air'),
                   buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: PopupMenuButton<String>(
+              offset: const Offset(0, 60),
+              color: Colors.white,
+              child: const Row(
+                children: [
+                  Text('Business Groups',
+                      style: TextStyle(color: Colors.white)),
+                  Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+                ],
+              ),
+              onSelected: (value) => context.go(value),
+              itemBuilder: (_) => [
+                buildPopupMenuItem('Construction', '/'),
+                buildPopupMenuItem('Manpower', '/manpower'),
+                buildPopupMenuItem('Event Management', '/event'),
+                buildPopupMenuItem('Browse all', '/ourbusiness'),
+              ],
+            ),
+          ),
           TextButton(
             onPressed: () {
-              context.go('/logistics/officeaddress'); // Navigates to Contact Us page
+              context.go(
+                  '/logistics/officeaddress'); // Navigates to Contact Us page
             },
             child: Text('Our Offices', style: TextStyle(color: Colors.white)),
           ),
           TextButton(
             onPressed: () {
-              context.go('/logistics/quoterequest'); // Navigates to Contact Us page
+              context.go(
+                  '/logistics/quoterequest'); // Navigates to Contact Us page
             },
             child: Text('Quote Request', style: TextStyle(color: Colors.white)),
           ),
@@ -551,6 +644,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
+
 // Section Widget --------------------------
 class HomePage extends StatelessWidget {
   @override
@@ -610,13 +704,19 @@ class HomePage extends StatelessWidget {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  buildPopupMenuItem('Project Handling Services', '/logistics/projecthandling'),
-                  buildPopupMenuItem('DG Cargo Handling', '/logistics/cargohandling'),
-                  buildPopupMenuItem('Packaging Services', '/logistics/packaging'),
-                  buildPopupMenuItem('Custom Clearance Services', '/logistics/custom'),
-                  buildPopupMenuItem('Warehouse Freight Service', '/logistics/warehouse'),
+                  buildPopupMenuItem('Project Handling Services',
+                      '/logistics/projecthandling'),
+                  buildPopupMenuItem(
+                      'DG Cargo Handling', '/logistics/cargohandling'),
+                  buildPopupMenuItem(
+                      'Packaging Services', '/logistics/packaging'),
+                  buildPopupMenuItem(
+                      'Custom Clearance Services', '/logistics/custom'),
+                  buildPopupMenuItem(
+                      'Warehouse Freight Service', '/logistics/warehouse'),
                   buildPopupMenuItem('Land Freight Service', '/logistics/land'),
-                  buildPopupMenuItem('Ocean Freight Service', '/logistics/ocean'),
+                  buildPopupMenuItem(
+                      'Ocean Freight Service', '/logistics/ocean'),
                   buildPopupMenuItem('Air Freight Service', '/logistics/air'),
                   buildPopupMenuItem('Browse all', '/logistics/service'),
                 ];
@@ -675,7 +775,8 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(
+            vertical: 4.0, horizontal: 8.0), // Reduced padding
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -691,47 +792,56 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
     );
   }
 }
+
 /// Service Data
 final List<Map<String, String>> _serviceData = [
   {
     'imagePath': 'assets/images/images/freight.jpg',
     'title': 'Freight Forwarding',
-    'description': 'Seamless Global Cargo Solutions: Navigating complex logistics with precision, efficiency, and reliability. Our freight forwarding services ensure your goods move swiftly across borders, connecting continents and powering businesses with end-to-end transparency and care.',
+    'description':
+        'Seamless Global Cargo Solutions: Navigating complex logistics with precision, efficiency, and reliability. Our freight forwarding services ensure your goods move swiftly across borders, connecting continents and powering businesses with end-to-end transparency and care.',
   },
   {
     'imagePath': 'assets/images/images/supplychain.jpg',
     'title': 'Supply Chain Management',
-    'description': 'Optimize, Streamline, and Succeed: Our Supply Chain Management solutions ensure seamless coordination across procurement, production, and logistics. With advanced analytics, real-time tracking, and strategic planning, we empower your business to reduce costs, enhance efficiency, and deliver excellence at every step.',
+    'description':
+        'Optimize, Streamline, and Succeed: Our Supply Chain Management solutions ensure seamless coordination across procurement, production, and logistics. With advanced analytics, real-time tracking, and strategic planning, we empower your business to reduce costs, enhance efficiency, and deliver excellence at every step.',
   },
   {
     'imagePath': 'assets/images/images/inventory.jpg',
     'title': 'Inventory Management',
-    'description': 'Our inventory management system makes logistics easier and more efficient. With real-time tracking and automatic updates, you’ll always know your stock levels and be able to fulfill orders on time. Say goodbye to stockouts and delays, and keep your supply chain running smoothly. Let us help you manage your inventory more effectively and improve your logistics operations.',
+    'description':
+        'Our inventory management system makes logistics easier and more efficient. With real-time tracking and automatic updates, you’ll always know your stock levels and be able to fulfill orders on time. Say goodbye to stockouts and delays, and keep your supply chain running smoothly. Let us help you manage your inventory more effectively and improve your logistics operations.',
   },
   {
     'imagePath': 'assets/images/images/custom.jpg',
     'title': 'Customs Clearance',
-    'description': 'Effortless Border Solutions: Our Customs Clearance service ensures your shipments cross borders smoothly. We handle all the paperwork, regulations, and compliance so you can focus on your business. No delays, no hassles—just seamless, stress-free shipping.',
+    'description':
+        'Effortless Border Solutions: Our Customs Clearance service ensures your shipments cross borders smoothly. We handle all the paperwork, regulations, and compliance so you can focus on your business. No delays, no hassles—just seamless, stress-free shipping.',
   },
   {
     'imagePath': 'assets/images/images/warehouse.jpg',
     'title': 'Warehousing',
-    'description': 'Secure and Efficient Storage: Our warehousing service keeps your products safe, organized, and ready for quick access. With real-time tracking and efficient handling, we ensure your goods are always prepared for timely delivery. Your storage needs, simplified.',
+    'description':
+        'Secure and Efficient Storage: Our warehousing service keeps your products safe, organized, and ready for quick access. With real-time tracking and efficient handling, we ensure your goods are always prepared for timely delivery. Your storage needs, simplified.',
   },
   {
     'imagePath': 'assets/images/images/distribution.jpg',
     'title': 'Distribution Services',
-    'description': 'Distribution Services ensure your products are delivered on time and in perfect condition. We handle everything from storage to final delivery, using smart routes and real-time tracking to keep things smooth and efficient. Your goods, delivered reliably every time..',
+    'description':
+        'Distribution Services ensure your products are delivered on time and in perfect condition. We handle everything from storage to final delivery, using smart routes and real-time tracking to keep things smooth and efficient. Your goods, delivered reliably every time..',
   },
   {
     'imagePath': 'assets/images/images/consult.jpg',
     'title': 'Consultation Services',
-    'description': 'Consultation Services provide expert guidance to optimize your logistics operations. We analyze your challenges, offer tailored solutions, and help you streamline processes for better efficiency and cost savings. Your success is our priority, every step of the way..',
+    'description':
+        'Consultation Services provide expert guidance to optimize your logistics operations. We analyze your challenges, offer tailored solutions, and help you streamline processes for better efficiency and cost savings. Your success is our priority, every step of the way..',
   },
   {
     'imagePath': 'assets/images/images/ecomerce.jpg',
     'title': 'E-Commerce Logistics',
-    'description': 'Efficient and reliable logistics for your eCommerce business. We handle shipping, storage, and delivery so you can focus on growing your store. Fast, safe, and affordable solutions to get your products to customers on time, every time.',
+    'description':
+        'Efficient and reliable logistics for your eCommerce business. We handle shipping, storage, and delivery so you can focus on growing your store. Fast, safe, and affordable solutions to get your products to customers on time, every time.',
   },
 ];
 
@@ -747,7 +857,7 @@ class FooterSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height:10.0),
+          SizedBox(height: 10.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -837,4 +947,3 @@ DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
     ),
   );
 }
-

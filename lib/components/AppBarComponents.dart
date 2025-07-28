@@ -16,9 +16,10 @@ class _MainPageAppBarState extends State<MainPageAppBar>
     with SingleTickerProviderStateMixin {
   AnimationController? _controller;
   Animation<Offset>? _animation;
+
   bool get _isHome =>
-      GoRouterState.of(context).location == '/' ||
-      GoRouterState.of(context).location == '/home';
+      GoRouter.of(context).location == '/' ||
+      GoRouter.of(context).location == '/home';
 
   @override
   void initState() {
@@ -68,7 +69,6 @@ class _MainPageAppBarState extends State<MainPageAppBar>
     );
 
     if (_isHome) {
-      // Only animate on home
       _controller ??= AnimationController(
         duration: const Duration(seconds: 2),
         vsync: this,
@@ -93,7 +93,6 @@ class _MainPageAppBarState extends State<MainPageAppBar>
         ),
       );
     } else {
-      // Static for other routes
       return Padding(
         padding: const EdgeInsets.only(left: 10),
         child: GestureDetector(
@@ -137,10 +136,12 @@ class _MainPageAppBarState extends State<MainPageAppBar>
                   offset: const Offset(0, 50),
                   color: Colors.white,
                   child: const Row(
-                      children: [
-                    Text('Business Groups', style: TextStyle(color: Colors.white)),
-                    Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
-                  ],
+                    children: [
+                      Text('Business Groups',
+                          style: TextStyle(color: Colors.white)),
+                      Icon(Icons.arrow_drop_down,
+                          color: Colors.white, size: 18),
+                    ],
                   ),
                   onSelected: (value) => context.go(value),
                   itemBuilder: (_) => [
@@ -156,11 +157,6 @@ class _MainPageAppBarState extends State<MainPageAppBar>
                 child: const Text('Our Services',
                     style: TextStyle(color: Colors.white)),
               ),
-              // TextButton(
-              //   onPressed: () => context.go('/quoterequest'),
-              //   child: const Text('Quote Request',
-              //       style: TextStyle(color: Colors.white)),
-              // ),
               TextButton(
                 onPressed: () => context.go('/officeaddress'),
                 child: const Text('Our Offices',
@@ -190,8 +186,6 @@ class _MainPageAppBarState extends State<MainPageAppBar>
     );
   }
 }
-
-
 
 class SubMainPageAppBar extends StatefulWidget implements PreferredSizeWidget {
   const SubMainPageAppBar({super.key});
@@ -234,65 +228,62 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
   }
 
   static PopupMenuItem<String> buildPopupMenuItem(String title, String route) {
-    return PopupMenuItem<String>(
-      value: route,
-      child: Text(title)
-    );
+    return PopupMenuItem<String>(value: route, child: Text(title));
   }
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFF022025),
+      backgroundColor: const Color(0xFF022025),
       automaticallyImplyLeading: false,
       toolbarHeight: 85,
       titleSpacing: 0,
       title: Align(
-      // THIS IS THE KEY: Align the entire content to the bottom
-      alignment: Alignment.bottomLeft,
-      child:Padding(
-        padding: const EdgeInsets.only(left: 16.0),
-        child: SlideTransition(
-          position: _animation,
-          child: GestureDetector(
-            onTap: () => context.go('/home'),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/wgw.png',
-                  height: 80,
-                  width: 70,
-                  fit: BoxFit.contain,
-                ),
-                const SizedBox(width: 8),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'AL Wajhat Global Western',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+        alignment: Alignment.bottomLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: SlideTransition(
+            position: _animation,
+            child: GestureDetector(
+              onTap: () => context.go('/home'),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/wgw.png',
+                    height: 80,
+                    width: 70,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(width: 8),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'AL Wajhat Global Western',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Company Ltd.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white70,
+                      Text(
+                        'Company Ltd.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white70,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),),
+      ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(top: 0),
@@ -301,63 +292,62 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
             children: [
               TextButton(
                 onPressed: () => context.go('/manpower'),
-                child: const Text('Home', style: TextStyle(color: Colors.white)),
+                child:
+                    const Text('Home', style: TextStyle(color: Colors.white)),
               ),
               TextButton(
                 onPressed: () => context.go('/businessabout'),
-                child: const Text('About Us', style: TextStyle(color: Colors.white)),
+                child: const Text('About Us',
+                    style: TextStyle(color: Colors.white)),
               ),
-               Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2.0),
                 child: PopupMenuButton<String>(
-                offset: const Offset(0, 60),
-                color: Colors.white,
-                child: const Row(
-                  children: [
-                    Text('Business Groups', style: TextStyle(color: Colors.white)),
-                    Icon(Icons.arrow_drop_down, color: Colors.white, size: 18),
+                  offset: const Offset(0, 60),
+                  color: Colors.white,
+                  child: const Row(
+                    children: [
+                      Text('Business Groups',
+                          style: TextStyle(color: Colors.white)),
+                      Icon(Icons.arrow_drop_down,
+                          color: Colors.white, size: 18),
+                    ],
+                  ),
+                  onSelected: (value) => context.go(value),
+                  itemBuilder: (_) => [
+                    buildPopupMenuItem('Construction', '/'),
+                    buildPopupMenuItem('Manpower', '/manpower'),
+                    buildPopupMenuItem('Event Management', '/event'),
+                    buildPopupMenuItem('Browse all', '/ourbusiness'),
                   ],
                 ),
-                onSelected: (value) => context.go(value),
-                itemBuilder: (_) => [
-                  buildPopupMenuItem('Construction', '/'),
-                  buildPopupMenuItem('Manpower', '/manpower'),
-                  buildPopupMenuItem('Event Management', '/event'),
-                  buildPopupMenuItem('Browse all', '/ourbusiness'),
-                ],
               ),
-               ),
               TextButton(
                 onPressed: () => context.go('/businessservices'),
-                child: const Text('Our Services', style: TextStyle(color: Colors.white)),
+                child: const Text('Our Services',
+                    style: TextStyle(color: Colors.white)),
               ),
-               TextButton(
-              onPressed: () {
-                context.go('/businessindustries');
-              },
-              child: const Text('Industries', style: TextStyle(color: Colors.white)),
-            ),
-            // TextButton(
-            //   onPressed: () {
-            //     context.go('/contactus'); 
-            //   },
-            //   child: const Text('Job Seekers', style: TextStyle(color: Colors.white)),
-            // ),
+              TextButton(
+                onPressed: () {
+                  context.go('/businessindustries');
+                },
+                child: const Text('Industries',
+                    style: TextStyle(color: Colors.white)),
+              ),
               TextButton(
                 onPressed: () => context.go('/officeaddress-manpower'),
-                child: const Text('Our Offices', style: TextStyle(color: Colors.white)),
+                child: const Text('Our Offices',
+                    style: TextStyle(color: Colors.white)),
               ),
-              // TextButton(
-              //   onPressed: () => context.go('/quoterequest'),
-              //   child: const Text('Quote Request', style: TextStyle(color: Colors.white)),
-              // ),
               TextButton(
                 onPressed: () => context.go('/careers-manpower'),
-                child: const Text('Careers', style: TextStyle(color: Colors.white)),
+                child: const Text('Careers',
+                    style: TextStyle(color: Colors.white)),
               ),
               TextButton(
                 onPressed: () => context.go('/contactus-manpower'),
-                child: const Text('Contact Us', style: TextStyle(color: Colors.white)),
+                child: const Text('Contact Us',
+                    style: TextStyle(color: Colors.white)),
               ),
               const SizedBox(width: 8),
             ],
