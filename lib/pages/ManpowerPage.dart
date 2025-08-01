@@ -829,14 +829,16 @@ class _BusinessSectionState extends State<BusinessSection> {
 
   Widget _buildbusinessCard(
       {required String imagePath, required String title}) {
-    return GestureDetector(
+     return GestureDetector(
       onTap: () {
         if (title == 'Construction') {
           context.go('/aboutconstruction');
         } else if (title == 'Manpower') {
           context.go('/manpower');
         } else if (title == 'Event Management') {
-          context.go('/eventmanagement');
+          context.go('/event');
+        } else if (title == 'Event Management') {
+          context.go('/event');
         } else if (title == 'Logistics') {
           context.go('/logistics/home');
         }
@@ -902,6 +904,10 @@ final List<Map<String, String>> _businessData = [
   {
     'imagePath': 'assets/images/event.jpg',
     'title': 'Event Management',
+  },
+  {
+    'imagePath': 'assets/images/images/logistics.jpg',
+    'title': 'Logistics',
   },
 ];
 
