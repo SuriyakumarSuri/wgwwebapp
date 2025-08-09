@@ -1,7 +1,8 @@
-// Import necessary packages
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,21 +34,17 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    // Initialize the animation controller
     _controller = AnimationController(
-      duration: Duration(seconds: 2), // Animation duration
+      duration: Duration(seconds: 2),
       vsync: this,
     );
-
-    // Define the animation movement
     _animation = Tween<Offset>(
-      begin: Offset(-1.0, 0.0), // Starts off-screen to the left
-      end: Offset.zero, // Ends at its normal position
+      begin: Offset(-1.0, 0.0),
+      end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeInOut, // Smooth transition
+      curve: Curves.easeInOut,
     ));
-    // Start the animation
     _controller.forward();
   }
 
@@ -61,26 +58,24 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(85), // Increased height for AppBar
+        preferredSize: Size.fromHeight(85),
         child: AppBar(
-          backgroundColor: Color(0xFF003366), // Deep blue background color
+          backgroundColor: Color(0xFF003366),
           flexibleSpace: Row(
             children: [
               SlideTransition(
                 position: _animation,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10), // Adjust padding as needed
+                  padding: const EdgeInsets.only(left: 10),
                   child: GestureDetector(
                     onTap: () {
-                      // Navigate to home page on image tap
                       Navigator.pushNamed(context, '/logistics/home');
                     },
                     child: Image.asset(
                       'assets/images/images/MWT.png',
-                      height: 80, // Adjust logo height
-                      width: 70, // Increased width for enhanced appearance
-                      fit: BoxFit.fill, // Ensure the image doesn't crop
+                      height: 80,
+                      width: 70,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
@@ -101,7 +96,7 @@ class _HomePageState extends State<HomePage>
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               child: PopupMenuButton<String>(
-                offset: Offset(0, 50), // Adjust dropdown position
+                offset: Offset(0, 50),
                 color: Colors.white,
                 child: Row(
                   children: [
@@ -120,7 +115,7 @@ class _HomePageState extends State<HomePage>
                   ],
                 ),
                 onSelected: (String value) {
-                  context.go(value); // Navigate to selected route
+                  context.go(value);
                 },
                 itemBuilder: (BuildContext context) {
                   return [
@@ -161,29 +156,26 @@ class _HomePageState extends State<HomePage>
                   buildPopupMenuItem('Construction', '/'),
                   buildPopupMenuItem('Manpower', '/manpower'),
                   buildPopupMenuItem('Event Management', '/event'),
-                  buildPopupMenuItem('Browse all', '/ourbusiness'),
+                  buildPopupMenuItem('Logistics', '/logistics/home'),
                 ],
               ),
             ),
             TextButton(
               onPressed: () {
-                context.go(
-                    '/logistics/officeaddress'); // Navigates to Contact Us page
+                context.go('/logistics/officeaddress');
               },
               child: Text('Our Offices', style: TextStyle(color: Colors.white)),
             ),
             TextButton(
               onPressed: () {
-                context.go(
-                    '/logistics/quoterequest'); // Navigates to Contact Us page
+                context.go('/logistics/quoterequest');
               },
               child:
                   Text('Quote Request', style: TextStyle(color: Colors.white)),
             ),
             TextButton(
               onPressed: () {
-                context
-                    .go('/logistics/contactus'); // Navigates to Contact Us page
+                context.go('/logistics/contactus');
               },
               child: Text('Contact Us', style: TextStyle(color: Colors.white)),
             ),
@@ -204,17 +196,15 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  /// Helper Method for PopupMenuItem with Compact Design
   PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
     return PopupMenuItem<String>(
       value: value,
-      height: 36, // Reduce the default height
+      height: 36,
       child: HoverableMenuItem(title: title),
     );
   }
 }
 
-/// Hoverable Menu Item Widget with Compact Styling
 class HoverableMenuItem extends StatefulWidget {
   final String title;
 
@@ -233,8 +223,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(
-            vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -242,7 +231,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
         child: Text(
           widget.title,
           style: TextStyle(
-            fontSize: 14, // Compact font size
+            fontSize: 14,
             color: _isHovered ? Colors.black : Colors.grey[800],
           ),
         ),
@@ -251,9 +240,6 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
   }
 }
 
-// --------------------------
-// Hero Section with Auto-Swiping Slider
-// --------------------------
 class HeroSection extends StatefulWidget {
   @override
   _HeroSectionState createState() => _HeroSectionState();
@@ -285,7 +271,7 @@ class _HeroSectionState extends State<HeroSection> {
   void initState() {
     super.initState();
     _startAutoSwipe();
-    _pageController.addListener(_onPageChanged); // Listen for page change
+    _pageController.addListener(_onPageChanged);
   }
 
   void _startAutoSwipe() {
@@ -303,7 +289,6 @@ class _HeroSectionState extends State<HeroSection> {
     });
   }
 
-  // This function will update the current page index when the page is swiped
   void _onPageChanged() {
     if (_pageController.page?.toInt() != _currentPage) {
       setState(() {
@@ -315,8 +300,7 @@ class _HeroSectionState extends State<HeroSection> {
   @override
   void dispose() {
     _timer?.cancel();
-    _pageController
-        .removeListener(_onPageChanged); // Remove listener when disposed
+    _pageController.removeListener(_onPageChanged);
     _pageController.dispose();
     super.dispose();
   }
@@ -341,10 +325,8 @@ class _HeroSectionState extends State<HeroSection> {
                     width: double.infinity,
                   ),
                   Container(
-                    color: Colors.black
-                        .withOpacity(0.3), // Overlay for readability
+                    color: Colors.black.withOpacity(0.3),
                   ),
-                  // Title and Subtitle at the Top
                   Positioned(
                     top: 40,
                     left: 16,
@@ -354,7 +336,7 @@ class _HeroSectionState extends State<HeroSection> {
                         Text(
                           _slides[index]['title']!,
                           style: TextStyle(
-                            color: Color(0xFFFFD700), // Gold Color
+                            color: Color(0xFFFFD700),
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
                             shadows: [
@@ -391,7 +373,6 @@ class _HeroSectionState extends State<HeroSection> {
               );
             },
           ),
-          // Dots Indicator
           Positioned(
             bottom: 16,
             left: 0,
@@ -402,7 +383,7 @@ class _HeroSectionState extends State<HeroSection> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      _currentPage = entry.key; // Update current page on tap
+                      _currentPage = entry.key;
                     });
                     _pageController.animateToPage(
                       entry.key,
@@ -431,9 +412,6 @@ class _HeroSectionState extends State<HeroSection> {
   }
 }
 
-// --------------------------
-// Services Section
-// -------------------------
 class ServicesSection extends StatefulWidget {
   const ServicesSection({super.key});
 
@@ -457,14 +435,12 @@ class _ServicesSectionState extends State<ServicesSection> {
     super.dispose();
   }
 
-  /// Start Auto Scroll Timer
   void _startAutoScroll() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_scrollController.hasClients) {
         double maxScroll = _scrollController.position.maxScrollExtent;
         double currentScroll = _scrollController.offset;
-        // Scroll to the next card
-        double nextScroll = currentScroll + 300 + 12; // Card width + spacing
+        double nextScroll = currentScroll + 300 + 12;
         if (nextScroll >= maxScroll) {
           _scrollController.animateTo(
             0,
@@ -486,11 +462,10 @@ class _ServicesSectionState extends State<ServicesSection> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      color: Colors.black, // Background for the entire section
+      color: Colors.black,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Section Title and Description
           Text(
             'Our',
             style: TextStyle(
@@ -535,8 +510,6 @@ class _ServicesSectionState extends State<ServicesSection> {
             ),
           ),
           SizedBox(height: 16),
-
-          // Horizontal Scrollable Service Cards
           SizedBox(
             height: 320,
             child: ListView(
@@ -551,9 +524,7 @@ class _ServicesSectionState extends State<ServicesSection> {
               }).toList(),
             ),
           ),
-
           SizedBox(height: 16),
-          // Indicator Dots
           Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -571,14 +542,13 @@ class _ServicesSectionState extends State<ServicesSection> {
     );
   }
 
-  /// Service Card Widget
   Widget _buildServiceCard({
     required String imagePath,
     required String title,
     required String description,
   }) {
     return Container(
-      width: 300, // Fixed width for each card
+      width: 300,
       margin: EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -630,29 +600,12 @@ class _ServicesSectionState extends State<ServicesSection> {
             ),
           ),
           Spacer(),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: TextButton(
-          //     onPressed: () {
-          //
-          //     },
-          //     // child: Text(
-          //     //   //'READ MORE »',
-          //     //   style: TextStyle(
-          //     //     fontSize: 12,
-          //     //     fontWeight: FontWeight.bold,
-          //     //     color: Colors.red,
-          //     //   ),
-          //     // ),
-          //   ),
-          // ),
         ],
       ),
     );
   }
 }
 
-/// Service Data
 final List<Map<String, String>> _serviceData = [
   {
     'imagePath': 'assets/images/images/freight.jpg',
@@ -704,12 +657,11 @@ final List<Map<String, String>> _serviceData = [
   },
 ];
 
-//About us//
 class AboutUsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFF5F5F5), // Light gray background
+      color: Color(0xFFF5F5F5),
       padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -733,7 +685,7 @@ class AboutUsSection extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFD32F2F), // Red color
+                        color: Color(0xFFD32F2F),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -754,12 +706,10 @@ class AboutUsSection extends StatelessWidget {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        print('Navigating to AboutUsPage');
-                        // Ensure the path matches the defined route in GoRouter
                         context.go('/logistics/AboutUsPage');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFD32F2F), // Red color
+                        backgroundColor: Color(0xFFD32F2F),
                         padding:
                             EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
@@ -774,7 +724,7 @@ class AboutUsSection extends StatelessWidget {
               SizedBox(width: 20),
               Expanded(
                 child: Image.asset(
-                  'assets/images/images/port4.jpg', // Replace with your image asset path
+                  'assets/images/images/port4.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -786,107 +736,193 @@ class AboutUsSection extends StatelessWidget {
   }
 }
 
-// --------------------------
-// Footer Section
-// --------------------------
 class FooterSection extends StatelessWidget {
+  const FooterSection({super.key});
+
+  void _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      color: Color(0xFF003366),
-      padding: EdgeInsets.all(16.0),
+      color: const Color(0xFF222222),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Contact Info Column (Left)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Get In Touch:',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Phone: +966567273714',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  // Text(
-                  //   'Phone: +966593619999',
-                  //   style: TextStyle(color: Colors.orange),
-                  // ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Email: sales@mwtworld.com',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-              // Address Column (Right)
-              Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Align text to the left
-                children: [
-                  Text(
-                    'Address:',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Al Azhar Building Tower',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Al Safa Dist',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Jeddah 23535, Saudi Arabia',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 16.0),
-          // Footer Text
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '© 2024 MWT Solutions. All rights reserved.',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+          screenWidth < 800
+              ? Wrap(
+                  alignment: WrapAlignment.start,
+                  spacing: 24,
+                  runSpacing: 24,
+                  children: _footerColumns(context, isSmallScreen: true),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: _footerColumns(context),
+                ),
+          const SizedBox(height: 24),
+          const Divider(color: Colors.white24),
+          const SizedBox(height: 8),
+          const Center(
+            child: Text(
+              '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
+              style: TextStyle(color: Colors.white70, fontSize: 12),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
     );
   }
-}
 
-/// Helper method to build dropdown items with custom spacing
-DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
-    {bool isHeader = false, bool isBold = false, Color? color}) {
-  return DropdownMenuItem<String>(
-    value: value,
-    enabled: !isHeader, // Disable header row selection
-    child: Container(
-      padding: EdgeInsets.symmetric(vertical: 2.0), // Controls vertical spacing
-      child: Text(
-        text,
-        style: TextStyle(
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-          color: color ?? (isHeader ? Colors.grey : Colors.black),
-          fontSize: isHeader ? 14 : 14,
+  List<Widget> _footerColumns(BuildContext context,
+      {bool isSmallScreen = false}) {
+    double width = MediaQuery.of(context).size.width;
+    double columnWidth = isSmallScreen ? width / 2 - 32 : 200;
+
+    return [
+      _responsiveFooterBox(
+        width: columnWidth,
+        child: _footerColumn(
+          "QUICK LINKS",
+          [
+            _FooterLink(
+                label: 'About Us',
+                onTap: () => context.go('/logistics/AboutUsPage')),
+            _FooterLink(
+                label: 'Our Services', onTap: () => context.go('/services')),
+            _FooterLink(
+                label: 'Our Offices',
+                onTap: () => context.go('/logistics/officeaddress')),
+            _FooterLink(
+                label: 'Quote Request',
+                onTap: () => context.go('/logistics/quoterequest')),
+            _FooterLink(
+                label: 'Contact Us',
+                onTap: () => context.go('/logistics/contactus')),
+          ],
         ),
       ),
-    ),
-  );
+      _responsiveFooterBox(
+        width: columnWidth,
+        child: _footerColumn(
+          "CONTACT",
+          const [
+            Text('Phone: +966567273714', style: TextStyle(color: Colors.white)),
+            Text('Email: info@wgwcltd.com',
+                style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+      _responsiveFooterBox(
+        width: columnWidth,
+        child: _footerColumn(
+          "ADDRESS",
+          const [
+            Text('Al Azhar Building Tower',
+                style: TextStyle(color: Colors.white)),
+            Text('Al Safa Dist', style: TextStyle(color: Colors.white)),
+            Text('Jeddah 23535, Saudi Arabia',
+                style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+      _responsiveFooterBox(
+        width: columnWidth,
+        child: _footerColumn(
+          "SOCIAL",
+          [
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Wrap(
+                spacing: 6.5,
+                children: [
+                  _socialIcon(
+                      FontAwesomeIcons.facebookF, 'https://facebook.com'),
+                  _socialIcon(FontAwesomeIcons.twitter, 'https://twitter.com'),
+                  _socialIcon(
+                      FontAwesomeIcons.linkedinIn, 'https://linkedin.com'),
+                  _socialIcon(FontAwesomeIcons.youtube, 'https://youtube.com'),
+                  _socialIcon(
+                      FontAwesomeIcons.instagram, 'https://instagram.com'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ];
+  }
+
+  Widget _responsiveFooterBox({required double width, required Widget child}) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(minWidth: 150, maxWidth: width),
+      child: child,
+    );
+  }
+
+  Widget _footerColumn(String title, List<Widget> children) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colors.red,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(height: 8),
+        ...children,
+      ],
+    );
+  }
+
+  Widget _socialIcon(IconData icon, String url) {
+    return InkWell(
+      onTap: () => _launchUrl(url),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
+          color: Color(0xFFD32F2F),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: Colors.white, size: 18),
+      ),
+    );
+  }
+}
+
+class _FooterLink extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+
+  const _FooterLink({required this.label, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: Text(
+          label,
+          style: const TextStyle(
+            color: Colors.orangeAccent,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      ),
+    );
+  }
 }

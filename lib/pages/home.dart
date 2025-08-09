@@ -76,46 +76,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       ),
     );
   }
-
-  PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
-    return PopupMenuItem<String>(
-      value: value,
-      height: 36,
-      child: HoverableMenuItem(title: title),
-    );
-  }
-}
-
-class HoverableMenuItem extends StatefulWidget {
-  final String title;
-  HoverableMenuItem({required this.title});
-  @override
-  _HoverableMenuItemState createState() => _HoverableMenuItemState();
-}
-
-class _HoverableMenuItemState extends State<HoverableMenuItem> {
-  bool _isHovered = false;
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        decoration: BoxDecoration(
-          color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
-          borderRadius: BorderRadius.circular(4.0),
-        ),
-        child: Text(
-          widget.title,
-          style: TextStyle(
-            fontSize: 14,
-            color: _isHovered ? Colors.black : Colors.grey[800],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class HeroSection extends StatefulWidget {
@@ -791,7 +751,7 @@ class AboutUsSection extends StatelessWidget {
   }
 }
 
-// Footer Section with Links, Social Media, and Map Locations
+// Footer Section with vertical columns
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
 
@@ -805,161 +765,107 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF49020C),
-      padding: EdgeInsets.all(24.0),
+      color: const Color(0xFF222222),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
-          // Links Row
+          // Four Columns
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _FooterLink(
-                label: 'About Us',
-                onTap: () => context.go('/aboutconstruction'),
-              ),
-              _footerDivider(),
-              _FooterLink(
-                label: 'Our Services',
-                onTap: () => context.go('/services'),
-              ),
-              _footerDivider(),
-              _FooterLink(
-                label: 'Career',
-                onTap: () => context.go('/career'),
-              ),
-              _footerDivider(),
-              _FooterLink(
-                label: 'Contact Us',
-                onTap: () => context.go('/contactus'),
-              ),
-              _footerDivider(),
-              _FooterLink(
-                label: 'Our Offices',
-                onTap: () => context.go('/officeaddress'),
-              ),
-            ],
-          ),
-          SizedBox(height: 24.0),
-          // Social Media Row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _FooterIconButton(
-                icon: FontAwesomeIcons.facebookF,
-                color: Colors.white,
-                onTap: () => _launchUrl('https://facebook.com/yourcompany'),
-              ),
-              SizedBox(width: 16),
-              _FooterIconButton(
-                icon: FontAwesomeIcons.instagram,
-                color: Colors.white,
-                onTap: () => _launchUrl('https://instagram.com/yourcompany'),
-              ),
-              SizedBox(width: 16),
-              _FooterIconButton(
-                icon: FontAwesomeIcons.linkedinIn,
-                color: Colors.white,
-                onTap: () => _launchUrl('https://linkedin.com/company/yourcompany'),
-              ),
-            ],
-          ),
-          SizedBox(height: 24.0),
-          // Map Locations
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     _FooterMapLocation(
-          //       title: 'Head Office',
-          //       address: 'Al Azhar Building Tower, Al Safa Dist, Jeddah 23535, Saudi Arabia',
-          //       url: 'https://goo.gl/maps/yourmap1',
-          //       onTap: _launchUrl,
-          //     ),
-          //     SizedBox(width: 32),
-          //     _FooterMapLocation(
-          //       title: 'Branch Office',
-          //       address: 'King Fahd Rd, Riyadh 12212, Saudi Arabia',
-          //       url: 'https://goo.gl/maps/yourmap2',
-          //       onTap: _launchUrl,
-          //     ),
-          //     SizedBox(width: 32),
-          //     _FooterMapLocation(
-          //       title: 'International Office',
-          //       address: 'Dubai Media City, Dubai, UAE',
-          //       url: 'https://goo.gl/maps/yourmap3',
-          //       onTap: _launchUrl,
-          //     ),
-          //   ],
-          // ),
-          SizedBox(height: 24.0),
-          // Contact Info and Address
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Contact Info
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Get In Touch:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Phone: +966567273714',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Email: info@wgwcltd.com',
-                    style: TextStyle(color: Colors.white),
-                  ),
+              _footerColumn(
+                "QUICK LINKS",
+                [
+                  _FooterLink(label: 'About Us', onTap: () => context.go('/aboutconstruction')),
+                  _FooterLink(label: 'Our Services', onTap: () => context.go('/services')),
+                  _FooterLink(label: 'Career', onTap: () => context.go('/career')),
+                  _FooterLink(label: 'Contact Us', onTap: () => context.go('/contactus')),
+                  _FooterLink(label: 'Our Offices', onTap: () => context.go('/officeaddress')),
                 ],
               ),
-              // Address
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Address:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Al Azhar Building Tower',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Al Safa Dist',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Jeddah 23535, Saudi Arabia',
-                    style: TextStyle(color: Colors.white),
+              _footerColumn(
+                "CONTACT",
+                [
+                  Text('Phone: +966567273714', style: TextStyle(color: Colors.white)),
+                  Text('Email: info@wgwcltd.com', style: TextStyle(color: Colors.white)),
+                ],
+              ),
+              _footerColumn(
+                "ADDRESS",
+                [
+                  Text('Al Azhar Building Tower', style: TextStyle(color: Colors.white)),
+                  Text('Al Safa Dist', style: TextStyle(color: Colors.white)),
+                  Text('Jeddah 23535, Saudi Arabia', style: TextStyle(color: Colors.white)),
+                ],
+              ),
+              _footerColumn(
+                "SOCIAL",
+                [
+                  Row(
+                    children: [
+                      _socialIcon(FontAwesomeIcons.facebookF, 'https://facebook.com'),
+                      SizedBox(width: 8),
+                      _socialIcon(FontAwesomeIcons.twitter, 'https://twitter.com'),
+                      SizedBox(width: 8),
+                      _socialIcon(FontAwesomeIcons.linkedinIn, 'https://linkedin.com'),
+                      SizedBox(width: 8),
+                      _socialIcon(FontAwesomeIcons.youtube, 'https://youtube.com'),
+                      SizedBox(width: 8),
+                      _socialIcon(FontAwesomeIcons.instagram, 'https://instagram.com'),
+                    ],
                   ),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 16.0),
-          // Copyright
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+          const SizedBox(height: 24),
+          Divider(color: Colors.white24),
+          SizedBox(height: 8),
+          Center(
+            child: Text(
+              '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
+              style: TextStyle(color: Colors.white70, fontSize: 12),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _footerDivider() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Text('|', style: TextStyle(color: Colors.white70)),
-      );
+  Widget _footerColumn(String title, List<Widget> children) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+                fontSize: 14),
+          ),
+          const SizedBox(height: 8),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _socialIcon(IconData icon, String url) {
+    return InkWell(
+      onTap: () => _launchUrl(url),
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Color(0xFFD32F2F),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: Colors.white, size: 18),
+      ),
+    );
+  }
 }
 
 class _FooterLink extends StatelessWidget {
@@ -971,7 +877,7 @@ class _FooterLink extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        padding: EdgeInsets.symmetric(vertical: 4.0),
         child: Text(
           label,
           style: TextStyle(
@@ -984,97 +890,4 @@ class _FooterLink extends StatelessWidget {
       ),
     );
   }
-}
-
-class _FooterIconButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final VoidCallback onTap;
-  const _FooterIconButton({
-    required this.icon,
-    required this.color,
-    required this.onTap,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Color(0xFFD32F2F),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(icon, color: color, size: 20),
-      ),
-    );
-  }
-}
-
-class _FooterMapLocation extends StatelessWidget {
-  final String title;
-  final String address;
-  final String url;
-  final void Function(String) onTap;
-  const _FooterMapLocation({
-    required this.title,
-    required this.address,
-    required this.url,
-    required this.onTap,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTap(url),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.location_on, color: Colors.orangeAccent, size: 18),
-              SizedBox(width: 4),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 2),
-          SizedBox(
-            width: 180,
-            child: Text(
-              address,
-              style: TextStyle(color: Colors.white70, fontSize: 13),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
-    {bool isHeader = false, bool isBold = false, Color? color}) {
-  return DropdownMenuItem<String>(
-    value: value,
-    enabled: !isHeader,
-    child: Container(
-      padding: EdgeInsets.symmetric(vertical: 2.0),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-          color: color ?? (isHeader ? Colors.grey : Colors.black),
-          fontSize: isHeader ? 14 : 14,
-        ),
-      ),
-    ),
-  );
 }

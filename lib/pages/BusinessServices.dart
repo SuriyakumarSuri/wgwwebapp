@@ -105,8 +105,8 @@ class _HomePageState extends State<BuisnessServicePage> with SingleTickerProvide
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
-                          'assets/images/b_mep.jpg'),
-                      fit: BoxFit.cover,
+                          'assets/images/build.jpg'),
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),

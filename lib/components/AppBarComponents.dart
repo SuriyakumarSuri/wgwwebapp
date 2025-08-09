@@ -318,7 +318,7 @@ class _SubMainPageAppBarState extends State<SubMainPageAppBar>
                     buildPopupMenuItem('Construction', '/'),
                     buildPopupMenuItem('Manpower', '/manpower'),
                     buildPopupMenuItem('Event Management', '/event'),
-                    buildPopupMenuItem('Browse all', '/ourbusiness'),
+                    buildPopupMenuItem('Logistics', '/logistics/home'),
                   ],
                 ),
               ),
