@@ -604,7 +604,11 @@ class _BusinessSectionState extends State<BusinessSection> {
         } else if (title == 'Manpower') {
           context.go('/manpower');
         } else if (title == 'Event Management') {
-          context.go('/eventmanagement');
+          context.go('/event');
+        } else if (title == 'Event Management') {
+          context.go('/event');
+        } else if (title == 'Logistics') {
+          context.go('/logistics/home');
         }
       },
       child: Container(

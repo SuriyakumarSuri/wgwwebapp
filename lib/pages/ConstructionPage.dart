@@ -654,14 +654,18 @@ class _BusinessSectionState extends State<BusinessSection> {
     required String imagePath,
     required String title,
   }) {
-    return GestureDetector(
+     return GestureDetector(
       onTap: () {
         if (title == 'Construction') {
-          context.go('/aboutconstruction'); // GoRouter Navigation
+          context.go('/aboutconstruction');
         } else if (title == 'Manpower') {
-          context.go('/manpower'); // You'll add this route later
+          context.go('/manpower');
         } else if (title == 'Event Management') {
-          context.go('/eventmanagement'); // You'll add this route later
+          context.go('/event');
+        } else if (title == 'Event Management') {
+          context.go('/event');
+        } else if (title == 'Logistics') {
+          context.go('/logistics/home');
         }
       },
       child: Container(
@@ -724,6 +728,10 @@ final List<Map<String, String>> _businessData = [
   {
     'imagePath': 'assets/images/event.jpg',
     'title': 'Event Management',
+  },
+  {
+    'imagePath': 'assets/images/images/logistics.jpg',
+    'title': 'Logistics',
   },
 ];
 
