@@ -18,8 +18,8 @@ class _MainPageAppBarState extends State<MainPageAppBar>
   Animation<Offset>? _animation;
 
   bool get _isHome =>
-      GoRouter.of(context).location == '/' ||
-      GoRouter.of(context).location == '/home';
+      GoRouterState.of(context).uri.toString() == '/' ||
+      GoRouterState.of(context).uri.toString() == '/home';
 
   @override
   void initState() {
