@@ -462,10 +462,11 @@ class _ServicesSectionState extends State<ServicesSection>
   }
 
   final _serviceData = [
-     {
+    {
       'imagePath': 'assets/images/MEP_Services.jpg',
       'title': 'MEP Services',
-      'description': 'Reliable local manpower solutions for MEP projects across Saudi Arabia',
+      'description':
+          'Reliable local manpower solutions for MEP projects across Saudi Arabia',
     },
     {
       'imagePath': 'assets/images/saudi.jpg',
@@ -896,7 +897,7 @@ final List<Map<String, String>> _businessData = [
     'title': 'Construction',
   },
   {
-    'imagePath': 'assets/images/Manpower.jpg',
+    'imagePath': 'assets/images/manpower.jpg',
     'title': 'Manpower',
   },
   {

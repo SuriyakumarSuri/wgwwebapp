@@ -31,7 +31,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
 
@@ -139,7 +140,8 @@ class _HeroSectionState extends State<HeroSection> {
     {
       'image': 'assets/images/build3.jpg',
       'title': 'BUILDING THE FUTURE, BRICK BY BRICK',
-      'subtitle': 'Reliable, Efficient, and High-Quality Construction Solutions',
+      'subtitle':
+          'Reliable, Efficient, and High-Quality Construction Solutions',
     },
   ];
   int _currentPage = 0;
@@ -341,7 +343,16 @@ class _ServicesSectionState extends State<ServicesSection> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      color: Colors.black,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            const Color.fromARGB(255, 65, 66, 66),
+            const Color.fromARGB(255, 1, 18, 37),
+          ],
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -489,96 +500,75 @@ final List<Map<String, String>> _serviceData = [
   {
     'imagePath': 'assets/images/Cont1.jpg',
     'title': 'General Contracting',
-    'description': 'We provide end-to-end construction management, ensuring high-quality execution, timely delivery, and adherence to safety standards. From planning to completion, we handle every aspect of your project with precision and expertise.',
+    'description':
+        'We provide end-to-end construction management, ensuring high-quality execution, timely delivery, and adherence to safety standards. From planning to completion, we handle every aspect of your project with precision and expertise.',
   },
   {
     'imagePath': 'assets/images/build.jpg',
     'title': 'Design & Build',
-    'description': 'Our integrated Design & Build approach streamlines the construction process, combining innovative design with expert execution to deliver cost-effective, high-quality projects on time.',
+    'description':
+        'Our integrated Design & Build approach streamlines the construction process, combining innovative design with expert execution to deliver cost-effective, high-quality projects on time.',
   },
   {
     'imagePath': 'assets/images/civil.jpg',
     'title': 'Civil & Structural Engineering',
-    'description': 'We specialize in designing and constructing durable, high-performance structures, ensuring safety, stability, and efficiency in every project, from foundations to complex infrastructures.',
+    'description':
+        'We specialize in designing and constructing durable, high-performance structures, ensuring safety, stability, and efficiency in every project, from foundations to complex infrastructures.',
   },
   {
     'imagePath': 'assets/images/res.jpg',
     'title': 'Commercial & Residential Construction',
-    'description': 'We provide comprehensive construction services for both commercial and residential projects, delivering custom-built solutions that meet client specifications while ensuring quality, safety, and timely completion.',
+    'description':
+        'We provide comprehensive construction services for both commercial and residential projects, delivering custom-built solutions that meet client specifications while ensuring quality, safety, and timely completion.',
   },
   {
     'imagePath': 'assets/images/road.png',
     'title': 'Infrastructure & Heavy Construction',
-    'description': 'We specialize in large-scale infrastructure projects, including roads, bridges, and utilities, delivering durable, efficient, and sustainable solutions that meet the demands of modern urban development.',
+    'description':
+        'We specialize in large-scale infrastructure projects, including roads, bridges, and utilities, delivering durable, efficient, and sustainable solutions that meet the demands of modern urban development.',
   },
   {
     'imagePath': 'assets/images/mep.jpg',
     'title': 'Mechanical, Electrical & Plumbing (MEP) Services',
-    'description': 'We offer integrated MEP solutions, ensuring the efficient design, installation, and maintenance of heating, ventilation, air conditioning (HVAC), electrical, and plumbing systems to optimize building performance and comfort.',
+    'description':
+        'We offer integrated MEP solutions, ensuring the efficient design, installation, and maintenance of heating, ventilation, air conditioning (HVAC), electrical, and plumbing systems to optimize building performance and comfort.',
   },
   {
     'imagePath': 'assets/images/renovate.jpg',
     'title': 'Renovation & Remodeling',
-    'description': 'We transform existing spaces with expert renovation and remodeling services, enhancing functionality and aesthetics while preserving structural integrity to meet modern needs and design preferences.',
+    'description':
+        'We transform existing spaces with expert renovation and remodeling services, enhancing functionality and aesthetics while preserving structural integrity to meet modern needs and design preferences.',
   },
   {
     'imagePath': 'assets/images/interior.jpg',
     'title': 'Fit-Out & Interior Solutions',
-    'description': 'We provide customized fit-out and interior design services, creating functional and stylish spaces that reflect your vision, with high-quality finishes and attention to detail for both commercial and residential projects.',
+    'description':
+        'We provide customized fit-out and interior design services, creating functional and stylish spaces that reflect your vision, with high-quality finishes and attention to detail for both commercial and residential projects.',
   },
 ];
 
 class BusinessSection extends StatefulWidget {
   const BusinessSection({super.key});
+
   @override
   State<BusinessSection> createState() => _BusinessSectionState();
 }
 
 class _BusinessSectionState extends State<BusinessSection> {
-  final ScrollController _scrollController = ScrollController();
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _startAutoScroll();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _startAutoScroll() {
-    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      if (_scrollController.hasClients) {
-        double maxScroll = _scrollController.position.maxScrollExtent;
-        double currentScroll = _scrollController.offset;
-        double nextScroll = currentScroll + 300 + 12;
-        if (nextScroll >= maxScroll) {
-          _scrollController.animateTo(
-            0,
-            duration: Duration(milliseconds: 800),
-            curve: Curves.easeInOut,
-          );
-        } else {
-          _scrollController.animateTo(
-            nextScroll,
-            duration: Duration(milliseconds: 800),
-            curve: Curves.easeInOut,
-          );
-        }
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      color: Colors.white,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color.fromARGB(255, 214, 218, 234), // light pink
+            Color.fromARGB(255, 88, 87, 89), // light blue
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -593,28 +583,32 @@ class _BusinessSectionState extends State<BusinessSection> {
           Text(
             'Other Divisions',
             style: TextStyle(
-              color: Colors.red,
+              color: const Color.fromARGB(255, 69, 2, 2),
               fontSize: 32,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 16),
+
+          // Horizontal scroll cards
           SizedBox(
-            height: 350,
-            child: ListView.separated(
-              controller: _scrollController,
+            height: 330,
+            child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              itemCount: _businessData.length,
-              separatorBuilder: (context, index) => SizedBox(width: 16),
-              itemBuilder: (context, index) {
-                final service = _businessData[index];
-                return _buildbusinessCard(
-                  imagePath: service['imagePath']!,
-                  title: service['title']!,
-                );
-              },
+              child: Row(
+                children: _businessData
+                    .map((service) => Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: _buildBusinessCard(
+                            imagePath: service['imagePath']!,
+                            title: service['title']!,
+                          ),
+                        ))
+                    .toList(),
+              ),
             ),
           ),
+
           SizedBox(height: 16),
           Center(
             child: Row(
@@ -633,7 +627,7 @@ class _BusinessSectionState extends State<BusinessSection> {
     );
   }
 
-  Widget _buildbusinessCard({
+  Widget _buildBusinessCard({
     required String imagePath,
     required String title,
   }) {
@@ -645,13 +639,21 @@ class _BusinessSectionState extends State<BusinessSection> {
           context.go('/manpower');
         } else if (title == 'Event Management') {
           context.go('/eventmanagement');
+        } else if (title == 'Logistics') {
+          context.go('/logistics/home');
         }
       },
       child: Container(
-        width: 350,
-        margin: EdgeInsets.only(right: 8),
+        width: 280,
         decoration: BoxDecoration(
-          color: Colors.white,
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 224, 221, 223),
+              Color(0xFFa6c1ee)
+            ], // purple to blue
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -664,8 +666,9 @@ class _BusinessSectionState extends State<BusinessSection> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Top image section
             Container(
-              height: 250,
+              height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 image: DecorationImage(
@@ -674,6 +677,7 @@ class _BusinessSectionState extends State<BusinessSection> {
                 ),
               ),
             ),
+            // Title
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(
@@ -681,7 +685,8 @@ class _BusinessSectionState extends State<BusinessSection> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.red,
+                  color: const Color.fromARGB(
+                      255, 41, 3, 87), // white text looks better on gradient
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -700,7 +705,7 @@ final List<Map<String, String>> _businessData = [
     'title': 'Construction',
   },
   {
-    'imagePath': 'assets/images/Manpower.jpg',
+    'imagePath': 'assets/images/manpower.jpg',
     'title': 'Manpower',
   },
   {
@@ -766,7 +771,8 @@ class AboutUsSection extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F),
-                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
                       child: Text(
                         'READ MORE',
@@ -805,7 +811,7 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF49020C),
+      color: Color.fromARGB(255, 231, 229, 230),
       padding: EdgeInsets.all(24.0),
       child: Column(
         children: [
@@ -859,7 +865,8 @@ class FooterSection extends StatelessWidget {
               _FooterIconButton(
                 icon: FontAwesomeIcons.linkedinIn,
                 color: Colors.white,
-                onTap: () => _launchUrl('https://linkedin.com/company/yourcompany'),
+                onTap: () =>
+                    _launchUrl('https://linkedin.com/company/yourcompany'),
               ),
             ],
           ),
@@ -901,7 +908,8 @@ class FooterSection extends StatelessWidget {
                 children: [
                   Text(
                     'Get In Touch:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.0),
                   Text(
@@ -921,7 +929,8 @@ class FooterSection extends StatelessWidget {
                 children: [
                   Text(
                     'Address:',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.0),
                   Text(

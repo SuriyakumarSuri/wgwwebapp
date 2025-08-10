@@ -195,17 +195,23 @@ class MyApp extends StatelessWidget {
         path: '/EventContactus',
         builder: (context, state) => EventContactus(),
       ),
-       GoRoute(
-        path: '/careers-manpower',
-        builder: (context, state) => careers.CareersPage(theme: PageTheme.manpower)
-      )
+      GoRoute(
+          path: '/careers-manpower',
+          builder: (context, state) =>
+              careers.CareersPage(theme: PageTheme.manpower))
     ],
   );
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'WGW Web App',
+      title: 'Al Wajhat Global Western Co. Ltd.',
       theme: ThemeData(
+        fontFamily: 'FiraSans', // Apply Fira Sans globally
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(fontSize: 16),
+          bodyMedium: TextStyle(fontSize: 14),
+          titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       debugShowCheckedModeBanner: false,

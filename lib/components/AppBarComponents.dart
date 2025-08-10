@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wgwwebapp/utils/pageTheme.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class MainPageAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MainPageAppBar({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _MainPageAppBarState extends State<MainPageAppBar>
     final logoRow = Row(
       children: [
         Image.asset(
-          'assets/images/wgw.png',
+          'assets/images/images/wgwlogo.png',
           height: 80,
           width: 70,
           fit: BoxFit.contain,
@@ -46,22 +47,20 @@ class _MainPageAppBarState extends State<MainPageAppBar>
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text(
-              'AL Wajhat Global Western',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              'Company Ltd.',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
-              ),
+          children: [
+            AnimatedTextKit(
+              isRepeatingAnimation: false,
+              animatedTexts: [
+                TypewriterAnimatedText(
+                  'AL Wajhat Global Western Co.Ltd.',
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 3, 1, 58),
+                  ),
+                  speed: const Duration(milliseconds: 100),
+                )
+              ],
             ),
           ],
         ),
@@ -108,7 +107,7 @@ class _MainPageAppBarState extends State<MainPageAppBar>
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color(0xFF3A0303),
+      backgroundColor: const Color.fromARGB(255, 247, 245, 245),
       flexibleSpace: Row(
         children: [
           _buildLogoAndText(),
@@ -122,25 +121,26 @@ class _MainPageAppBarState extends State<MainPageAppBar>
             children: [
               TextButton(
                 onPressed: () => context.go('/'),
-                child:
-                    const Text('Home', style: TextStyle(color: Colors.white)),
+                child: const Text('Home',
+                    style: TextStyle(color: Color.fromARGB(255, 1, 4, 82))),
               ),
               TextButton(
                 onPressed: () => context.go('/aboutconstruction'),
                 child: const Text('About Us',
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Color.fromARGB(255, 1, 4, 82))),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: PopupMenuButton<String>(
                   offset: const Offset(0, 50),
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 1, 4, 82),
                   child: const Row(
                     children: [
                       Text('Business Groups',
-                          style: TextStyle(color: Colors.white)),
+                          style:
+                              TextStyle(color: Color.fromARGB(255, 1, 4, 82))),
                       Icon(Icons.arrow_drop_down,
-                          color: Colors.white, size: 18),
+                          color: Color.fromARGB(255, 1, 4, 82), size: 18),
                     ],
                   ),
                   onSelected: (value) => context.go(value),
@@ -155,22 +155,22 @@ class _MainPageAppBarState extends State<MainPageAppBar>
               TextButton(
                 onPressed: () => context.go('/services'),
                 child: const Text('Our Services',
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Color.fromARGB(255, 1, 4, 82))),
               ),
               TextButton(
                 onPressed: () => context.go('/officeaddress'),
                 child: const Text('Our Offices',
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Color.fromARGB(255, 1, 4, 82))),
               ),
               TextButton(
                 onPressed: () => context.go('/careers'),
                 child: const Text('Careers',
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Color.fromARGB(255, 1, 4, 82))),
               ),
               TextButton(
                 onPressed: () => context.go('/contactus'),
                 child: const Text('Contact Us',
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Color.fromARGB(255, 1, 4, 82))),
               ),
             ],
           ),
