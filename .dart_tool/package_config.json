@@ -3,11 +3,7 @@
   "packages": [
     {
       "name": "animate_do",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/animate_do-3.3.9",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/animate_do-4.2.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/animate_do-4.2.0",
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
@@ -19,11 +15,7 @@
     },
     {
       "name": "archive",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.6.1",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/archive-4.0.7",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/archive-4.0.7",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -113,11 +105,7 @@
     },
     {
       "name": "file_picker",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-10.2.0",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-10.2.3",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-10.2.4",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -147,13 +135,9 @@
     },
     {
       "name": "flutter_lints",
-<<<<<<< HEAD
       "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-5.0.0",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-6.0.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
       "packageUri": "lib/",
-      "languageVersion": "3.8"
+      "languageVersion": "3.5"
     },
     {
       "name": "flutter_map",
@@ -163,11 +147,7 @@
     },
     {
       "name": "flutter_plugin_android_lifecycle",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.28",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.29",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.29",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -197,31 +177,19 @@
     },
     {
       "name": "font_awesome_flutter",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.8.0",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.9.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.9.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "go_router",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/go_router-6.5.9",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/go_router-16.1.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/go_router-16.1.0",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
     {
       "name": "google_fonts",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.2.1",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.3.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -239,31 +207,19 @@
     },
     {
       "name": "google_maps_flutter_android",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_android-2.17.0",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_android-2.18.1",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_android-2.18.1",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
     {
       "name": "google_maps_flutter_ios",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_ios-2.15.4",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_ios-2.15.5",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_ios-2.15.5",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
     {
       "name": "google_maps_flutter_platform_interface",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_platform_interface-2.12.1",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_platform_interface-2.13.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps_flutter_platform_interface-2.13.0",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -281,11 +237,7 @@
     },
     {
       "name": "http",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.5.0-beta.2",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.5.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.5.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -327,13 +279,9 @@
     },
     {
       "name": "lints",
-<<<<<<< HEAD
       "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/lints-5.1.1",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/lints-6.0.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
       "packageUri": "lib/",
-      "languageVersion": "3.8"
+      "languageVersion": "3.6"
     },
     {
       "name": "lists",
@@ -355,21 +303,13 @@
     },
     {
       "name": "lottie",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/lottie-2.7.0",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/lottie-3.3.1",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/lottie-3.3.1",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
     {
       "name": "mailer",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/mailer-6.4.1",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/mailer-6.5.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/mailer-6.5.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -399,11 +339,7 @@
     },
     {
       "name": "mime",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/mime-1.0.6",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -463,7 +399,7 @@
     },
     {
       "name": "posix",
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/posix-6.0.3",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/posix-6.0.3",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -487,11 +423,7 @@
     },
     {
       "name": "shared_preferences_android",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.4.10",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.4.11",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.4.11",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -599,11 +531,7 @@
     },
     {
       "name": "url_launcher_android",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.3.16",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.3.17",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.3.17",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -663,21 +591,13 @@
     },
     {
       "name": "video_player_android",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/video_player_android-2.8.7",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/video_player_android-2.8.11",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/video_player_android-2.8.11",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
     {
       "name": "video_player_avfoundation",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/video_player_avfoundation-2.8.0",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/video_player_avfoundation-2.8.3",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/video_player_avfoundation-2.8.3",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -713,43 +633,27 @@
     },
     {
       "name": "webview_flutter_android",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_android-4.8.2",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_android-4.9.1",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_android-4.9.1",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
     {
       "name": "webview_flutter_platform_interface",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_platform_interface-2.13.1",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_platform_interface-2.14.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_platform_interface-2.14.0",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
     {
       "name": "webview_flutter_wkwebview",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_wkwebview-3.22.1",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_wkwebview-3.23.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_wkwebview-3.23.0",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
     {
       "name": "win32",
-<<<<<<< HEAD
       "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.13.0",
-=======
-      "rootUri": "file:///C:/Users/TomSuriya/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.14.0",
->>>>>>> ee13191ca248093bbc23c20ecfd68f715a61e85d
       "packageUri": "lib/",
-      "languageVersion": "3.8"
+      "languageVersion": "3.7"
     },
     {
       "name": "wkt_parser",
@@ -770,7 +674,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2025-08-07T12:45:17.806425Z",
+  "generated": "2025-08-10T10:46:36.109209Z",
   "generator": "pub",
   "generatorVersion": "3.7.0",
   "flutterRoot": "file:///C:/src/flutter",
