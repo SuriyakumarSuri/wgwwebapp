@@ -77,6 +77,46 @@ class _HomePageState extends State<HomePage>
       ),
     );
   }
+
+  PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
+    return PopupMenuItem<String>(
+      value: value,
+      height: 36,
+      child: HoverableMenuItem(title: title),
+    );
+  }
+}
+
+class HoverableMenuItem extends StatefulWidget {
+  final String title;
+  HoverableMenuItem({required this.title});
+  @override
+  _HoverableMenuItemState createState() => _HoverableMenuItemState();
+}
+
+class _HoverableMenuItemState extends State<HoverableMenuItem> {
+  bool _isHovered = false;
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+        decoration: BoxDecoration(
+          color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: Text(
+          widget.title,
+          style: TextStyle(
+            fontSize: 14,
+            color: _isHovered ? Colors.black : Colors.grey[800],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class HeroSection extends StatefulWidget {
@@ -303,7 +343,16 @@ class _ServicesSectionState extends State<ServicesSection> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      color: Colors.black,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            const Color.fromARGB(255, 65, 66, 66),
+            const Color.fromARGB(255, 1, 18, 37),
+          ],
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -500,55 +549,26 @@ final List<Map<String, String>> _serviceData = [
 
 class BusinessSection extends StatefulWidget {
   const BusinessSection({super.key});
+
   @override
   State<BusinessSection> createState() => _BusinessSectionState();
 }
 
 class _BusinessSectionState extends State<BusinessSection> {
-  final ScrollController _scrollController = ScrollController();
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _startAutoScroll();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _startAutoScroll() {
-    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      if (_scrollController.hasClients) {
-        double maxScroll = _scrollController.position.maxScrollExtent;
-        double currentScroll = _scrollController.offset;
-        double nextScroll = currentScroll + 300 + 12;
-        if (nextScroll >= maxScroll) {
-          _scrollController.animateTo(
-            0,
-            duration: Duration(milliseconds: 800),
-            curve: Curves.easeInOut,
-          );
-        } else {
-          _scrollController.animateTo(
-            nextScroll,
-            duration: Duration(milliseconds: 800),
-            curve: Curves.easeInOut,
-          );
-        }
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      color: Colors.white,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color.fromARGB(255, 214, 218, 234), // light pink
+            Color.fromARGB(255, 88, 87, 89), // light blue
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -563,28 +583,32 @@ class _BusinessSectionState extends State<BusinessSection> {
           Text(
             'Other Divisions',
             style: TextStyle(
-              color: Colors.red,
+              color: const Color.fromARGB(255, 69, 2, 2),
               fontSize: 32,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 16),
+
+          // Horizontal scroll cards
           SizedBox(
-            height: 350,
-            child: ListView.separated(
-              controller: _scrollController,
+            height: 330,
+            child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              itemCount: _businessData.length,
-              separatorBuilder: (context, index) => SizedBox(width: 16),
-              itemBuilder: (context, index) {
-                final service = _businessData[index];
-                return _buildbusinessCard(
-                  imagePath: service['imagePath']!,
-                  title: service['title']!,
-                );
-              },
+              child: Row(
+                children: _businessData
+                    .map((service) => Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: _buildBusinessCard(
+                            imagePath: service['imagePath']!,
+                            title: service['title']!,
+                          ),
+                        ))
+                    .toList(),
+              ),
             ),
           ),
+
           SizedBox(height: 16),
           Center(
             child: Row(
@@ -603,7 +627,7 @@ class _BusinessSectionState extends State<BusinessSection> {
     );
   }
 
-  Widget _buildbusinessCard({
+  Widget _buildBusinessCard({
     required String imagePath,
     required String title,
   }) {
@@ -614,18 +638,22 @@ class _BusinessSectionState extends State<BusinessSection> {
         } else if (title == 'Manpower') {
           context.go('/manpower');
         } else if (title == 'Event Management') {
-          context.go('/event');
-        } else if (title == 'Event Management') {
-          context.go('/event');
+          context.go('/eventmanagement');
         } else if (title == 'Logistics') {
           context.go('/logistics/home');
         }
       },
       child: Container(
-        width: 350,
-        margin: EdgeInsets.only(right: 8),
+        width: 280,
         decoration: BoxDecoration(
-          color: Colors.white,
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 224, 221, 223),
+              Color(0xFFa6c1ee)
+            ], // purple to blue
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -638,8 +666,9 @@ class _BusinessSectionState extends State<BusinessSection> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Top image section
             Container(
-              height: 250,
+              height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 image: DecorationImage(
@@ -648,6 +677,7 @@ class _BusinessSectionState extends State<BusinessSection> {
                 ),
               ),
             ),
+            // Title
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(
@@ -655,7 +685,8 @@ class _BusinessSectionState extends State<BusinessSection> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.red,
+                  color: const Color.fromARGB(
+                      255, 41, 3, 87), // white text looks better on gradient
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -674,7 +705,7 @@ final List<Map<String, String>> _businessData = [
     'title': 'Construction',
   },
   {
-    'imagePath': 'assets/images/Manpower.jpg',
+    'imagePath': 'assets/images/manpower.jpg',
     'title': 'Manpower',
   },
   {
@@ -736,7 +767,7 @@ class AboutUsSection extends StatelessWidget {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        context.go('/AboutUsPage');
+                        context.go('/aboutconstruction');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F),
@@ -766,7 +797,7 @@ class AboutUsSection extends StatelessWidget {
   }
 }
 
-// Footer Section with vertical columns
+// Footer Section with Links, Social Media, and Map Locations
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
 
@@ -888,7 +919,7 @@ class FooterSection extends StatelessWidget {
     return InkWell(
       onTap: () => _launchUrl(url),
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Color(0xFFD32F2F),
           shape: BoxShape.circle,
