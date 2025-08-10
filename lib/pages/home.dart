@@ -18,7 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Al-Wajhat Global Western',
-      theme: ThemeData(primarySwatch: Colors.orange),
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+      ),
       home: HomePage(),
     );
   }
@@ -44,7 +46,10 @@ class _HomePageState extends State<HomePage>
     _animation = Tween<Offset>(
       begin: Offset(-1.0, 0.0),
       end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
     _controller.forward();
   }
 
@@ -159,7 +164,9 @@ class _HeroSectionState extends State<HeroSection> {
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),
-                  Container(color: Colors.black.withOpacity(0.3)),
+                  Container(
+                    color: Colors.black.withOpacity(0.3),
+                  ),
                   Positioned(
                     top: 40,
                     left: 16,
@@ -212,33 +219,31 @@ class _HeroSectionState extends State<HeroSection> {
             right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:
-                  _slides.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _currentPage = entry.key;
-                        });
-                        _pageController.animateToPage(
-                          entry.key,
-                          duration: Duration(milliseconds: 800),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                      child: Container(
-                        width: 8,
-                        height: 8,
-                        margin: EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color:
-                              _currentPage == entry.key
-                                  ? Colors.white
-                                  : Colors.grey,
-                        ),
-                      ),
+              children: _slides.asMap().entries.map((entry) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _currentPage = entry.key;
+                    });
+                    _pageController.animateToPage(
+                      entry.key,
+                      duration: Duration(milliseconds: 800),
+                      curve: Curves.easeInOut,
                     );
-                  }).toList(),
+                  },
+                  child: Container(
+                    width: 8,
+                    height: 8,
+                    margin: EdgeInsets.symmetric(horizontal: 4),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentPage == entry.key
+                          ? Colors.white
+                          : Colors.grey,
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
           ),
         ],
@@ -298,16 +303,7 @@ class _ServicesSectionState extends State<ServicesSection> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color.fromARGB(255, 65, 66, 66),
-            const Color.fromARGB(255, 1, 18, 37),
-          ],
-        ),
-      ),
+      color: Colors.black,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -330,7 +326,10 @@ class _ServicesSectionState extends State<ServicesSection> {
           SizedBox(height: 8),
           Text(
             'At WGW, we pride ourselves on delivering tailored construction solutions that adapt to your unique project needs. With a commitment to quality and innovation, we ensure every structure is built to exceed expectations.',
-            style: TextStyle(color: Colors.white70, fontSize: 14),
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 14,
+            ),
           ),
           SizedBox(height: 16),
           ElevatedButton(
@@ -357,14 +356,13 @@ class _ServicesSectionState extends State<ServicesSection> {
             child: ListView(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
-              children:
-                  _serviceData.map((service) {
-                    return _buildServiceCard(
-                      imagePath: service['imagePath']!,
-                      title: service['title']!,
-                      description: service['description']!,
-                    );
-                  }).toList(),
+              children: _serviceData.map((service) {
+                return _buildServiceCard(
+                  imagePath: service['imagePath']!,
+                  title: service['title']!,
+                  description: service['description']!,
+                );
+              }).toList(),
             ),
           ),
           SizedBox(height: 16),
@@ -397,7 +395,11 @@ class _ServicesSectionState extends State<ServicesSection> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
-          BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2)),
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       child: Column(
@@ -429,7 +431,10 @@ class _ServicesSectionState extends State<ServicesSection> {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               description,
-              style: TextStyle(fontSize: 12, color: Colors.black87),
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black87,
+              ),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -495,26 +500,55 @@ final List<Map<String, String>> _serviceData = [
 
 class BusinessSection extends StatefulWidget {
   const BusinessSection({super.key});
-
   @override
   State<BusinessSection> createState() => _BusinessSectionState();
 }
 
 class _BusinessSectionState extends State<BusinessSection> {
+  final ScrollController _scrollController = ScrollController();
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoScroll();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _startAutoScroll() {
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+      if (_scrollController.hasClients) {
+        double maxScroll = _scrollController.position.maxScrollExtent;
+        double currentScroll = _scrollController.offset;
+        double nextScroll = currentScroll + 300 + 12;
+        if (nextScroll >= maxScroll) {
+          _scrollController.animateTo(
+            0,
+            duration: Duration(milliseconds: 800),
+            curve: Curves.easeInOut,
+          );
+        } else {
+          _scrollController.animateTo(
+            nextScroll,
+            duration: Duration(milliseconds: 800),
+            curve: Curves.easeInOut,
+          );
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 214, 218, 234), // light pink
-            Color.fromARGB(255, 88, 87, 89), // light blue
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -529,35 +563,28 @@ class _BusinessSectionState extends State<BusinessSection> {
           Text(
             'Other Divisions',
             style: TextStyle(
-              color: const Color.fromARGB(255, 69, 2, 2),
+              color: Colors.red,
               fontSize: 32,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 16),
-
-          // Horizontal scroll cards
           SizedBox(
-            height: 330,
-            child: SingleChildScrollView(
+            height: 350,
+            child: ListView.separated(
+              controller: _scrollController,
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children:
-                    _businessData
-                        .map(
-                          (service) => Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: _buildBusinessCard(
-                              imagePath: service['imagePath']!,
-                              title: service['title']!,
-                            ),
-                          ),
-                        )
-                        .toList(),
-              ),
+              itemCount: _businessData.length,
+              separatorBuilder: (context, index) => SizedBox(width: 16),
+              itemBuilder: (context, index) {
+                final service = _businessData[index];
+                return _buildbusinessCard(
+                  imagePath: service['imagePath']!,
+                  title: service['title']!,
+                );
+              },
             ),
           ),
-
           SizedBox(height: 16),
           Center(
             child: Row(
@@ -576,7 +603,7 @@ class _BusinessSectionState extends State<BusinessSection> {
     );
   }
 
-  Widget _buildBusinessCard({
+  Widget _buildbusinessCard({
     required String imagePath,
     required String title,
   }) {
@@ -595,16 +622,10 @@ class _BusinessSectionState extends State<BusinessSection> {
         }
       },
       child: Container(
-        width: 280,
+        width: 350,
+        margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 224, 221, 223),
-              Color(0xFFa6c1ee),
-            ], // purple to blue
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -617,9 +638,8 @@ class _BusinessSectionState extends State<BusinessSection> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Top image section
             Container(
-              height: 200,
+              height: 250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 image: DecorationImage(
@@ -628,7 +648,6 @@ class _BusinessSectionState extends State<BusinessSection> {
                 ),
               ),
             ),
-            // Title
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(
@@ -636,12 +655,7 @@ class _BusinessSectionState extends State<BusinessSection> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(
-                    255,
-                    41,
-                    3,
-                    87,
-                  ), // white text looks better on gradient
+                  color: Colors.red,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -655,10 +669,22 @@ class _BusinessSectionState extends State<BusinessSection> {
 }
 
 final List<Map<String, String>> _businessData = [
-  {'imagePath': 'assets/images/Cont1.jpg', 'title': 'Construction'},
-  {'imagePath': 'assets/images/manpower.jpg', 'title': 'Manpower'},
-  {'imagePath': 'assets/images/event.jpg', 'title': 'Event Management'},
-  {'imagePath': 'assets/images/images/logistics.jpg', 'title': 'Logistics'},
+  {
+    'imagePath': 'assets/images/Cont1.jpg',
+    'title': 'Construction',
+  },
+  {
+    'imagePath': 'assets/images/Manpower.jpg',
+    'title': 'Manpower',
+  },
+  {
+    'imagePath': 'assets/images/event.jpg',
+    'title': 'Event Management',
+  },
+  {
+    'imagePath': 'assets/images/images/logistics.jpg',
+    'title': 'Logistics',
+  },
 ];
 
 class AboutUsSection extends StatelessWidget {
@@ -714,10 +740,8 @@ class AboutUsSection extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 12,
-                        ),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
                       child: Text(
                         'READ MORE',
@@ -756,8 +780,8 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF49020C),
-      padding: EdgeInsets.all(24.0),
+      color: const Color(0xFF222222),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
           // Four Columns
@@ -765,130 +789,64 @@ class FooterSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _FooterLink(
-                label: 'About Us',
-                onTap: () => context.go('/aboutconstruction'),
-              ),
-              _footerDivider(),
-              _FooterLink(
-                label: 'Our Services',
-                onTap: () => context.go('/services'),
-              ),
-              _footerDivider(),
-              _FooterLink(label: 'Career', onTap: () => context.go('/career')),
-              _footerDivider(),
-              _FooterLink(
-                label: 'Contact Us',
-                onTap: () => context.go('/contactus'),
-              ),
-              _footerDivider(),
-              _FooterLink(
-                label: 'Our Offices',
-                onTap: () => context.go('/officeaddress'),
-              ),
-            ],
-          ),
-          SizedBox(height: 24.0),
-          // Social Media Row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _FooterIconButton(
-                icon: FontAwesomeIcons.facebookF,
-                color: Colors.white,
-                onTap: () => _launchUrl('https://facebook.com/yourcompany'),
-              ),
-              SizedBox(width: 16),
-              _FooterIconButton(
-                icon: FontAwesomeIcons.instagram,
-                color: Colors.white,
-                onTap: () => _launchUrl('https://instagram.com/yourcompany'),
-              ),
-              SizedBox(width: 16),
-              _FooterIconButton(
-                icon: FontAwesomeIcons.linkedinIn,
-                color: Colors.white,
-                onTap:
-                    () =>
-                        _launchUrl('https://linkedin.com/company/yourcompany'),
-              ),
-            ],
-          ),
-          SizedBox(height: 24.0),
-          // Map Locations
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     _FooterMapLocation(
-          //       title: 'Head Office',
-          //       address: 'Al Azhar Building Tower, Al Safa Dist, Jeddah 23535, Saudi Arabia',
-          //       url: 'https://goo.gl/maps/yourmap1',
-          //       onTap: _launchUrl,
-          //     ),
-          //     SizedBox(width: 32),
-          //     _FooterMapLocation(
-          //       title: 'Branch Office',
-          //       address: 'King Fahd Rd, Riyadh 12212, Saudi Arabia',
-          //       url: 'https://goo.gl/maps/yourmap2',
-          //       onTap: _launchUrl,
-          //     ),
-          //     SizedBox(width: 32),
-          //     _FooterMapLocation(
-          //       title: 'International Office',
-          //       address: 'Dubai Media City, Dubai, UAE',
-          //       url: 'https://goo.gl/maps/yourmap3',
-          //       onTap: _launchUrl,
-          //     ),
-          //   ],
-          // ),
-          SizedBox(height: 24.0),
-          // Contact Info and Address
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Contact Info
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Get In Touch:',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Phone: +966567273714',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Email: info@wgwcltd.com',
-                    style: TextStyle(color: Colors.white),
-                  ),
+              _footerColumn(
+                "QUICK LINKS",
+                [
+                  _FooterLink(
+                      label: 'About Us',
+                      onTap: () => context.go('/aboutconstruction')),
+                  _FooterLink(
+                      label: 'Our Services',
+                      onTap: () => context.go('/services')),
+                  _FooterLink(
+                      label: 'Career', onTap: () => context.go('/career')),
+                  _FooterLink(
+                      label: 'Contact Us',
+                      onTap: () => context.go('/contactus')),
+                  _FooterLink(
+                      label: 'Our Offices',
+                      onTap: () => context.go('/officeaddress')),
                 ],
               ),
-              // Address
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Address:',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Al Azhar Building Tower',
-                    style: TextStyle(color: Colors.white),
-                  ),
+              _footerColumn(
+                "CONTACT",
+                [
+                  Text('Phone: +966567273714',
+                      style: TextStyle(color: Colors.white)),
+                  Text('Email: info@wgwcltd.com',
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+              _footerColumn(
+                "ADDRESS",
+                [
+                  Text('Al Azhar Building Tower',
+                      style: TextStyle(color: Colors.white)),
                   Text('Al Safa Dist', style: TextStyle(color: Colors.white)),
-                  Text(
-                    'Jeddah 23535, Saudi Arabia',
-                    style: TextStyle(color: Colors.white),
+                  Text('Jeddah 23535, Saudi Arabia',
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+              _footerColumn(
+                "SOCIAL",
+                [
+                  Row(
+                    children: [
+                      _socialIcon(
+                          FontAwesomeIcons.facebookF, 'https://facebook.com'),
+                      SizedBox(width: 8),
+                      _socialIcon(
+                          FontAwesomeIcons.twitter, 'https://twitter.com'),
+                      SizedBox(width: 8),
+                      _socialIcon(
+                          FontAwesomeIcons.linkedinIn, 'https://linkedin.com'),
+                      SizedBox(width: 8),
+                      _socialIcon(
+                          FontAwesomeIcons.youtube, 'https://youtube.com'),
+                      SizedBox(width: 8),
+                      _socialIcon(
+                          FontAwesomeIcons.instagram, 'https://instagram.com'),
+                    ],
                   ),
                 ],
               ),
@@ -917,10 +875,7 @@ class FooterSection extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
+                color: Colors.red, fontWeight: FontWeight.bold, fontSize: 14),
           ),
           const SizedBox(height: 8),
           ...children,

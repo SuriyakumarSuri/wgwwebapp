@@ -796,8 +796,8 @@ class FooterSection extends StatelessWidget {
             _FooterLink(
                 label: 'About Us',
                 onTap: () => context.go('/logistics/AboutUsPage')),
-            _FooterLink(
-                label: 'Our Services', onTap: () => context.go('/services')),
+            // _FooterLink(
+            //     label: 'Our Services', onTap: () => context.go('/services')),
             _FooterLink(
                 label: 'Our Offices',
                 onTap: () => context.go('/logistics/officeaddress')),
