@@ -18,9 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Al-Wajhat Global Western',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
+      theme: ThemeData(primarySwatch: Colors.orange),
       home: HomePage(),
     );
   }
@@ -46,10 +44,7 @@ class _HomePageState extends State<HomePage>
     _animation = Tween<Offset>(
       begin: Offset(-1.0, 0.0),
       end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
     _controller.forward();
   }
 
@@ -73,46 +68,6 @@ class _HomePageState extends State<HomePage>
             BusinessSection(),
             FooterSection(),
           ],
-        ),
-      ),
-    );
-  }
-
-  PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
-    return PopupMenuItem<String>(
-      value: value,
-      height: 36,
-      child: HoverableMenuItem(title: title),
-    );
-  }
-}
-
-class HoverableMenuItem extends StatefulWidget {
-  final String title;
-  HoverableMenuItem({required this.title});
-  @override
-  _HoverableMenuItemState createState() => _HoverableMenuItemState();
-}
-
-class _HoverableMenuItemState extends State<HoverableMenuItem> {
-  bool _isHovered = false;
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        decoration: BoxDecoration(
-          color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
-          borderRadius: BorderRadius.circular(4.0),
-        ),
-        child: Text(
-          widget.title,
-          style: TextStyle(
-            fontSize: 14,
-            color: _isHovered ? Colors.black : Colors.grey[800],
-          ),
         ),
       ),
     );
@@ -204,9 +159,7 @@ class _HeroSectionState extends State<HeroSection> {
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),
-                  Container(
-                    color: Colors.black.withOpacity(0.3),
-                  ),
+                  Container(color: Colors.black.withOpacity(0.3)),
                   Positioned(
                     top: 40,
                     left: 16,
@@ -259,31 +212,33 @@ class _HeroSectionState extends State<HeroSection> {
             right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: _slides.asMap().entries.map((entry) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _currentPage = entry.key;
-                    });
-                    _pageController.animateToPage(
-                      entry.key,
-                      duration: Duration(milliseconds: 800),
-                      curve: Curves.easeInOut,
+              children:
+                  _slides.asMap().entries.map((entry) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _currentPage = entry.key;
+                        });
+                        _pageController.animateToPage(
+                          entry.key,
+                          duration: Duration(milliseconds: 800),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: Container(
+                        width: 8,
+                        height: 8,
+                        margin: EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              _currentPage == entry.key
+                                  ? Colors.white
+                                  : Colors.grey,
+                        ),
+                      ),
                     );
-                  },
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _currentPage == entry.key
-                          ? Colors.white
-                          : Colors.grey,
-                    ),
-                  ),
-                );
-              }).toList(),
+                  }).toList(),
             ),
           ),
         ],
@@ -375,10 +330,7 @@ class _ServicesSectionState extends State<ServicesSection> {
           SizedBox(height: 8),
           Text(
             'At WGW, we pride ourselves on delivering tailored construction solutions that adapt to your unique project needs. With a commitment to quality and innovation, we ensure every structure is built to exceed expectations.',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 14),
           ),
           SizedBox(height: 16),
           ElevatedButton(
@@ -405,13 +357,14 @@ class _ServicesSectionState extends State<ServicesSection> {
             child: ListView(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
-              children: _serviceData.map((service) {
-                return _buildServiceCard(
-                  imagePath: service['imagePath']!,
-                  title: service['title']!,
-                  description: service['description']!,
-                );
-              }).toList(),
+              children:
+                  _serviceData.map((service) {
+                    return _buildServiceCard(
+                      imagePath: service['imagePath']!,
+                      title: service['title']!,
+                      description: service['description']!,
+                    );
+                  }).toList(),
             ),
           ),
           SizedBox(height: 16),
@@ -444,11 +397,7 @@ class _ServicesSectionState extends State<ServicesSection> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
+          BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2)),
         ],
       ),
       child: Column(
@@ -480,10 +429,7 @@ class _ServicesSectionState extends State<ServicesSection> {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               description,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.black87,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.black87),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -596,15 +542,18 @@ class _BusinessSectionState extends State<BusinessSection> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: _businessData
-                    .map((service) => Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: _buildBusinessCard(
-                            imagePath: service['imagePath']!,
-                            title: service['title']!,
+                children:
+                    _businessData
+                        .map(
+                          (service) => Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: _buildBusinessCard(
+                              imagePath: service['imagePath']!,
+                              title: service['title']!,
+                            ),
                           ),
-                        ))
-                    .toList(),
+                        )
+                        .toList(),
               ),
             ),
           ),
@@ -638,7 +587,9 @@ class _BusinessSectionState extends State<BusinessSection> {
         } else if (title == 'Manpower') {
           context.go('/manpower');
         } else if (title == 'Event Management') {
-          context.go('/eventmanagement');
+          context.go('/event');
+        } else if (title == 'Event Management') {
+          context.go('/event');
         } else if (title == 'Logistics') {
           context.go('/logistics/home');
         }
@@ -649,7 +600,7 @@ class _BusinessSectionState extends State<BusinessSection> {
           gradient: LinearGradient(
             colors: [
               Color.fromARGB(255, 224, 221, 223),
-              Color(0xFFa6c1ee)
+              Color(0xFFa6c1ee),
             ], // purple to blue
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -686,7 +637,11 @@ class _BusinessSectionState extends State<BusinessSection> {
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: const Color.fromARGB(
-                      255, 41, 3, 87), // white text looks better on gradient
+                    255,
+                    41,
+                    3,
+                    87,
+                  ), // white text looks better on gradient
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -700,22 +655,10 @@ class _BusinessSectionState extends State<BusinessSection> {
 }
 
 final List<Map<String, String>> _businessData = [
-  {
-    'imagePath': 'assets/images/Cont1.jpg',
-    'title': 'Construction',
-  },
-  {
-    'imagePath': 'assets/images/manpower.jpg',
-    'title': 'Manpower',
-  },
-  {
-    'imagePath': 'assets/images/event.jpg',
-    'title': 'Event Management',
-  },
-  {
-    'imagePath': 'assets/images/images/logistics.jpg',
-    'title': 'Logistics',
-  },
+  {'imagePath': 'assets/images/Cont1.jpg', 'title': 'Construction'},
+  {'imagePath': 'assets/images/manpower.jpg', 'title': 'Manpower'},
+  {'imagePath': 'assets/images/event.jpg', 'title': 'Event Management'},
+  {'imagePath': 'assets/images/images/logistics.jpg', 'title': 'Logistics'},
 ];
 
 class AboutUsSection extends StatelessWidget {
@@ -771,8 +714,10 @@ class AboutUsSection extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFD32F2F),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
                       ),
                       child: Text(
                         'READ MORE',
@@ -797,7 +742,7 @@ class AboutUsSection extends StatelessWidget {
   }
 }
 
-// Footer Section with Links, Social Media, and Map Locations
+// Footer Section with vertical columns
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
 
@@ -811,13 +756,14 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 231, 229, 230),
+      color: Color(0xFF49020C),
       padding: EdgeInsets.all(24.0),
       child: Column(
         children: [
-          // Links Row
+          // Four Columns
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _FooterLink(
                 label: 'About Us',
@@ -829,10 +775,7 @@ class FooterSection extends StatelessWidget {
                 onTap: () => context.go('/services'),
               ),
               _footerDivider(),
-              _FooterLink(
-                label: 'Career',
-                onTap: () => context.go('/career'),
-              ),
+              _FooterLink(label: 'Career', onTap: () => context.go('/career')),
               _footerDivider(),
               _FooterLink(
                 label: 'Contact Us',
@@ -865,8 +808,9 @@ class FooterSection extends StatelessWidget {
               _FooterIconButton(
                 icon: FontAwesomeIcons.linkedinIn,
                 color: Colors.white,
-                onTap: () =>
-                    _launchUrl('https://linkedin.com/company/yourcompany'),
+                onTap:
+                    () =>
+                        _launchUrl('https://linkedin.com/company/yourcompany'),
               ),
             ],
           ),
@@ -909,7 +853,9 @@ class FooterSection extends StatelessWidget {
                   Text(
                     'Get In Touch:',
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   Text(
@@ -930,17 +876,16 @@ class FooterSection extends StatelessWidget {
                   Text(
                     'Address:',
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   Text(
                     'Al Azhar Building Tower',
                     style: TextStyle(color: Colors.white),
                   ),
-                  Text(
-                    'Al Safa Dist',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  Text('Al Safa Dist', style: TextStyle(color: Colors.white)),
                   Text(
                     'Jeddah 23535, Saudi Arabia',
                     style: TextStyle(color: Colors.white),
@@ -949,26 +894,54 @@ class FooterSection extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16.0),
-          // Copyright
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+          const SizedBox(height: 24),
+          Divider(color: Colors.white24),
+          SizedBox(height: 8),
+          Center(
+            child: Text(
+              '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
+              style: TextStyle(color: Colors.white70, fontSize: 12),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _footerDivider() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Text('|', style: TextStyle(color: Colors.white70)),
-      );
+  Widget _footerColumn(String title, List<Widget> children) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 8),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _socialIcon(IconData icon, String url) {
+    return InkWell(
+      onTap: () => _launchUrl(url),
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Color(0xFFD32F2F),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: Colors.white, size: 18),
+      ),
+    );
+  }
 }
 
 class _FooterLink extends StatelessWidget {
@@ -980,7 +953,7 @@ class _FooterLink extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        padding: EdgeInsets.symmetric(vertical: 4.0),
         child: Text(
           label,
           style: TextStyle(
@@ -993,97 +966,4 @@ class _FooterLink extends StatelessWidget {
       ),
     );
   }
-}
-
-class _FooterIconButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final VoidCallback onTap;
-  const _FooterIconButton({
-    required this.icon,
-    required this.color,
-    required this.onTap,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Color(0xFFD32F2F),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(icon, color: color, size: 20),
-      ),
-    );
-  }
-}
-
-class _FooterMapLocation extends StatelessWidget {
-  final String title;
-  final String address;
-  final String url;
-  final void Function(String) onTap;
-  const _FooterMapLocation({
-    required this.title,
-    required this.address,
-    required this.url,
-    required this.onTap,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTap(url),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.location_on, color: Colors.orangeAccent, size: 18),
-              SizedBox(width: 4),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 2),
-          SizedBox(
-            width: 180,
-            child: Text(
-              address,
-              style: TextStyle(color: Colors.white70, fontSize: 13),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
-    {bool isHeader = false, bool isBold = false, Color? color}) {
-  return DropdownMenuItem<String>(
-    value: value,
-    enabled: !isHeader,
-    child: Container(
-      padding: EdgeInsets.symmetric(vertical: 2.0),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-          color: color ?? (isHeader ? Colors.grey : Colors.black),
-          fontSize: isHeader ? 14 : 14,
-        ),
-      ),
-    ),
-  );
 }

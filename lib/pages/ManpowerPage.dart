@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/animation.dart';
 import 'package:wgwwebapp/components/AppBarComponents.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ManpowerPage extends StatefulWidget {
   @override
@@ -17,21 +19,17 @@ class _HomePageState extends State<ManpowerPage>
   @override
   void initState() {
     super.initState();
-    // Initialize the animation controller
     _controller = AnimationController(
-      duration: Duration(seconds: 2), // Animation duration
+      duration: Duration(seconds: 2),
       vsync: this,
     );
-
-    // Define the animation movement
     _animation = Tween<Offset>(
-      begin: Offset(-1.0, 0.0), // Starts off-screen to the left
-      end: Offset.zero, // Ends at its normal position
+      begin: Offset(-1.0, 0.0),
+      end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeInOut, // Smooth transition
+      curve: Curves.easeInOut,
     ));
-    // Start the animation
     _controller.forward();
   }
 
@@ -61,17 +59,15 @@ class _HomePageState extends State<ManpowerPage>
     );
   }
 
-  /// Helper Method for PopupMenuItem with Compact Design
   PopupMenuItem<String> buildPopupMenuItem(String title, String value) {
     return PopupMenuItem<String>(
       value: value,
-      height: 36, // Reduce the default height
+      height: 36,
       child: HoverableMenuItem(title: title),
     );
   }
 }
 
-/// Hoverable Menu Item Widget with Compact Styling
 class HoverableMenuItem extends StatefulWidget {
   final String title;
   HoverableMenuItem({required this.title});
@@ -88,8 +84,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        padding: EdgeInsets.symmetric(
-            vertical: 4.0, horizontal: 8.0), // Reduced padding
+        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
         decoration: BoxDecoration(
           color: _isHovered ? Colors.blue.shade100 : Colors.transparent,
           borderRadius: BorderRadius.circular(4.0),
@@ -97,7 +92,7 @@ class _HoverableMenuItemState extends State<HoverableMenuItem> {
         child: Text(
           widget.title,
           style: TextStyle(
-            fontSize: 14, // Compact font size
+            fontSize: 14,
             color: _isHovered ? Colors.black : Colors.grey[800],
           ),
         ),
@@ -117,8 +112,7 @@ class _HeroSectionState extends State<HeroSection> {
     {
       'image': 'assets/images/manpower1.jpg',
       'title': 'Empowering Projects with Skilled Talent Worldwide',
-      'subtitle':
-          'Highlights the strength and global reach of your manpower services',
+      'subtitle': 'Highlights the strength and global reach of your manpower services',
     },
     {
       'image': 'assets/images/manpower2.jpg',
@@ -128,8 +122,7 @@ class _HeroSectionState extends State<HeroSection> {
     {
       'image': 'assets/images/manpower3.jpg',
       'title': 'Reliable Manpower for Every Industry, Anywhere',
-      'subtitle':
-          'Reflects the reliability and wide-ranging services for various industries',
+      'subtitle': 'Reflects the reliability and wide-ranging services for various industries',
     },
   ];
   int _currentPage = 0;
@@ -139,7 +132,7 @@ class _HeroSectionState extends State<HeroSection> {
   void initState() {
     super.initState();
     _startAutoSwipe();
-    _pageController.addListener(_onPageChanged); // Listen for page change
+    _pageController.addListener(_onPageChanged);
   }
 
   void _startAutoSwipe() {
@@ -157,7 +150,6 @@ class _HeroSectionState extends State<HeroSection> {
     });
   }
 
-  // This function will update the current page index when the page is swiped
   void _onPageChanged() {
     if (_pageController.page?.toInt() != _currentPage) {
       setState(() {
@@ -169,8 +161,7 @@ class _HeroSectionState extends State<HeroSection> {
   @override
   void dispose() {
     _timer?.cancel();
-    _pageController
-        .removeListener(_onPageChanged); // Remove listener when disposed
+    _pageController.removeListener(_onPageChanged);
     _pageController.dispose();
     super.dispose();
   }
@@ -195,10 +186,8 @@ class _HeroSectionState extends State<HeroSection> {
                     width: double.infinity,
                   ),
                   Container(
-                    color: Colors.black
-                        .withOpacity(0.3), // Overlay for readability
+                    color: Colors.black.withOpacity(0.3),
                   ),
-                  // Title and Subtitle at the Top
                   Positioned(
                     top: 40,
                     left: 16,
@@ -208,7 +197,7 @@ class _HeroSectionState extends State<HeroSection> {
                         Text(
                           _slides[index]['title']!,
                           style: TextStyle(
-                            color: Color(0xFFFFD700), // Gold Color
+                            color: Color(0xFFFFD700),
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
                             shadows: [
@@ -245,7 +234,6 @@ class _HeroSectionState extends State<HeroSection> {
               );
             },
           ),
-          // Dots Indicator
           Positioned(
             bottom: 16,
             left: 0,
@@ -256,7 +244,7 @@ class _HeroSectionState extends State<HeroSection> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      _currentPage = entry.key; // Update current page on tap
+                      _currentPage = entry.key;
                     });
                     _pageController.animateToPage(
                       entry.key,
@@ -285,7 +273,6 @@ class _HeroSectionState extends State<HeroSection> {
   }
 }
 
-//Servicessection
 class ServicesSection extends StatefulWidget {
   const ServicesSection({super.key});
 
@@ -501,7 +488,6 @@ class _ServicesSectionState extends State<ServicesSection>
   ];
 }
 
-//Industrysection
 class IndustrySection extends StatefulWidget {
   const IndustrySection({Key? key}) : super(key: key);
 
@@ -637,14 +623,14 @@ class _IndustrySectionState extends State<IndustrySection>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 220, // Increased image height
+            height: 220,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(20)),
               image: DecorationImage(
                 image: AssetImage(imagePath),
-                fit: BoxFit.cover, // Ensures the image fills the container
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -653,7 +639,7 @@ class _IndustrySectionState extends State<IndustrySection>
             child: Text(
               title,
               style: const TextStyle(
-                fontSize: 18, // Slightly larger font size for the title
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -716,15 +702,6 @@ class _IndustrySectionState extends State<IndustrySection>
   ];
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      body: IndustrySection(),
-    ),
-  ));
-}
-
-//Business Section
 class BusinessSection extends StatefulWidget {
   const BusinessSection({super.key});
   @override
@@ -752,7 +729,7 @@ class _BusinessSectionState extends State<BusinessSection> {
       if (_scrollController.hasClients) {
         double maxScroll = _scrollController.position.maxScrollExtent;
         double currentScroll = _scrollController.offset;
-        double nextScroll = currentScroll + 300 + 12; // Card width + spacing
+        double nextScroll = currentScroll + 300 + 12;
         if (nextScroll >= maxScroll) {
           _scrollController.animateTo(
             0,
@@ -830,14 +807,16 @@ class _BusinessSectionState extends State<BusinessSection> {
 
   Widget _buildbusinessCard(
       {required String imagePath, required String title}) {
-    return GestureDetector(
+     return GestureDetector(
       onTap: () {
         if (title == 'Construction') {
           context.go('/aboutconstruction');
         } else if (title == 'Manpower') {
           context.go('/manpower');
         } else if (title == 'Event Management') {
-          context.go('/eventmanagement');
+          context.go('/event');
+        } else if (title == 'Event Management') {
+          context.go('/event');
         } else if (title == 'Logistics') {
           context.go('/logistics/home');
         }
@@ -890,7 +869,6 @@ class _BusinessSectionState extends State<BusinessSection> {
   }
 }
 
-/// Service Data
 final List<Map<String, String>> _businessData = [
   {
     'imagePath': 'assets/images/Cont1.jpg',
@@ -904,9 +882,12 @@ final List<Map<String, String>> _businessData = [
     'imagePath': 'assets/images/event.jpg',
     'title': 'Event Management',
   },
+  {
+    'imagePath': 'assets/images/images/logistics.jpg',
+    'title': 'Logistics',
+  },
 ];
 
-//About us//
 class AboutUsSection extends StatefulWidget {
   @override
   _AboutUsSectionState createState() => _AboutUsSectionState();
@@ -919,7 +900,6 @@ class _AboutUsSectionState extends State<AboutUsSection>
   @override
   void initState() {
     super.initState();
-    // Trigger animation after a slight delay
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         _animate = true;
@@ -929,191 +909,159 @@ class _AboutUsSectionState extends State<AboutUsSection>
 
   @override
   Widget build(BuildContext context) {
+    // Your About Us content here
     return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.blue.shade50,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Text content
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "About Us",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade800,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "Empowering Your Workforce Needs with Trusted Manpower Services!",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "We provide highly skilled and reliable workers for housekeeping, drivers, security, construction, and more. Our commitment is to deliver quality services with customer satisfaction and timely solutions.",
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
-                  textAlign: TextAlign.justify,
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () => context.go('/BusinessAbout'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue.shade800,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  ),
-                  child: Text(
-                    "Learn More",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: 20), // Space between the content and the image
-          // Animated Image Container with combined opacity and slide-in effect
-          AnimatedOpacity(
-            opacity: _animate ? 1.0 : 0.0,
-            duration: Duration(seconds: 1),
-            child: AnimatedContainer(
-              duration: Duration(seconds: 1),
-              height: _animate ? 180 : 120, // Adjusted size for better look
-              width: _animate ? 180 : 120, // Adjusted size for better look
-              transform: Matrix4.translationValues(_animate ? 0.0 : 200.0, 0.0,
-                  0.0), // Slide-in effect from the right
-              curve: Curves.easeInOut,
-              child: Image.asset(
-                'assets/images/manpower3.jpg', // Replace with your image path
-                fit: BoxFit.cover, // Use BoxFit.cover for better image fit
-              ),
-            ),
-          ),
-        ],
+      padding: EdgeInsets.all(16),
+      child: Text(
+        'About Us Section',
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       ),
     );
   }
 }
 
-// Footer Section//
+// --- FIXED FooterSection ---
 class FooterSection extends StatelessWidget {
+  const FooterSection({super.key});
+
+  void _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF012429),
-      padding: EdgeInsets.all(16.0),
+      color: const Color(0xFF222222),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 16.0),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Contact Info Column (Left)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Get In Touch:',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Phone: +966567273714',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  // Text(
-                  //   'Phone: +966593619999',
-                  //   style: TextStyle(color: Colors.orange),
-                  // ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Email: info@wgwcltd.com',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
+              Expanded(
+                child: _footerColumn(
+                  "QUICK LINKS",
+                  [
+                    _FooterLink(label: 'About Us', onTap: () => context.go('/businessabout')),
+                    _FooterLink(label: 'Our Services', onTap: () => context.go('/businessservices')),
+                    _FooterLink(label: 'Industries', onTap: () => context.go('/businessindustries')),
+                    _FooterLink(label: 'Our Offices', onTap: () => context.go('/officeaddress-manpower')),
+                    _FooterLink(label: 'Career', onTap: () => context.go('/careers-manpower')),
+                    _FooterLink(label: 'Contact Us', onTap: () => context.go('/contactus-manpower')),
+                  ],
+                ),
               ),
-              // Address Column (Right)
-              Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Align text to the left
-                children: [
-                  Text(
-                    'Address:',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Al Azhar Building Tower',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Al Safa Dist',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Jeddah 23535, Saudi Arabia',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
+              Expanded(
+                child: _footerColumn(
+                  "CONTACT",
+                  [
+                    Text('Phone: +966567273714', style: TextStyle(color: Colors.white)),
+                    Text('Email: info@wgwcltd.com', style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: _footerColumn(
+                  "ADDRESS",
+                  [
+                    Text('Al Azhar Building Tower', style: TextStyle(color: Colors.white)),
+                    Text('Al Safa Dist', style: TextStyle(color: Colors.white)),
+                    Text('Jeddah 23535, Saudi Arabia', style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: _footerColumn(
+                  "SOCIAL",
+                  [
+                    Row(
+                      children: [
+                        _socialIcon(FontAwesomeIcons.facebookF, 'https://facebook.com'),
+                        SizedBox(width: 8),
+                        _socialIcon(FontAwesomeIcons.twitter, 'https://twitter.com'),
+                        SizedBox(width: 8),
+                        _socialIcon(FontAwesomeIcons.linkedinIn, 'https://linkedin.com'),
+                        SizedBox(width: 8),
+                        _socialIcon(FontAwesomeIcons.youtube, 'https://youtube.com'),
+                        SizedBox(width: 8),
+                        _socialIcon(FontAwesomeIcons.instagram, 'https://instagram.com'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          SizedBox(height: 16.0),
-          // Footer Text
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+          const SizedBox(height: 24),
+          Divider(color: Colors.white24),
+          SizedBox(height: 8),
+          Center(
+            child: Text(
+              '© 2025 Al Wajhat Global Western Groups Ltd. All rights reserved.',
+              style: TextStyle(color: Colors.white70, fontSize: 12),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
     );
   }
+
+  Widget _footerColumn(String title, List<Widget> children) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+              fontSize: 14),
+        ),
+        const SizedBox(height: 8),
+        ...children,
+      ],
+    );
+  }
+
+  Widget _socialIcon(IconData icon, String url) {
+    return InkWell(
+      onTap: () => _launchUrl(url),
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Color(0xFFD32F2F),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: Colors.white, size: 18),
+      ),
+    );
+  }
 }
 
-/// Helper method to build dropdown items with custom spacing
-DropdownMenuItem<String> buildDropdownMenuItem(String text, String? value,
-    {bool isHeader = false, bool isBold = false, Color? color}) {
-  return DropdownMenuItem<String>(
-    value: value,
-    enabled: !isHeader, // Disable header row selection
-    child: Container(
-      padding: EdgeInsets.symmetric(vertical: 2.0), // Controls vertical spacing
-      child: Text(
-        text,
-        style: TextStyle(
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-          color: color ?? (isHeader ? Colors.grey : Colors.black),
-          fontSize: isHeader ? 14 : 14,
+class _FooterLink extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+  const _FooterLink({required this.label, required this.onTap});
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 4.0),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: Colors.orangeAccent,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            decoration: TextDecoration.underline,
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
